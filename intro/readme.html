@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>python-ci-template &mdash; 3.6  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Installation" href="../userguide/index.html" />
+    <link rel="prev" title="Welcome to 3.6 documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> 3.6
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Intro:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">python-ci-template</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#repository-initialization">Repository initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#makefile">Makefile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#toolset-for-the-project">Toolset for the project</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#coding-style">Coding style</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linting">Linting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#type-hints">Type hints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#semantic-versioning">Semantic Versioning</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#verisioneer-setup">Verisioneer setup</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/index.html">Installation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">3.6</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>python-ci-template</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/intro/readme.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="python-ci-template">
+<h1>python-ci-template<a class="headerlink" href="#python-ci-template" title="Permalink to this headline"></a></h1>
+<a class="reference external image-reference" href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/CGnal/python-ci-template/actions/workflows/continous-integration.yml"><img alt="CI - Build and Test" src="https://github.com/CGnal/python-ci-template/actions/workflows/continous-integration.yml/badge.svg" /></a>
+<p>This is a template project to be used as a standard, for any Python project.</p>
+<section id="repository-initialization">
+<h2>Repository initialization<a class="headerlink" href="#repository-initialization" title="Permalink to this headline"></a></h2>
+<p>The template needs to be first initialised after creation using the script <code class="docutils literal notranslate"><span class="pre">bin/init_repo.sh</span></code>.
+The script will ask the user few informations (among which the
+Python version to be used) and take care of adapting configurations files accordingly.
+Multiple Python versions (3.6+) are supported.
+Depending on the selected Python version different requirements, CI/CD pipelines,
+docker images, etc should be considered. The <code class="docutils literal notranslate"><span class="pre">bin/init_repo.sh</span></code> will take care of
+setting up these files consistently. To run the script, navigate first into the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder and run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">init_repo</span>
+</pre></div>
+</div>
+<p><strong>NOTE:</strong> In the process, you will also be asked if you want to <em>remove the templates</em>,
+in order to keep your repo minimal and avoid cluttering.
+Please keep in mind that if you do so, you won’t be able to re-initialise the files
+in your repository again.</p>
+</section>
+<section id="makefile">
+<h2>Makefile<a class="headerlink" href="#makefile" title="Permalink to this headline"></a></h2>
+<p>The process of installation of requirements, packaging, running checks (static typing, linting, unittests, etc) is
+done using Makefile. In order to setup and environment that compile and then install all requirements
+we can simply issue the following commands</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">setup</span>    <span class="c1"># to install requirments</span>
+<span class="n">make</span> <span class="n">dist</span>     <span class="c1"># to build the package</span>
+<span class="n">make</span> <span class="n">install</span>  <span class="c1"># to install package</span>
+<span class="n">make</span> <span class="n">checks</span>   <span class="c1"># to run all checks</span>
+</pre></div>
+</div>
+<p>For further information on the make commands, type</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">help</span>
+</pre></div>
+</div>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
+<p>This project uses <code class="docutils literal notranslate"><span class="pre">pip-tools</span></code> to keep track of requirements. In particular there is a <code class="docutils literal notranslate"><span class="pre">requirements</span></code> folder
+containing a <code class="docutils literal notranslate"><span class="pre">requirements.in,</span> <span class="pre">requirements.txt,</span> <span class="pre">requirements_ci.in,</span> <span class="pre">requirements_ci.txt</span></code> files corresponding to
+input (<code class="docutils literal notranslate"><span class="pre">*.in</span></code>) and actual (<code class="docutils literal notranslate"><span class="pre">*.txt</span></code>) requirements files for CI and prod environments.</p>
+</section>
+<section id="toolset-for-the-project">
+<h2>Toolset for the project<a class="headerlink" href="#toolset-for-the-project" title="Permalink to this headline"></a></h2>
+<section id="coding-style">
+<h3>Coding style<a class="headerlink" href="#coding-style" title="Permalink to this headline"></a></h3>
+<p>This project uses <code class="docutils literal notranslate"><span class="pre">black</span></code> (<a class="reference external" href="https://github.com/psf/black">https://github.com/psf/black</a>) for formatting and enforcing a coding style.
+Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">format</span></code> to reformat all source code and tests files to adhere to PEP8 standards.</p>
+</section>
+<section id="linting">
+<h3>Linting<a class="headerlink" href="#linting" title="Permalink to this headline"></a></h3>
+<p>We use <code class="docutils literal notranslate"><span class="pre">flake8</span></code> (<a class="reference external" href="https://github.com/PyCQA/flake8">https://github.com/PyCQA/flake8</a>) for static code analysis. The configuration file is included in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>.
+It coincides with the configuration suggested by the <code class="docutils literal notranslate"><span class="pre">black</span></code> developers. Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lint</span></code> to analyse all source code and tests files.</p>
+</section>
+<section id="type-hints">
+<h3>Type hints<a class="headerlink" href="#type-hints" title="Permalink to this headline"></a></h3>
+<p>We use <code class="docutils literal notranslate"><span class="pre">mypy</span></code> for static type checking. The configuration is included in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>.
+The only settings included in this configuration files are related to the missing typing annotations of some common third party libraries.</p>
+</section>
+<section id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h3>
+<p>This project uses <code class="docutils literal notranslate"><span class="pre">Sphinx</span></code> (<a class="reference external" href="https://www.sphinx-doc.org/en/master/">https://www.sphinx-doc.org/en/master/</a>) as a tool to create documentation. Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docs</span></code> to build documentation.
+There is a github workflow setup to publish documentation on the repo’s Github Page at every push on <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.
+To let this action run smoothly there must exist the <code class="docutils literal notranslate"><span class="pre">gh_pages</span></code>branch and the Github Page must be manually setted (from
+github repo web interface &gt; Settings &gt; Pages) to use <code class="docutils literal notranslate"><span class="pre">gh_pages</span></code> as source branch and <code class="docutils literal notranslate"><span class="pre">/root</span></code> as source folder.
+Since this action requires a GITHUB_TOKEN, for its first run in the repo it will be necessary to follow the steps
+detailed <a class="reference external" href="https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-first-deployment-with-github_token">here</a>
+to make the action run fine from then on.</p>
+</section>
+<section id="semantic-versioning">
+<h3>Semantic Versioning<a class="headerlink" href="#semantic-versioning" title="Permalink to this headline"></a></h3>
+<p>The present repository had already set up the versioneer using the procedure described below. The configuration is included in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>.</p>
+<section id="verisioneer-setup">
+<h4>Verisioneer setup<a class="headerlink" href="#verisioneer-setup" title="Permalink to this headline"></a></h4>
+<p>The following procedure had already been run and is reported only for documentation purposes, no need to re-run it.</p>
+<ol class="arabic">
+<li><p>First of all we need to install the versioneer package from pip</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install versioneer
+</pre></div>
+</div>
+</li>
+<li><p>Then we edit the versioneer section in the setup.cfg</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">versioneer</span><span class="p">]</span>
+<span class="n">VCS</span> <span class="o">=</span> <span class="n">git</span>
+<span class="n">style</span> <span class="o">=</span> <span class="n">pep440</span>
+<span class="n">versionfile_source</span> <span class="o">=</span> <span class="n">version</span><span class="o">/</span><span class="n">_version</span><span class="o">.</span><span class="n">py</span>
+<span class="n">versionfile_build</span> <span class="o">=</span> <span class="n">version</span><span class="o">/</span><span class="n">_version</span><span class="o">.</span><span class="n">py</span>
+<span class="n">tag_prefix</span> <span class="o">=</span>
+<span class="n">parentdir_prefix</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">the</span><span class="o">-</span><span class="n">project</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<ol class="arabic">
+<li><p>Next, we need to install the versioneer module into our project.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">versioneer</span> <span class="n">install</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Running this command will create a few new files for us in our project and also ask us to make some changes to our setup.py file. We need to import versioneer in the setup, replace the version keyword argument with versioneer.get_version() and add a new argument cmdclass=versioneer.get_cmdclass().</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  setuptools.setup(
+      ...
+      version=versioneer.get_version(),
+      cmdclass=versioneer.get_cmdclass(),
+      ...
+  )
+
+for full documentation `versioneer GitHub repo &lt;https://github.com/python-versioneer/python-versioneer&gt;`_
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to 3.6 documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../userguide/index.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CGnal s.r.l..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
