@@ -17,13 +17,8 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2.2.2
         with:
-          python-version: '3.6'
+          python-version: '3.7'
           architecture: x64
-
-      - name: Init Template
-        env:
-          python_version: '3.6'
-        run: echo -e "${python_version}\nTEMPLATE\nsrc\nBasic Template\nn" | bash bin/init_repo.sh
 
       - name: Compile Requirements
         run: make reqs
@@ -46,4 +41,3 @@ jobs:
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: "${{ github.ref_name }} - ${{ github.event.head_commit.message }}"
-

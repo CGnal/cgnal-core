@@ -17,7 +17,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2.2.2
         with:
-          python-version: '3.6'
+          python-version: '3.7'
 
       - name: Add version to environment vars
         run: |
@@ -31,20 +31,14 @@ jobs:
           echo $PROJECT_VERSION
           if [[ "$TAG" != "v$PROJECT_VERSION" ]]; then exit 1; fi
 
-      - name: Install
-        run: |
-          pip install -e .
-          pip install -r requirements/requirements_ci.txt
-
       - name: Run tests
-        run: pytest
-
-      - name: Install build dependencies
-        run: python -m pip install build wheel
+        run: make tests
 
       - name: Build distributions
         shell: bash -l {0}
-        run: python setup.py sdist bdist_wheel
+        run: |
+          python -m pip install build wheel
+          python setup.py sdist bdist_wheel
 
       - name: Release Notes
         uses: heinrichreimer/github-changelog-generator-action@v2.3
@@ -52,22 +46,21 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           output: ".github/RELEASE-TEMPLATE.md"
 
-      - name: Create Release Draft
+      - name: Create Github Release
         uses: softprops/action-gh-release@v1
-        with:
-          body_path: ".github/RELEASE-TEMPLATE.md"
-          draft: true
-          files: |
-            dist/python-ci-template-${{env.PROJECT_VERSION}}-py3-none-any.whl
-            dist/python-ci-template-${{env.PROJECT_VERSION}}.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish distribution to Test PyPI
-        uses: pypa/gh-action-pypi-publish@master
         with:
-          password: ${{ secrets.TESTPYPI_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          body_path: ".github/RELEASE-TEMPLATE.md"
+          files: |
+            dist/cgnal-core-${{env.PROJECT_VERSION}}-py3-none-any.whl
+            dist/cgnal-core-${{env.PROJECT_VERSION}}.tar.gz
+
+#      - name: Publish distribution to Test PyPI
+#        uses: pypa/gh-action-pypi-publish@master
+#        with:
+#          password: ${{ secrets.TESTPYPI_TOKEN }}
+#          repository_url: https://test.pypi.org/legacy/
 
       - name: Publish distribution to PyPI
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
@@ -75,8 +68,3 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
-
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag python-ci-template:${{env.PROJECT_VERSION}}
-
-

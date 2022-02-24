@@ -1,0 +1,70 @@
+test:
+
+  logging:
+    level: "DEBUG"
+    filename: !joinPath ["logs", "tests.log"]
+    default_config_file: !joinPath ["confs", "logConfDefaults.yaml"]
+    capture_warnings: True
+
+  fs:
+    root: &root !joinPath ["this", "is", "a", "folder"]
+    folders:
+      python: &python myfolder
+    files:
+      credentials: &cred !joinPath [*root, *python, "credentials.p"]
+
+  user: ${USER}
+
+  auth:
+    method: 'file'
+    filename: *cred
+    user: 'userID'
+    password: 'passwordID'
+
+  authentication:
+    secured: true
+    ap_name: 'cb'
+    cors: "http://0.0.0.0:10001"
+
+    jwt_free_endpoints:
+      - "/api/v1/health/"
+      - "/api/v1/auth/login"
+      - "/api/v1/apidocs"
+      - "/api/v1/swagger.json"
+      - "/api/v1/salesforce/"
+      - "/api/v1/openBanking/"
+
+    auth_service:
+      url: http://0.0.0.0:10005
+      check: "/tokens/{tok}/check"
+      decode: "/tokens/{tok}/decode"
+
+    check_service:
+      url: http://0.0.0.0:10001
+      login: "/authentication/login"
+      logout: "/authentication/logout"
+
+  mongo:
+    host: '0.0.0.0'
+    port: 202020
+    db_name: 'database'
+
+    collections:
+      coll_name: 'coll_name'
+
+    auth:
+      method: "file"
+      filename: !joinPath [ *root, *python, "credentials.auth.p" ]
+      user: 'mongo.auth.db_user'
+      password: 'mongo.auth.db_psswd'
+
+    admin:
+      method: "file"
+      filename: !joinPath [ *root, *python, "credentials.admin.p" ]
+      user: 'mongo.admin.db_user'
+      password: 'mongo.admin.db_psswd'
+
+    authSource: 'source'
+
+
+# More on YAML (and other configuration formats) can be found at: https://martin-thoma.com/configuration-files-in-python

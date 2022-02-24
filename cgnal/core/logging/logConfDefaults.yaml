@@ -1,0 +1,66 @@
+version: 1
+disable_existing_loggers: True
+formatters:
+    simple:
+        format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+params:
+    path: &path /var/log
+    rot_file_handler:
+        class: &rotating logging.handlers.RotatingFileHandler
+        maxBytes: &maxBytes 10485760 # 10MB
+    stream_handler: &stream logging.StreamHandler
+    handlers: &stdhandlers ['regular_console_handler','error_console_handler']
+
+handlers:
+
+    regular_console_handler:
+        class: *stream
+        level: DEBUG
+        formatter: simple
+        stream: ext://sys.stdout
+
+    error_console_handler:
+        class: *stream
+        level: ERROR
+        formatter: simple
+        stream: ext://sys.stderr
+
+    regular_file_handler:
+        class: *rotating
+        level: DEBUG
+        formatter: simple
+        filename: !joinPath [*path, "regular.log"]
+        maxBytes: *maxBytes
+        backupCount: 10
+        encoding: utf8
+
+    error_file_handler:
+        class: *rotating
+        level: ERROR
+        formatter: simple
+        filename: !joinPath [*path, "errors.log"]
+        maxBytes: *maxBytes
+        backupCount: 10
+        encoding: utf8
+
+    warn_file_handler:
+        class: *rotating
+        level: WARN
+        formatter: simple
+        filename: !joinPath [*path, "warn.log"]
+        maxBytes: 5242880
+        backupCount: 2
+        encoding: utf8
+
+loggers:
+  "":
+      handlers: *stdhandlers
+      level: 'INFO'
+      propagate: False
+
+  py.warnings:
+      handlers: ['warn_file_handler']
+      level: 'WARN'
+      propagate: True
+

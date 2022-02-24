@@ -1,0 +1,13 @@
+PyYAML>=5.1
+cfg-load>=0.8
+deprecated>=1.2.12
+dill>=0.3
+mongomock>=3.19
+numpy>=1.16
+pandas>=1.0
+pymongo>=3.6
+requests>=2.22
+scipy<=1.5.4
+setuptools>=40.3
+typeguard>=2.13.0
+typing-extensions>=4.0
