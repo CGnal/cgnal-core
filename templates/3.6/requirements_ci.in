@@ -1,0 +1,15 @@
+Sphinx<4.4
+black>=21.12b0
+flake8-docstrings>=1.6
+flake8-rst-docstrings>=0.2.5
+flake8>=4.0.1
+m2r2>=0.3.2
+mypy-extensions>=0.4.3
+mypy>=0.910
+pip-tools>=6.4
+pytest-cov>=3.0
+pytest>=6.2
+recommonmark>=0.7
+sphinx-rtd-theme>=0.5
+types-dataclasses>=0.6.4
+versioneer>=0.21

@@ -1,0 +1,44 @@
+name: Build and Deploy GithubPage
+# See https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-force-orphan-force_orphan for details on Deploy step
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  PublishGithubPage:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2.2.2
+        with:
+          python-version: '{{PYTHON_VERSION}}'
+          architecture: x64
+
+      - name: Compile Requirements
+        run: make reqs
+
+      - name: Install
+        run: pip install -r requirements/requirements_ci.txt
+
+      - name: Generate content
+        run: make --directory=sphinx --file=Makefile html
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/html
+          publish_branch: gh_pages
+          allow_empty_commit: false
+          enable_jekyll: false
+          force_orphan: false
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: "${{ github.ref_name }} - ${{ github.event.head_commit.message }}"
+

@@ -1,0 +1,37 @@
+################
+Installation
+################
+
+.. contents:: Table of Contents
+
+
+*********************
+Package Requirements
+*********************
+
+.. literalinclude:: ../../../requirements/requirements.in
+
+****************
+CI Requirements
+****************
+
+.. literalinclude:: ../../../requirements/requirements_ci.in
+
+*************
+Installation
+*************
+
+From pypi server
+
+.. code-block:: bash
+
+    pip install {{PROJECT_NAME}}
+
+From source
+
+.. code-block:: bash
+
+    git clone {{GITHUB_REPO}}
+    cd "$(basename "{{GITHUB_REPO}}" .git)"
+    make install
+
