@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>python-ci-template &mdash; 3.6  documentation</title>
+  <title>CGnal core &mdash; cgnal-core  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Installation" href="../userguide/index.html" />
-    <link rel="prev" title="Welcome to 3.6 documentation!" href="../index.html" /> 
+    <link rel="prev" title="Welcome to cgnal-core documentation!" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -27,7 +27,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> 3.6
+            <a href="../index.html" class="icon icon-home"> cgnal-core
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -39,19 +39,21 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Intro:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">python-ci-template</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#repository-initialization">Repository initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#makefile">Makefile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#toolset-for-the-project">Toolset for the project</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#coding-style">Coding style</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#linting">Linting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#type-hints">Type hints</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#semantic-versioning">Semantic Versioning</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#verisioneer-setup">Verisioneer setup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CGnal core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-it">What is it ?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#supported-python-version">Supported Python version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#features">Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-layers">Data layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-model">Data Model</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tests">Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checks">Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-contribute">How to contribute ?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#where-to-start">Where to start ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contributing-to-cgnal-core">Contributing to cgnal-core</a></li>
 </ul>
 </li>
 </ul>
@@ -61,6 +63,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/index.html">Installation</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">core</a></li>
+</ul>
 
         </div>
       </div>
@@ -68,7 +74,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">3.6</a>
+          <a href="../index.html">cgnal-core</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -76,7 +82,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>python-ci-template</li>
+      <li>CGnal core</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/intro/readme.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -86,119 +92,197 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="python-ci-template">
-<h1>python-ci-template<a class="headerlink" href="#python-ci-template" title="Permalink to this headline"></a></h1>
-<a class="reference external image-reference" href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/CGnal/python-ci-template/actions/workflows/continous-integration.yml"><img alt="CI - Build and Test" src="https://github.com/CGnal/python-ci-template/actions/workflows/continous-integration.yml/badge.svg" /></a>
-<p>This is a template project to be used as a standard, for any Python project.</p>
-<section id="repository-initialization">
-<h2>Repository initialization<a class="headerlink" href="#repository-initialization" title="Permalink to this headline"></a></h2>
-<p>The template needs to be first initialised after creation using the script <code class="docutils literal notranslate"><span class="pre">bin/init_repo.sh</span></code>.
-The script will ask the user few informations (among which the
-Python version to be used) and take care of adapting configurations files accordingly.
-Multiple Python versions (3.6+) are supported.
-Depending on the selected Python version different requirements, CI/CD pipelines,
-docker images, etc should be considered. The <code class="docutils literal notranslate"><span class="pre">bin/init_repo.sh</span></code> will take care of
-setting up these files consistently. To run the script, navigate first into the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder and run</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">init_repo</span>
-</pre></div>
-</div>
-<p><strong>NOTE:</strong> In the process, you will also be asked if you want to <em>remove the templates</em>,
-in order to keep your repo minimal and avoid cluttering.
-Please keep in mind that if you do so, you won’t be able to re-initialise the files
-in your repository again.</p>
+  <div align="center">
+  <img src="https://cgnal.com/wp-content/uploads/2016/05/Gnal_logo.png"><br>
+</div><hr class="docutils" />
+<section id="cgnal-core">
+<h1>CGnal core<a class="headerlink" href="#cgnal-core" title="Permalink to this headline"></a></h1>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/cgnal-core"><img alt="PyPI" src="https://img.shields.io/pypi/v/cgnal-core.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/cgnal-core"><img alt="PyPI version" src="https://img.shields.io/pypi/pyversions/cgnal-core.svg" /></a>
+<a class="reference external image-reference" href="https://cgnal.github.io/cgnal-core/"><img alt="Documentation" src="https://img.shields.io/badge/docs-latest-brightgreen.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/CGnal/cgnal-core/workflows/CI%20-%20Build%20and%20Test/badge.svg"><img alt="Python package" src="https://github.com/CGnal/cgnal-core/workflows/CI%20-%20Build%20and%20Test/badge.svg" /></a>
+<hr class="docutils" />
+<p>A Python library defining data structures optimized for machine learning pipelines</p>
+<section id="what-is-it">
+<h2>What is it ?<a class="headerlink" href="#what-is-it" title="Permalink to this headline"></a></h2>
+<p><strong>cgnal-core</strong> is a Python package with modular design that provides powerful abstractions to build data
+ingestion pipelines and run end to end machine learning pipelines.
+The library offers lightweight object-oriented interface to MongoDB as well as Pandas based data structures.
+The aim of the library is to provide extensive support for developing machine learning based applications
+with a focus on practicing clean code and modular design.</p>
 </section>
-<section id="makefile">
-<h2>Makefile<a class="headerlink" href="#makefile" title="Permalink to this headline"></a></h2>
-<p>The process of installation of requirements, packaging, running checks (static typing, linting, unittests, etc) is
-done using Makefile. In order to setup and environment that compile and then install all requirements
-we can simply issue the following commands</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">setup</span>    <span class="c1"># to install requirments</span>
-<span class="n">make</span> <span class="n">dist</span>     <span class="c1"># to build the package</span>
-<span class="n">make</span> <span class="n">install</span>  <span class="c1"># to install package</span>
-<span class="n">make</span> <span class="n">checks</span>   <span class="c1"># to run all checks</span>
-</pre></div>
-</div>
-<p>For further information on the make commands, type</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">help</span>
-</pre></div>
-</div>
+<section id="supported-python-version">
+<h2>Supported Python version<a class="headerlink" href="#supported-python-version" title="Permalink to this headline"></a></h2>
+<p>Currently the library supports Python 3.6.x</p>
 </section>
-<section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
-<p>This project uses <code class="docutils literal notranslate"><span class="pre">pip-tools</span></code> to keep track of requirements. In particular there is a <code class="docutils literal notranslate"><span class="pre">requirements</span></code> folder
-containing a <code class="docutils literal notranslate"><span class="pre">requirements.in,</span> <span class="pre">requirements.txt,</span> <span class="pre">requirements_ci.in,</span> <span class="pre">requirements_ci.txt</span></code> files corresponding to
-input (<code class="docutils literal notranslate"><span class="pre">*.in</span></code>) and actual (<code class="docutils literal notranslate"><span class="pre">*.txt</span></code>) requirements files for CI and prod environments.</p>
-</section>
-<section id="toolset-for-the-project">
-<h2>Toolset for the project<a class="headerlink" href="#toolset-for-the-project" title="Permalink to this headline"></a></h2>
-<section id="coding-style">
-<h3>Coding style<a class="headerlink" href="#coding-style" title="Permalink to this headline"></a></h3>
-<p>This project uses <code class="docutils literal notranslate"><span class="pre">black</span></code> (<a class="reference external" href="https://github.com/psf/black">https://github.com/psf/black</a>) for formatting and enforcing a coding style.
-Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">format</span></code> to reformat all source code and tests files to adhere to PEP8 standards.</p>
-</section>
-<section id="linting">
-<h3>Linting<a class="headerlink" href="#linting" title="Permalink to this headline"></a></h3>
-<p>We use <code class="docutils literal notranslate"><span class="pre">flake8</span></code> (<a class="reference external" href="https://github.com/PyCQA/flake8">https://github.com/PyCQA/flake8</a>) for static code analysis. The configuration file is included in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>.
-It coincides with the configuration suggested by the <code class="docutils literal notranslate"><span class="pre">black</span></code> developers. Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lint</span></code> to analyse all source code and tests files.</p>
-</section>
-<section id="type-hints">
-<h3>Type hints<a class="headerlink" href="#type-hints" title="Permalink to this headline"></a></h3>
-<p>We use <code class="docutils literal notranslate"><span class="pre">mypy</span></code> for static type checking. The configuration is included in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>.
-The only settings included in this configuration files are related to the missing typing annotations of some common third party libraries.</p>
-</section>
-<section id="documentation">
-<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h3>
-<p>This project uses <code class="docutils literal notranslate"><span class="pre">Sphinx</span></code> (<a class="reference external" href="https://www.sphinx-doc.org/en/master/">https://www.sphinx-doc.org/en/master/</a>) as a tool to create documentation. Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">docs</span></code> to build documentation.
-There is a github workflow setup to publish documentation on the repo’s Github Page at every push on <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.
-To let this action run smoothly there must exist the <code class="docutils literal notranslate"><span class="pre">gh_pages</span></code>branch and the Github Page must be manually setted (from
-github repo web interface &gt; Settings &gt; Pages) to use <code class="docutils literal notranslate"><span class="pre">gh_pages</span></code> as source branch and <code class="docutils literal notranslate"><span class="pre">/root</span></code> as source folder.
-Since this action requires a GITHUB_TOKEN, for its first run in the repo it will be necessary to follow the steps
-detailed <a class="reference external" href="https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-first-deployment-with-github_token">here</a>
-to make the action run fine from then on.</p>
-</section>
-<section id="semantic-versioning">
-<h3>Semantic Versioning<a class="headerlink" href="#semantic-versioning" title="Permalink to this headline"></a></h3>
-<p>The present repository had already set up the versioneer using the procedure described below. The configuration is included in <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>.</p>
-<section id="verisioneer-setup">
-<h4>Verisioneer setup<a class="headerlink" href="#verisioneer-setup" title="Permalink to this headline"></a></h4>
-<p>The following procedure had already been run and is reported only for documentation purposes, no need to re-run it.</p>
-<ol class="arabic">
-<li><p>First of all we need to install the versioneer package from pip</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install versioneer
-</pre></div>
-</div>
-</li>
-<li><p>Then we edit the versioneer section in the setup.cfg</p></li>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline"></a></h2>
+<p>Some cool features that we are proud to mention are:</p>
+<section id="data-layers">
+<h3>Data layers<a class="headerlink" href="#data-layers" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><p>Archiver: Offers an object-oriented design to perform ETL on Mongodb collections as well as Pandas DataFrames.</p></li>
+<li><p>DAO: Data Access Object to allow archivers to serialize domain objects into the proper persistence layer support
+object (e.g. in the case of MongoDB, a DAO serializes a domain object into a MongoDB document) and to parse objects
+retrieved from the given persistence layer in the correct representation in our framework (e.g. a text will be parsed in
+a Document while tabular data will be parsed in a pandas DataFrame).</p></li>
+<li><p>Database: Object representing a relational database</p></li>
+<li><p>Table: Object representing a table of a relational database</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">versioneer</span><span class="p">]</span>
-<span class="n">VCS</span> <span class="o">=</span> <span class="n">git</span>
-<span class="n">style</span> <span class="o">=</span> <span class="n">pep440</span>
-<span class="n">versionfile_source</span> <span class="o">=</span> <span class="n">version</span><span class="o">/</span><span class="n">_version</span><span class="o">.</span><span class="n">py</span>
-<span class="n">versionfile_build</span> <span class="o">=</span> <span class="n">version</span><span class="o">/</span><span class="n">_version</span><span class="o">.</span><span class="n">py</span>
-<span class="n">tag_prefix</span> <span class="o">=</span>
-<span class="n">parentdir_prefix</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">the</span><span class="o">-</span><span class="n">project</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<ol class="arabic">
-<li><p>Next, we need to install the versioneer module into our project.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">versioneer</span> <span class="n">install</span>
-</pre></div>
-</div>
-</li>
+</section>
+<section id="data-model">
+<h3>Data Model<a class="headerlink" href="#data-model" title="Permalink to this headline"></a></h3>
+<p>Offers the following data structures:</p>
+<ol class="arabic simple">
+<li><p>Document : Data structure specifically designed to work with NLP applications that parses a json-like document
+into a couple of uuid and dictionary of information.</p></li>
+<li><p>Sample : Data structure representing an observation (a.k.a. sample) as used in machine learning applications</p></li>
+<li><p>MultiFeatureSample : Data structure representing an observation defined by a nested list of arrays.</p></li>
+<li><p>Dataset : Data structure designed to be used specifically for machine learning applications representing a collection
+of samples.</p></li>
 </ol>
-<p>Running this command will create a few new files for us in our project and also ask us to make some changes to our setup.py file. We need to import versioneer in the setup, replace the version keyword argument with versioneer.get_version() and add a new argument cmdclass=versioneer.get_cmdclass().</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  setuptools.setup(
-      ...
-      version=versioneer.get_version(),
-      cmdclass=versioneer.get_cmdclass(),
-      ...
-  )
+</section>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<p>From pypi server</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">cgnal</span><span class="o">-</span><span class="n">core</span>
+</pre></div>
+</div>
+<p>From source</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">CGnal</span><span class="o">/</span><span class="n">cgnal</span><span class="o">-</span><span class="n">core</span>
+<span class="n">cd</span> <span class="n">cgnal</span><span class="o">-</span><span class="n">core</span>
+<span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</section>
+<section id="tests">
+<h2>Tests<a class="headerlink" href="#tests" title="Permalink to this headline"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">tests</span>
+</pre></div>
+</div>
+</section>
+<section id="checks">
+<h2>Checks<a class="headerlink" href="#checks" title="Permalink to this headline"></a></h2>
+<p>To run predefined checks (unit-tests, linting checks, formatting checks and static typing checks):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">checks</span>
+</pre></div>
+</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h2>
+<p>Creating a Database of Table objects</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">cgnal.core.data.layer.pandas.databases</span> <span class="kn">import</span> <span class="n">Database</span>
 
-for full documentation `versioneer GitHub repo &lt;https://github.com/python-versioneer/python-versioneer&gt;`_
+<span class="c1"># sample df</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">])</span>
+
+<span class="c1"># creating a database</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">Database</span><span class="p">(</span><span class="s1">&#39;/path/to/db&#39;</span><span class="p">)</span>
+<span class="n">table1</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="s1">&#39;df1&#39;</span><span class="p">)</span>
+
+<span class="c1"># write table to path</span>
+<span class="n">table1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span>
+<span class="c1"># get path</span>
+<span class="n">table1</span><span class="o">.</span><span class="n">filename</span>
+
+<span class="c1"># convert to pandas dataframe</span>
+<span class="n">table1</span><span class="o">.</span><span class="n">to_df</span><span class="p">()</span>
+
+<span class="c1"># get table from database</span>
+<span class="n">db</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="s1">&#39;df1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using an Archiver with Dao objects</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cgnal.core.data.layer.pandas.archivers</span> <span class="kn">import</span> <span class="n">CsvArchiver</span>
+<span class="kn">from</span> <span class="nn">cgnal.core.data.layer.pandas.dao</span> <span class="kn">import</span> <span class="n">DataFrameDAO</span>
+
+<span class="c1"># create a dao object</span>
+<span class="n">dao</span> <span class="o">=</span> <span class="n">DataFrameDAO</span><span class="p">()</span>
+
+<span class="c1"># create a csv archiver</span>
+<span class="n">arch</span> <span class="o">=</span> <span class="n">CsvArchiver</span><span class="p">(</span><span class="s1">&#39;/path/to/csvfile.csv&#39;</span><span class="p">,</span> <span class="n">dao</span><span class="p">)</span>
+
+<span class="c1"># get pandas dataframe</span>
+<span class="n">arch</span><span class="o">.</span><span class="n">data</span>
+
+<span class="c1"># retrieve a single document object</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">arch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">())</span>
+<span class="c1"># retrieve a list of document objects</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">()]</span>
+<span class="c1"># retrieve a document by it&#39;s id</span>
+<span class="n">arch</span><span class="o">.</span><span class="n">retrieveById</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
+
+<span class="c1"># archive a single document</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">retrieve</span><span class="p">())</span>
+<span class="c1"># update column_name field of the document with the given value</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;column_name&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+<span class="c1"># archive the document</span>
+<span class="n">arch</span><span class="o">.</span><span class="n">archiveOne</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="c1"># archive list of documents</span>
+<span class="n">a</span><span class="o">.</span><span class="n">archiveMany</span><span class="p">([</span><span class="n">doc</span><span class="p">,</span> <span class="n">doc</span><span class="p">])</span>
+
+<span class="c1"># get a document object as a pandas series</span>
+<span class="n">arch</span><span class="o">.</span><span class="n">dao</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Creating a PandasDataset object</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">cgnal.core.data.model.ml</span> <span class="kn">import</span> <span class="n">PandasDataset</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">PandasDataset</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feat1&quot;</span><span class="p">),</span>
+                                            <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feat2&quot;</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                        <span class="n">labels</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Label&quot;</span><span class="p">))</span>
+
+<span class="c1"># access features as a pandas dataframe</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">features</span>
+<span class="c1"># access labels as pandas dataframe</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">labels</span>
+<span class="c1"># access features as a python dictionary</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">getFeaturesAs</span><span class="p">(</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
+<span class="c1"># access features as numpy array</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">getFeaturesAs</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">)</span>
+
+<span class="c1"># indexing operations</span>
+<span class="c1"># access features and labels at the given index as a pandas dataframe</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">loc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">features</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">loc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">labels</span>
+</pre></div>
+</div>
+<p>Creating a PandasTimeIndexedDataset object</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">cgnal.core.data.model.ml</span> <span class="kn">import</span> <span class="n">PandasTimeIndexedDataset</span>
+
+<span class="n">dateStr</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2010-01-04&#39;</span><span class="p">)]</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">PandasTimeIndexedDataset</span><span class="p">(</span>
+    <span class="n">features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">dateStr</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feat1&quot;</span><span class="p">),</span>
+        <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">dateStr</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feat2&quot;</span><span class="p">)</span>
+    <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
+<section id="how-to-contribute">
+<h2>How to contribute ?<a class="headerlink" href="#how-to-contribute" title="Permalink to this headline"></a></h2>
+<p>We are very much willing to welcome any kind of contribution whether it is bug report, bug fixes, contributions to the
+existing codebase or improving the documentation.</p>
+<section id="where-to-start">
+<h3>Where to start ?<a class="headerlink" href="#where-to-start" title="Permalink to this headline"></a></h3>
+<p>Please look at the <a class="reference external" href="https://github.com/CGnal/cgnal-core/issues">Github issues tab</a> to start working on open
+issues</p>
+</section>
+<section id="contributing-to-cgnal-core">
+<h3>Contributing to cgnal-core<a class="headerlink" href="#contributing-to-cgnal-core" title="Permalink to this headline"></a></h3>
+<p>Please make sure the general guidelines for contributing to the code base are respected</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://docs.github.com/en/get-started/quickstart/contributing-to-projects">Fork</a> the cgnal-core repository.</p></li>
+<li><p>Create/choose an issue to work on in the <a class="reference external" href="https://github.com/CGnal/cgnal-core/issues">Github issues page</a>.</p></li>
+<li><p><a class="reference external" href="https://docs.github.com/en/get-started/quickstart/github-flow">Create a new branch</a> to work on the issue.</p></li>
+<li><p>Commit your changes and run the tests to make sure the changes do not break any test.</p></li>
+<li><p>Open a Pull Request on Github referencing the issue.</p></li>
+<li><p>Once the PR is approved, please do a “Rebase and Merge” operation from the Github UI.</p></li>
+</ol>
 </section>
 </section>
 </section>
@@ -207,7 +291,7 @@ for full documentation `versioneer GitHub repo &lt;https://github.com/python-ver
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to 3.6 documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to cgnal-core documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../userguide/index.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -1,4 +1,4 @@
-.. 3.6 documentation master file as created by sphinx-quickstart.
+.. cgnal-core documentation master file as created by sphinx-quickstart.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -6,7 +6,7 @@
    :align: center
    :scale: 100 %
 
-Welcome to 3.6 documentation!
+Welcome to cgnal-core documentation!
 ==============================================
 
 .. toctree::

@@ -25,7 +25,7 @@ From pypi server
 
 .. code-block:: bash
 
-    pip install 3.6
+    pip install cgnal-core
 
 From source
 

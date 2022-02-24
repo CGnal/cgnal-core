@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; 3.6  documentation</title>
+  <title>Installation &mdash; cgnal-core  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,7 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="python-ci-template" href="../intro/readme.html" /> 
+    <link rel="next" title="core" href="../api/modules.html" />
+    <link rel="prev" title="CGnal core" href="../intro/readme.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -26,7 +27,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> 3.6
+            <a href="../index.html" class="icon icon-home"> cgnal-core
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -38,7 +39,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Intro:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../intro/readme.html">python-ci-template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro/readme.html">CGnal core</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
@@ -49,6 +50,10 @@
 </ul>
 </li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">core</a></li>
+</ul>
 
         </div>
       </div>
@@ -56,7 +61,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">3.6</a>
+          <a href="../index.html">cgnal-core</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -90,7 +95,19 @@
 </div>
 <section id="package-requirements">
 <h2><a class="toc-backref" href="#id3">Package Requirements</a><a class="headerlink" href="#package-requirements" title="Permalink to this headline"></a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typing</span><span class="o">-</span><span class="n">extensions</span><span class="o">&gt;=</span><span class="mf">4.0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PyYAML</span><span class="o">&gt;=</span><span class="mf">5.1</span>
+<span class="n">cfg</span><span class="o">-</span><span class="n">load</span><span class="o">&gt;=</span><span class="mf">0.8</span>
+<span class="n">deprecated</span><span class="o">&gt;=</span><span class="mf">1.2.12</span>
+<span class="n">dill</span><span class="o">&gt;=</span><span class="mf">0.3</span>
+<span class="n">mongomock</span><span class="o">&gt;=</span><span class="mf">3.19</span>
+<span class="n">numpy</span><span class="o">&gt;=</span><span class="mf">1.16</span>
+<span class="n">pandas</span><span class="o">&gt;=</span><span class="mf">1.0</span>
+<span class="n">pymongo</span><span class="o">&gt;=</span><span class="mf">3.6</span>
+<span class="n">requests</span><span class="o">&gt;=</span><span class="mf">2.22</span>
+<span class="n">scipy</span><span class="o">&lt;=</span><span class="mf">1.5.4</span>
+<span class="n">setuptools</span><span class="o">&gt;=</span><span class="mf">40.3</span>
+<span class="n">typeguard</span><span class="o">&gt;=</span><span class="mf">2.13.0</span>
+<span class="n">typing</span><span class="o">-</span><span class="n">extensions</span><span class="o">&gt;=</span><span class="mf">4.0</span>
 </pre></div>
 </div>
 </section>
@@ -109,7 +126,6 @@
 <span class="n">pytest</span><span class="o">&gt;=</span><span class="mf">6.2</span>
 <span class="n">recommonmark</span><span class="o">&gt;=</span><span class="mf">0.7</span>
 <span class="n">sphinx</span><span class="o">-</span><span class="n">rtd</span><span class="o">-</span><span class="n">theme</span><span class="o">&gt;=</span><span class="mf">0.5</span>
-<span class="n">types</span><span class="o">-</span><span class="n">dataclasses</span><span class="o">&gt;=</span><span class="mf">0.6.4</span>
 <span class="n">versioneer</span><span class="o">&gt;=</span><span class="mf">0.21</span>
 </pre></div>
 </div>
@@ -117,7 +133,7 @@
 <section id="id1">
 <h2><a class="toc-backref" href="#id5">Installation</a><a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>From pypi server</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install <span class="m">3</span>.6
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install cgnal-core
 </pre></div>
 </div>
 <p>From source</p>
@@ -133,7 +149,8 @@ make install
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../intro/readme.html" class="btn btn-neutral float-left" title="python-ci-template" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../intro/readme.html" class="btn btn-neutral float-left" title="CGnal core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/modules.html" class="btn btn-neutral float-right" title="core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
