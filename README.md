@@ -26,9 +26,6 @@ The library offers lightweight object-oriented interface to MongoDB as well as P
 The aim of the library is to provide extensive support for developing machine learning based applications 
 with a focus on practicing clean code and modular design. 
 
-## Supported Python version
-Currently the library supports Python 3.6.x 
-
 ## Features
 Some cool features that we are proud to mention are: 
 
@@ -193,4 +190,4 @@ Please make sure the general guidelines for contributing to the code base are re
 3. [Create a new branch](https://docs.github.com/en/get-started/quickstart/github-flow) to work on the issue. 
 4. Commit your changes and run the tests to make sure the changes do not break any test. 
 5. Open a Pull Request on Github referencing the issue.
-6. Once the PR is approved, please do a "Rebase and Merge" operation from the Github UI.
+6. Once the PR is approved, the maintainers will merge it on the main branch.
