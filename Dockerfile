@@ -8,7 +8,7 @@ COPY requirements/requirements.txt requirements/requirements.txt
 RUN pip3 install -r requirements/requirements.txt
 
 COPY LICENSE MANIFEST.in versioneer.py setup.py setup.cfg README.md .
-COPY cgnal/core cgnal/core
+COPY cgnal cgnal
 
 RUN python3 setup.py sdist && ls -t dist/* | tail -n1 | xargs pip install
 
