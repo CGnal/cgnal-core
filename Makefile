@@ -32,7 +32,6 @@ help:
 	@echo " "
 	@echo "Type 'make' followed by one of these keywords:"
 	@echo " "
-	@echo "  - init for setting up the project"
 	@echo "  - setup for installing base requirements"
 	@echo "  - setup_ci for installing requirements for development"
 	@echo "  - format for reformatting files to adhere to PEP8 standards"
@@ -47,13 +46,9 @@ help:
 	@echo "  - clean for removing cache file"
 	@echo "------------------------------------"
 
-
 $(pre_deps_tag):
 	grep "^pip-tools\|^black"  requirements/requirements_ci.in | xargs ${PYTHON} -m pip install
 	touch $(pre_deps_tag)
-
-init: $(pre_deps_tag)
-	@echo "This is for initializing the repository"
 
 requirements/requirements.txt: requirements/requirements_ci.txt
 	cat requirements/requirements.in > subset.in
