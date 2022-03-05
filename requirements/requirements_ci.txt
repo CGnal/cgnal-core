@@ -118,7 +118,7 @@ pygments==2.11.2
     # via
     #   flake8-rst-docstrings
     #   sphinx
-pymongo==4.0.1
+pymongo==4.0.2
     # via -r requirements/requirements.in
 pyparsing==3.0.7
     # via packaging
@@ -151,7 +151,7 @@ requests==2.27.1
     #   sphinx
 restructuredtext-lint==1.4.0
     # via flake8-rst-docstrings
-scipy==1.5.4
+scipy==1.7.3
     # via -r requirements/requirements.in
 sentinels==1.0.0
     # via mongomock
@@ -196,6 +196,22 @@ typed-ast==1.5.2
     #   mypy
 typeguard==2.13.3
     # via -r requirements/requirements.in
+types-deprecated==1.2.5
+    # via -r requirements/requirements_ci.in
+types-pytz==2021.3.5
+    # via -r requirements/requirements_ci.in
+types-pyyaml==6.0.4
+    # via -r requirements/requirements_ci.in
+types-requests==2.27.11
+    # via -r requirements/requirements_ci.in
+types-setuptools==57.4.9
+    # via -r requirements/requirements_ci.in
+types-six==1.16.11
+    # via -r requirements/requirements_ci.in
+types-urllib3==1.26.10
+    # via
+    #   -r requirements/requirements_ci.in
+    #   types-requests
 typing-extensions==4.1.1
     # via
     #   -r requirements/requirements.in

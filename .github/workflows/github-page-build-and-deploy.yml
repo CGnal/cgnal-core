@@ -20,14 +20,8 @@ jobs:
           python-version: '3.7'
           architecture: x64
 
-      - name: Compile Requirements
-        run: make reqs
-
-      - name: Install
-        run: pip install -r requirements/requirements_ci.txt
-
       - name: Generate content
-        run: make --directory=sphinx --file=Makefile html
+        run: make docs
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
