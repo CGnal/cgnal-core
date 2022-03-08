@@ -2,19 +2,30 @@
 
 from collections.abc import Iterable
 from bson.objectid import ObjectId
-from mongomock.collection import Collection as MockCollection
 from pymongo.collection import Collection, UpdateResult
-from typing import Union, Optional, List, Dict, Any, Iterator, Iterable as IterableType
+from typing import (
+    Union,
+    Optional,
+    List,
+    Dict,
+    Any,
+    Iterator,
+    Iterable as IterableType,
+    TYPE_CHECKING,
+)
 from cgnal.core.data.layer import Archiver
 from cgnal.core.data.layer.mongo.dao import MongoDAO
 from cgnal.core.typing import T
+
+if TYPE_CHECKING:
+    from mongomock.collection import Collection as MockCollection
 
 
 class MongoArchiver(Archiver[T]):
     """Archiver based on MongoDB persistent layers."""
 
     def __init__(
-        self, collection: Union[Collection, MockCollection], dao: MongoDAO
+        self, collection: Union[Collection, "MockCollection"], dao: MongoDAO
     ) -> None:
         """
         Return an instance of the archiver to access and modify Mongodb collections via a DAO object.
@@ -23,11 +34,6 @@ class MongoArchiver(Archiver[T]):
         :param dao: An instance of :class:`cgnal.data.layer.mongo.dao.DocumentDao` or
             :class:`cgnal.data.layer.mongo.dao.SeriesDAO`  that helps to retrieve/archive a document.
         """
-        if not isinstance(collection, Collection) and not isinstance(
-            collection, MockCollection
-        ):
-            raise TypeError(f"Collection {collection} is not a MongoDb collection")
-
         self.collection = collection
         self.dao = dao
 
