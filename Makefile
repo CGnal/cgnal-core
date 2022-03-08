@@ -52,7 +52,7 @@ $(pre_deps_tag):
 
 requirements/requirements.txt: requirements/requirements_ci.txt
 	cat requirements/requirements.in > subset.in
-	echo "-c requirements/requirements_ci.txt" >> subset.in
+	echo "\n-c requirements/requirements_ci.txt" >> subset.in
 	pip-compile --output-file "requirements/requirements.txt" --quiet --no-emit-index-url subset.in
 	rm subset.in
 
@@ -81,7 +81,7 @@ format: setup_ci
 	${PYTHON} -m black $(folders)
 
 dist/.build-tag: $(files) setup.cfg requirements/requirements.txt
-	python setup.py sdist
+	${PYTHON} setup.py sdist
 	ls -rt  dist/* | tail -1 > dist/.build-tag
 
 dist: dist/.build-tag setup.py
@@ -115,5 +115,6 @@ docs: setup_ci $(install_tag) $(doc_files) setup.cfg
 
 clean: uninstall
 	rm -rf docs
+	rm -rf build
 	rm -rf $(shell find . -name "*.pyc") $(shell find . -name "__pycache__")
 	rm -rf dist *.egg-info .mypy_cache .pytest_cache .make_cache $(env_tag) $(env_ci_tag) $(install_tag)

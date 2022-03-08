@@ -8,8 +8,15 @@ on:
 
 jobs:
   autorelease:
-    name: Create Release
-    runs-on: 'ubuntu-latest'
+    name: Release package
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - 'ubuntu-latest'
+        python-version:
+          - '3.7'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.3.4
@@ -17,7 +24,8 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2.2.2
         with:
-          python-version: '3.7'
+          python-version: ${{matrix.python-version}}
+          architecture: x64
 
       - name: Add version to environment vars
         run: |
@@ -34,11 +42,35 @@ jobs:
       - name: Check typing, linting and formatting
         run: make checks
 
-      - name: Build distributions
+      - name: Build source and binary distributions
         shell: bash -l {0}
         run: |
           python -m pip install build wheel
           python setup.py sdist bdist_wheel
+
+      - name: Check source package structure
+        run: |
+          tar -xzf $(ls -rt  dist/*.tar.gz | tail -1)
+          DIR=$(python setup.py --fullname)
+          files=(
+            "requirements/requirements.in"
+            "LICENSE"
+            "MANIFEST.in"
+            "PKG-INFO"
+            "README.md"
+            "setup.cfg"
+            "setup.py"
+            "versioneer.py"
+          )
+          while IFS= read -d $'\0' -r file ; do
+            if [[ "${file}" =~ .*".py" ]]; then files=("${files[@]}" "$file"); fi;
+          done < <(find cgnal -print0)
+
+          for file in "${files[@]}" ; do
+            if [ ! -f "${DIR}/${file}" ]; then echo "Missing ${file}"; exit 1; fi
+          done
+
+          rm -rf $DIR
 
       - name: Release Notes
         uses: heinrichreimer/github-changelog-generator-action@v2.3
@@ -61,6 +93,17 @@ jobs:
         with:
           password: ${{ secrets.TESTPYPI_TOKEN }}
           repository_url: https://test.pypi.org/legacy/
+          skip_existing: true
+
+      - name: Test distribution published on Test PyPI
+        run: |
+          mkdir pkgs
+          make uninstall
+          python -m pip download --index-url https://test.pypi.org/simple/ --no-deps --dest pkgs cgnal-core==${{env.PROJECT_VERSION}}
+          pip install $(ls -rt  pkgs/* | tail -1)
+          pip install pytest pytest-cov mongomock
+          python -m pytest
+          rm -rf pkgs
 
       - name: Publish distribution to PyPI
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')

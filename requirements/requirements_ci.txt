@@ -16,6 +16,8 @@ backports-zoneinfo==0.2.1
     #   tzlocal
 black==22.1.0
     # via -r requirements/requirements_ci.in
+bleach==4.1.0
+    # via readme-renderer
 certifi==2021.10.8
     # via requests
 cfg-load==0.9.0
@@ -26,6 +28,8 @@ click==8.0.4
     # via
     #   black
     #   pip-tools
+colorama==0.4.4
+    # via twine
 commonmark==0.9.1
     # via recommonmark
 coverage[toml]==6.3.2
@@ -37,6 +41,7 @@ dill==0.3.4
 docutils==0.17.1
     # via
     #   m2r2
+    #   readme-renderer
     #   recommonmark
     #   restructuredtext-lint
     #   sphinx
@@ -58,13 +63,17 @@ importlib-metadata==4.2.0
     # via
     #   click
     #   flake8
+    #   keyring
     #   pep517
     #   pluggy
     #   pytest
+    #   twine
 iniconfig==1.1.1
     # via pytest
 jinja2==3.0.3
     # via sphinx
+keyring==23.5.0
+    # via twine
 m2r2==0.3.2
     # via -r requirements/requirements_ci.in
 markupsafe==2.1.0
@@ -90,6 +99,7 @@ numpy==1.21.5
     #   scipy
 packaging==21.3
     # via
+    #   bleach
     #   mongomock
     #   pytest
     #   sphinx
@@ -101,6 +111,8 @@ pep517==0.12.0
     # via pip-tools
 pip-tools==6.5.1
     # via -r requirements/requirements_ci.in
+pkginfo==1.8.2
+    # via twine
 platformdirs==2.5.1
     # via black
 pluggy==1.0.0
@@ -116,6 +128,7 @@ pyflakes==2.4.0
 pygments==2.11.2
     # via
     #   flake8-rst-docstrings
+    #   readme-renderer
     #   sphinx
 pymongo==4.0.2
     # via -r requirements/requirements.in
@@ -139,20 +152,29 @@ pytz-deprecation-shim==0.1.0.post0
     # via tzlocal
 pyyaml==6.0
     # via cfg-load
+readme-renderer==33.0
+    # via twine
 recommonmark==0.7.1
     # via -r requirements/requirements_ci.in
 requests==2.27.1
     # via
     #   cfg-load
+    #   requests-toolbelt
     #   sphinx
+    #   twine
+requests-toolbelt==0.9.1
+    # via twine
 restructuredtext-lint==1.4.0
     # via flake8-rst-docstrings
+rfc3986==2.0.0
+    # via twine
 scipy==1.7.3
     # via -r requirements/requirements.in
 sentinels==1.0.0
     # via mongomock
 six==1.16.0
     # via
+    #   bleach
     #   cfg-load
     #   mongomock
     #   python-dateutil
@@ -186,6 +208,10 @@ tomli==2.0.1
     #   mypy
     #   pep517
     #   pytest
+tqdm==4.63.0
+    # via twine
+twine==3.8.0
+    # via -r requirements/requirements_ci.in
 typed-ast==1.5.2
     # via
     #   black
@@ -203,9 +229,13 @@ tzdata==2021.5
 tzlocal==4.1
     # via mpu
 urllib3==1.26.8
-    # via requests
+    # via
+    #   requests
+    #   twine
 versioneer==0.22
     # via -r requirements/requirements_ci.in
+webencodings==0.5.1
+    # via bleach
 wheel==0.37.1
     # via pip-tools
 wrapt==1.13.3
