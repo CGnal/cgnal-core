@@ -87,7 +87,7 @@ dist/.build-tag: $(files) setup.cfg requirements/requirements.txt
 dist: dist/.build-tag setup.py
 
 $(install_tag): dist/.build-tag
-	${PYTHON} -m pip install $(shell ls -rt  dist/* | tail -1)
+	${PYTHON} -m pip install $(shell ls -rt  dist/*.tar.gz | tail -1)
 	touch $(install_tag)
 
 uninstall:
