@@ -16,6 +16,7 @@ from cgnal.core.config import (
 )
 from cgnal.core.data.layer.mongo import MongoConfig
 
+os.environ["USER"] = os.environ.get("USER", "cgnal")
 TEST_DATA_PATH = DATA_FOLDER
 logger = getDefaultLogger()
 
