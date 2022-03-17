@@ -73,6 +73,7 @@ jobs:
       - name: Check typing, linting and formatting
         run: |
           python -m pip install -r requirements/requirements_ci.txt
+          python -m pip install $(ls -rt  dist/*.tar.gz | tail -1)
           python -m black cgnal/core tests
           flake8 cgnal/core tests
           mypy --install-types --non-interactive --follow-imports silent cgnal/core tests
