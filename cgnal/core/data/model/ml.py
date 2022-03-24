@@ -24,11 +24,10 @@ from typing_extensions import Literal
 
 from cgnal.core.typing import T
 from cgnal.core.data.model.core import (
-    BaseIterable,
-    LazyIterable,
-    CachedIterable,
+    _IterableUtils,
+    _LazyIterable,
+    _CachedIterable,
     IterGenerator,
-    PickleSerialization,
     DillSerialization,
 )
 from cgnal.core.utils.decorators import lazyproperty as lazy
@@ -89,7 +88,7 @@ def features_and_labels_to_dataset(
         )
 
 
-class Sample(PickleSerialization, Generic[FeatType, LabType]):
+class Sample(DillSerialization, Generic[FeatType, LabType]):
     """Base class for representing a sample/observation."""
 
     def __init__(
@@ -152,16 +151,20 @@ class MultiFeatureSample(Sample[List[np.ndarray], LabType]):
 SampleTypes = Union[Sample[FeatType, LabType], MultiFeatureSample[LabType]]
 
 
-class Dataset(BaseIterable[SampleTypes], Generic[FeatType, LabType], ABC):
+class Dataset(
+    _IterableUtils[SampleTypes, "CachedDataset", "LazyDataset"],
+    Generic[FeatType, LabType],
+    ABC,
+):
     """Base class for representing datasets as iterable over Samples."""
 
     @property
-    def __lazyType__(self) -> Type[LazyIterable]:
+    def __lazyType__(self) -> "Type[LazyDataset]":
         """Specify the type of LazyObject associated to this class."""
         return LazyDataset
 
     @property
-    def __cachedType__(self) -> Type[CachedIterable]:
+    def __cachedType__(self) -> "Type[CachedDataset]":
         """Specify the type of CachedObject associated to this class."""
         return CachedDataset
 
@@ -302,7 +305,7 @@ class Dataset(BaseIterable[SampleTypes], Generic[FeatType, LabType], ABC):
         return LazyDataset(IterGenerator(__generator__))
 
 
-class CachedDataset(CachedIterable[SampleTypes], Dataset):
+class CachedDataset(_CachedIterable[SampleTypes], DillSerialization, Dataset):
     """Class that represents dataset cached in-memory, derived by a cached iterables of samples."""
 
     def to_df(self) -> pd.DataFrame:
@@ -325,7 +328,7 @@ class CachedDataset(CachedIterable[SampleTypes], Dataset):
         return PandasDataset(self.getFeaturesAs("pandas"), self.getLabelsAs("pandas"))
 
 
-class LazyDataset(LazyIterable[Sample], Dataset):
+class LazyDataset(_LazyIterable[Sample], Dataset):
     """Class that represents dataset derived by a lazy iterable of samples."""
 
     def withLookback(self, lookback: int) -> "LazyDataset":
@@ -545,7 +548,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         """
         return len(self.index)
 
-    def take(self, n: int) -> "PandasDataset":
+    def takeAsPandas(self, n: int) -> "PandasDataset":
         """
         Return top n records as a PandasDataset.
 

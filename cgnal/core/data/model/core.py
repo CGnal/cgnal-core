@@ -5,20 +5,22 @@ import sys
 from abc import ABC, abstractmethod
 from functools import reduce
 from itertools import islice
-from typing import List, Iterable, Iterator, Tuple, Union, Type, Any
+from typing import List, Iterable, Iterator, Tuple, Union, Type, Any, TypeVar
 
 import dill
 import numpy as np
 import pandas as pd
 from pandas.core.tools.datetimes import DatetimeScalar, Timestamp
 
-from cgnal.core.typing import PathLike, T, T_co
+from cgnal.core.typing import PathLike, T_co  # , T, T_co
 from cgnal.core.utils.dict import groupIterable
 
 if sys.version_info[0] < 3:
     pass
 
 from typing import Generic, Callable, Sequence
+
+T = TypeVar("T")
 
 
 class Serializable(ABC):
@@ -109,7 +111,7 @@ class IterGenerator(Generic[T]):
         return self.generator_function()
 
 
-class BaseIterable(Generic[T], ABC):
+class _BaseIterable(Generic[T], ABC):
     """
     Class to provide base interfaces and methods for enhancing iterables classes and enable more functional approaches.
 
@@ -136,104 +138,8 @@ class BaseIterable(Generic[T], ABC):
         """
         raise NotImplementedError
 
-    @property
-    def __lazyType__(self) -> "Type[LazyIterable]":
-        """Specify the type of LazyObject associated to this class."""
-        return LazyIterable
 
-    @property
-    def __cachedType__(self) -> "Type[CachedIterable]":
-        """Specify the type of CachedObject associated to this class."""
-        return CachedIterable
-
-    @property
-    def asLazy(self) -> "LazyIterable":
-        """
-        Provide a lazy representation of the iterable.
-
-        :return: lazy iterable
-        """
-
-        def generator():
-            for item in self:
-                yield item
-
-        return self.__lazyType__(IterGenerator(generator))
-
-    @property
-    def asCached(self) -> "CachedIterable":
-        """
-        Provide an in-memory cached representation of the iterable.
-
-        :return: cached iterable
-        """
-        return self.__cachedType__(list(self.items))
-
-    def take(self, size: int) -> "Iterable[T]":
-        """
-        Take the first n elements of the iterables.
-
-        :param size: number of elements to be taken
-        :return: cached iterable with the first elements
-        """
-        return self.__cachedType__(list(islice(self, size)))
-
-    def filter(self, f: Callable[[T], bool]) -> "LazyIterable[T]":
-        """
-        Return an iterable where elements have been filtered based on a boolean function.
-
-        :param f: boolean function that selects items
-        :return: lazy iterable with elements filtered
-        """
-
-        def generator():
-            for item in self:
-                if f(item):
-                    yield item
-
-        return self.__lazyType__(IterGenerator(generator))
-
-    def __iter__(self) -> Iterator[T]:
-        """Return an iterator over the items."""
-        for item in self.items:
-            yield item
-
-    def batch(self, size: int = 100) -> "Iterator[CachedIterable[T]]":
-        """
-        Return an iterator of batches of size *size*.
-
-        :param size: dimension of the batch
-        :return: iterator of batches
-        """
-        for batch in groupIterable(self.items, batch_size=size):
-            yield self.__cachedType__(batch)
-
-    def map(self, f: Callable[[T], T_co]) -> "LazyIterable[T_co]":
-        """
-        Map all elements of an iterable with the provided function.
-
-        :param f: function to be used to map the elements
-        :return: mapped iterable
-        """
-
-        def generator():
-            for item in self:
-                yield f(item)
-
-        return self.__lazyType__(IterGenerator(generator))
-
-    def foreach(self, f: Callable[[T], Any]):
-        """
-        Execute the provided function on each element of the iterable.
-
-        :param f: function to be executed for each element
-        :return: None
-        """
-        for doc in self.items:
-            f(doc)
-
-
-class LazyIterable(BaseIterable, Generic[T]):
+class _LazyIterable(_BaseIterable[T], Generic[T]):
     """Base class to be used for implementing lazy iterables."""
 
     def __init__(self, items: IterGenerator):
@@ -267,7 +173,7 @@ class LazyIterable(BaseIterable, Generic[T]):
         return False
 
 
-class CachedIterable(BaseIterable, Generic[T], DillSerialization):
+class _CachedIterable(_BaseIterable[T], Generic[T]):
     """Base class to be used for implementing cached iterables."""
 
     def __init__(self, items: Sequence[T]):
@@ -307,6 +213,142 @@ class CachedIterable(BaseIterable, Generic[T], DillSerialization):
         :return: boolean indicating whether iterable is fully-stored in memory
         """
         return True
+
+
+L = TypeVar("L", bound=_LazyIterable)
+C = TypeVar("C", bound=_CachedIterable)
+
+
+class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
+    @property
+    @abstractmethod
+    def __lazyType__(self) -> Type[L]:
+        """Specify the type of LazyObject associated to this class."""
+        raise NotImplementedError
+        # return LazyIterable[T]
+
+    @property
+    @abstractmethod
+    def __cachedType__(self) -> Type[C]:
+        """Specify the type of CachedObject associated to this class."""
+        raise NotImplementedError
+        # return CachedIterable[T]
+
+    @property
+    def asLazy(self) -> L:
+        """
+        Provide a lazy representation of the iterable.
+
+        :return: lazy iterable
+        """
+
+        def generator():
+            for item in self:
+                yield item
+
+        return self.__lazyType__(IterGenerator(generator))
+
+    @property
+    def asCached(self) -> C:
+        """
+        Provide an in-memory cached representation of the iterable.
+
+        :return: cached iterable
+        """
+        return self.__cachedType__(list(self.items))
+
+    def take(self, size: int) -> C:
+        """
+        Take the first n elements of the iterables.
+
+        :param size: number of elements to be taken
+        :return: cached iterable with the first elements
+        """
+        return self.__cachedType__(list(islice(self, size)))
+
+    def filter(self, f: Callable[[T], bool]) -> L:
+        """
+        Return an iterable where elements have been filtered based on a boolean function.
+
+        :param f: boolean function that selects items
+        :return: lazy iterable with elements filtered
+        """
+
+        def generator():
+            for item in self:
+                if f(item):
+                    yield item
+
+        return self.__lazyType__(IterGenerator(generator))
+
+    def __iter__(self) -> Iterator[T]:
+        """Return an iterator over the items."""
+        for item in self.items:
+            yield item
+
+    def batch(self, size: int = 100) -> Iterator[C]:
+        """
+        Return an iterator of batches of size *size*.
+
+        :param size: dimension of the batch
+        :return: iterator of batches
+        """
+        for batch in groupIterable(self.items, batch_size=size):
+            yield self.__cachedType__(batch)
+
+    def map(self, f: Callable[[T], T_co]) -> L:
+        """
+        Map all elements of an iterable with the provided function.
+
+        :param f: function to be used to map the elements
+        :return: mapped iterable
+        """
+
+        def generator():
+            for item in self:
+                yield f(item)
+
+        return self.__lazyType__(IterGenerator(generator))
+
+    def foreach(self, f: Callable[[T], Any]):
+        """
+        Execute the provided function on each element of the iterable.
+
+        :param f: function to be executed for each element
+        :return: None
+        """
+        for doc in self.items:
+            f(doc)
+
+
+class BaseIterable(
+    _IterableUtils[T, "CachedIterable[T]", "LazyIterable[T]"], Generic[T]
+):
+    """Basic class for extending iterable classes with boosted functionalities."""
+
+    @property
+    def __lazyType__(self) -> "Type[LazyIterable]":
+        """Specify the type of LazyObject associated to this class."""
+        return LazyIterable
+
+    @property
+    def __cachedType__(self) -> "Type[CachedIterable]":
+        """Specify the type of CachedObject associated to this class."""
+        return CachedIterable
+
+
+class CachedIterable(
+    _CachedIterable[T], BaseIterable[T], Generic[T], DillSerialization
+):
+    """Basic class for extending cached iterable class with boosted functionalities."""
+
+    ...
+
+
+class LazyIterable(_LazyIterable[T], BaseIterable[T], Generic[T]):
+    """Basic class for extending lazy iterable class with boosted functionalities."""
+
+    ...
 
 
 class BaseRange(ABC):

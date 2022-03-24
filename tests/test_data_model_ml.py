@@ -507,12 +507,12 @@ class PandasDatasetTests(TestCase):
 
     @logTest
     def test_take(self):
-        self.assertTrue(isinstance(self.dataset.take(1), PandasDataset))
+        self.assertTrue(isinstance(self.dataset.takeAsPandas(1), PandasDataset))
         self.assertEqual(
-            self.dataset.take(1).features.feat2, pd.Series([1], name="feat2")
+            self.dataset.takeAsPandas(1).features.feat2, pd.Series([1], name="feat2")
         )
         self.assertEqual(
-            self.dataset.take(1).labels["Label"], pd.Series([0], name="Label")
+            self.dataset.takeAsPandas(1).labels["Label"], pd.Series([0], name="Label")
         )
 
     @logTest

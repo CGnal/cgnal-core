@@ -76,7 +76,7 @@ keyring==23.5.0
     # via twine
 m2r2==0.3.2
     # via -r requirements/requirements_ci.in
-markupsafe==2.1.0
+markupsafe==2.1.1
     # via jinja2
 mccabe==0.6.1
     # via flake8
@@ -86,7 +86,7 @@ mongomock==4.0.0
     # via -r requirements/requirements_ci.in
 mpu[io]==0.23.1
     # via cfg-load
-mypy==0.931
+mypy==0.941
     # via -r requirements/requirements_ci.in
 mypy-extensions==0.4.3
     # via
@@ -134,7 +134,7 @@ pymongo==4.0.2
     # via -r requirements/requirements.in
 pyparsing==3.0.7
     # via packaging
-pytest==7.0.1
+pytest==7.1.1
     # via
     #   -r requirements/requirements_ci.in
     #   pytest-cov
@@ -142,7 +142,7 @@ pytest-cov==3.0.0
     # via -r requirements/requirements_ci.in
 python-dateutil==2.8.2
     # via pandas
-pytz==2021.3
+pytz==2022.1
     # via
     #   babel
     #   cfg-load
@@ -152,7 +152,7 @@ pytz-deprecation-shim==0.1.0.post0
     # via tzlocal
 pyyaml==6.0
     # via cfg-load
-readme-renderer==33.0
+readme-renderer==34.0
     # via twine
 recommonmark==0.7.1
     # via -r requirements/requirements_ci.in
@@ -224,11 +224,11 @@ typing-extensions==4.1.1
     #   black
     #   importlib-metadata
     #   mypy
-tzdata==2021.5
+tzdata==2022.1
     # via pytz-deprecation-shim
 tzlocal==4.1
     # via mpu
-urllib3==1.26.8
+urllib3==1.26.9
     # via
     #   requests
     #   twine
@@ -238,7 +238,7 @@ webencodings==0.5.1
     # via bleach
 wheel==0.37.1
     # via pip-tools
-wrapt==1.13.3
+wrapt==1.14.0
     # via deprecated
 zipp==3.7.0
     # via
