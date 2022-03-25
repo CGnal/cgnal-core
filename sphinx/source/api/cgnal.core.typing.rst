@@ -1,10 +1,10 @@
-core.typing package
-===================
+cgnal.core.typing package
+=========================
 
 Module contents
 ---------------
 
-.. automodule:: core.typing
+.. automodule:: cgnal.core.typing
    :members:
    :undoc-members:
    :show-inheritance:
