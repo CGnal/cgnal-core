@@ -9,7 +9,7 @@ CGnal core
 ====
 
 [![PyPI](https://img.shields.io/pypi/v/cgnal-core.svg)](https://pypi.python.org/pypi/cgnal-core)
-[![PyPI version](https://img.shields.io/pypi/pyversions/cgnal-core.svg)](https://pypi.python.org/pypi/cgnal-core)
+[![Python version](https://img.shields.io/badge/python-3.7+-blue.svg)](https://pypi.python.org/pypi/cgnal-core)
 [![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://cgnal.github.io/cgnal-core/)
 ![Python package](https://github.com/CGnal/cgnal-core/workflows/CI%20-%20Build%20and%20Test/badge.svg)
 
@@ -73,7 +73,7 @@ make checks
 
 ## Examples 
 
-#### Data Layers
+### Data Layers
 Creating a Database of Table objects
 
 ```python
@@ -90,7 +90,7 @@ table1 = db.table('df1')
 # write table to path
 table1.write(df1)
 # get path  
-table1.filename
+print(table1.filename)
 
 # convert to pandas dataframe 
 table1.to_df()
@@ -112,7 +112,7 @@ dao = DataFrameDAO()
 arch = CsvArchiver('/path/to/csvfile.csv', dao)
 
 # get pandas dataframe 
-arch.data
+print(arch.data.head())
 
 # retrieve a single document object 
 doc = next(arch.retrieve())
@@ -122,23 +122,24 @@ docs = [i for i in arch.retrieve()]
 arch.retrieveById(doc.uuid)
 
 # archive a single document 
-doc = next(self.a.retrieve())
+doc = next(arch.retrieve())
 # update column_name field of the document with the given value
-doc.data.update({'column_name': value})
+doc.data.update({'column_name': 'VALUE'})
 # archive the document 
 arch.archiveOne(doc)
 # archive list of documents
-a.archiveMany([doc, doc])
+arch.archiveMany([doc, doc])
 
 # get a document object as a pandas series 
 arch.dao.get(doc)
 ```
-#### Data Model
+### Data Model
 
 Creating a PandasDataset object
 
 ```python
 import pandas as pd
+import numpy as np
 from cgnal.core.data.model.ml import PandasDataset
 
 dataset = PandasDataset(features=pd.concat([pd.Series([1, np.nan, 2, 3], name="feat1"),
@@ -146,9 +147,9 @@ dataset = PandasDataset(features=pd.concat([pd.Series([1, np.nan, 2, 3], name="f
                         labels=pd.Series([0, 0, 0, 1], name="Label"))
 
 # access features as a pandas dataframe 
-dataset.features
+print(dataset.features.head())
 # access labels as pandas dataframe 
-dataset.labels
+print(dataset.labels.head())
 # access features as a python dictionary 
 dataset.getFeaturesAs('dict')
 # access features as numpy array 
@@ -156,14 +157,15 @@ dataset.getFeaturesAs('array')
 
 # indexing operations 
 # access features and labels at the given index as a pandas dataframe  
-dataset.loc(2).features
-dataset.loc(2).labels
+print(dataset.loc([2]).features.head())
+print(dataset.loc([2]).labels.head())
 ```
 
 Creating a PandasTimeIndexedDataset object
 
 ```python
 import pandas as pd
+import numpy as np
 from cgnal.core.data.model.ml import PandasTimeIndexedDataset
 
 dateStr = [str(x) for x in pd.date_range('2010-01-01', '2010-01-04')]

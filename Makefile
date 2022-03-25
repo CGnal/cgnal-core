@@ -66,11 +66,13 @@ reqs_ci: requirements/requirements_ci.txt
 $(env_tag): requirements/requirements.txt
 	pip-sync requirements/requirements.txt
 	rm -f $(env_ci_tag)
+	rm -f $(install_tag)
 	touch $(env_tag)
 
 $(env_ci_tag): requirements/requirements_ci.txt
 	pip-sync requirements/requirements_ci.txt
 	rm -f $(env_tag)
+	rm -f $(install_tag)
 	touch $(env_ci_tag)
 
 setup: $(env_tag)
@@ -87,7 +89,7 @@ dist/.build-tag: $(files) setup.cfg requirements/requirements.txt
 dist: dist/.build-tag setup.py
 
 $(install_tag): dist/.build-tag
-	${PYTHON} -m pip install $(shell ls -rt  dist/*.tar.gz | tail -1)
+	${PYTHON} -m pip install --no-deps $(shell ls -rt  dist/*.tar.gz | tail -1)
 	touch $(install_tag)
 
 uninstall:
@@ -98,10 +100,10 @@ uninstall:
 
 install: setup $(install_tag)
 
-tests: $(install_tag) setup_ci
+tests: setup_ci $(install_tag)
 	${PYTHON} -m pytest
 
-mypy: $(install_tag) setup_ci
+mypy: setup_ci $(install_tag)
 	mypy --install-types --non-interactive --follow-imports silent $(folders)
 
 lint: setup_ci
@@ -110,11 +112,9 @@ lint: setup_ci
 checks: format mypy lint tests
 
 docs: setup_ci $(install_tag) $(doc_files) setup.cfg
-	sphinx-apidoc -f -o sphinx/source/api cgnal/core
+	sphinx-apidoc --implicit-namespaces -f -o sphinx/source/api cgnal
 	make --directory=sphinx --file=Makefile clean html
 
-clean: uninstall
-	rm -rf docs
-	rm -rf build
+clean:
 	rm -rf $(shell find . -name "*.pyc") $(shell find . -name "__pycache__")
-	rm -rf dist *.egg-info .mypy_cache .pytest_cache .make_cache $(env_tag) $(env_ci_tag) $(install_tag)
+	rm -rf *.egg-info .mypy_cache .pytest_cache .make_cache $(env_tag) $(env_ci_tag) $(install_tag)
