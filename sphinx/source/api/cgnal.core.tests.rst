@@ -1,13 +1,13 @@
-core.logging package
-====================
+cgnal.core.tests package
+========================
 
 Submodules
 ----------
 
-core.logging.defaults module
+cgnal.core.tests.core module
 ----------------------------
 
-.. automodule:: core.logging.defaults
+.. automodule:: cgnal.core.tests.core
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ core.logging.defaults module
 Module contents
 ---------------
 
-.. automodule:: core.logging
+.. automodule:: cgnal.core.tests
    :members:
    :undoc-members:
    :show-inheritance:

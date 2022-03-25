@@ -1,7 +1,7 @@
-core
-====
+cgnal
+=====
 
 .. toctree::
    :maxdepth: 4
 
-   core
+   cgnal
