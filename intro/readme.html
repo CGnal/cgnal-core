@@ -49,7 +49,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tests">Tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#checks">Checks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Data Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Data Model</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-contribute">How to contribute ?</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#where-to-start">Where to start ?</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#contributing-to-cgnal-core">Contributing to cgnal-core</a></li>
@@ -64,7 +68,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer Guide:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">cgnal</a></li>
 </ul>
 
         </div>
@@ -97,7 +101,7 @@
 <section id="cgnal-core">
 <h1>CGnal core<a class="headerlink" href="#cgnal-core" title="Permalink to this headline"></a></h1>
 <a class="reference external image-reference" href="https://pypi.python.org/pypi/cgnal-core"><img alt="PyPI" src="https://img.shields.io/pypi/v/cgnal-core.svg" /></a>
-<a class="reference external image-reference" href="https://pypi.python.org/pypi/cgnal-core"><img alt="PyPI version" src="https://img.shields.io/pypi/pyversions/cgnal-core.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/cgnal-core"><img alt="Python version" src="https://img.shields.io/badge/python-3.7+-blue.svg" /></a>
 <a class="reference external image-reference" href="https://cgnal.github.io/cgnal-core/"><img alt="Documentation" src="https://img.shields.io/badge/docs-latest-brightgreen.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/CGnal/cgnal-core/workflows/CI%20-%20Build%20and%20Test/badge.svg"><img alt="Python package" src="https://github.com/CGnal/cgnal-core/workflows/CI%20-%20Build%20and%20Test/badge.svg" /></a>
 <hr class="docutils" />
@@ -166,6 +170,8 @@ of samples.</p></li>
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h2>
+<section id="id1">
+<h3>Data Layers<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <p>Creating a Database of Table objects</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">cgnal.core.data.layer.pandas.databases</span> <span class="kn">import</span> <span class="n">Database</span>
@@ -180,7 +186,7 @@ of samples.</p></li>
 <span class="c1"># write table to path</span>
 <span class="n">table1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span>
 <span class="c1"># get path</span>
-<span class="n">table1</span><span class="o">.</span><span class="n">filename</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">table1</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
 
 <span class="c1"># convert to pandas dataframe</span>
 <span class="n">table1</span><span class="o">.</span><span class="n">to_df</span><span class="p">()</span>
@@ -200,7 +206,7 @@ of samples.</p></li>
 <span class="n">arch</span> <span class="o">=</span> <span class="n">CsvArchiver</span><span class="p">(</span><span class="s1">&#39;/path/to/csvfile.csv&#39;</span><span class="p">,</span> <span class="n">dao</span><span class="p">)</span>
 
 <span class="c1"># get pandas dataframe</span>
-<span class="n">arch</span><span class="o">.</span><span class="n">data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">arch</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 
 <span class="c1"># retrieve a single document object</span>
 <span class="n">doc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">arch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">())</span>
@@ -210,20 +216,24 @@ of samples.</p></li>
 <span class="n">arch</span><span class="o">.</span><span class="n">retrieveById</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
 
 <span class="c1"># archive a single document</span>
-<span class="n">doc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">retrieve</span><span class="p">())</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">arch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">())</span>
 <span class="c1"># update column_name field of the document with the given value</span>
-<span class="n">doc</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;column_name&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;column_name&#39;</span><span class="p">:</span> <span class="s1">&#39;VALUE&#39;</span><span class="p">})</span>
 <span class="c1"># archive the document</span>
 <span class="n">arch</span><span class="o">.</span><span class="n">archiveOne</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 <span class="c1"># archive list of documents</span>
-<span class="n">a</span><span class="o">.</span><span class="n">archiveMany</span><span class="p">([</span><span class="n">doc</span><span class="p">,</span> <span class="n">doc</span><span class="p">])</span>
+<span class="n">arch</span><span class="o">.</span><span class="n">archiveMany</span><span class="p">([</span><span class="n">doc</span><span class="p">,</span> <span class="n">doc</span><span class="p">])</span>
 
 <span class="c1"># get a document object as a pandas series</span>
 <span class="n">arch</span><span class="o">.</span><span class="n">dao</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="id2">
+<h3>Data Model<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
 <p>Creating a PandasDataset object</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">cgnal.core.data.model.ml</span> <span class="kn">import</span> <span class="n">PandasDataset</span>
 
 <span class="n">dataset</span> <span class="o">=</span> <span class="n">PandasDataset</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;feat1&quot;</span><span class="p">),</span>
@@ -231,9 +241,9 @@ of samples.</p></li>
                         <span class="n">labels</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Label&quot;</span><span class="p">))</span>
 
 <span class="c1"># access features as a pandas dataframe</span>
-<span class="n">dataset</span><span class="o">.</span><span class="n">features</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 <span class="c1"># access labels as pandas dataframe</span>
-<span class="n">dataset</span><span class="o">.</span><span class="n">labels</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 <span class="c1"># access features as a python dictionary</span>
 <span class="n">dataset</span><span class="o">.</span><span class="n">getFeaturesAs</span><span class="p">(</span><span class="s1">&#39;dict&#39;</span><span class="p">)</span>
 <span class="c1"># access features as numpy array</span>
@@ -241,12 +251,13 @@ of samples.</p></li>
 
 <span class="c1"># indexing operations</span>
 <span class="c1"># access features and labels at the given index as a pandas dataframe</span>
-<span class="n">dataset</span><span class="o">.</span><span class="n">loc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">features</span>
-<span class="n">dataset</span><span class="o">.</span><span class="n">loc</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">labels</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">loc</span><span class="p">([</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">loc</span><span class="p">([</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
 <p>Creating a PandasTimeIndexedDataset object</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">cgnal.core.data.model.ml</span> <span class="kn">import</span> <span class="n">PandasTimeIndexedDataset</span>
 
 <span class="n">dateStr</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2010-01-04&#39;</span><span class="p">)]</span>
@@ -257,6 +268,7 @@ of samples.</p></li>
     <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
+</section>
 </section>
 <section id="how-to-contribute">
 <h2>How to contribute ?<a class="headerlink" href="#how-to-contribute" title="Permalink to this headline"></a></h2>

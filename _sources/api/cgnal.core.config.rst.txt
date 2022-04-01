@@ -1,10 +1,10 @@
-core.config package
-===================
+cgnal.core.config package
+=========================
 
 Module contents
 ---------------
 
-.. automodule:: core.config
+.. automodule:: cgnal.core.config
    :members:
    :undoc-members:
    :show-inheritance:

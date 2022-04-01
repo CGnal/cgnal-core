@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cgnal.core.data.layer.pandas package &mdash; cgnal-core  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="cgnal.core.data.model package" href="cgnal.core.data.model.html" />
+    <link rel="prev" title="cgnal.core.data.layer.mongo package" href="cgnal.core.data.layer.mongo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> cgnal-core
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Intro:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro/readme.html">CGnal core</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/index.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">cgnal</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cgnal.html">cgnal namespace</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="cgnal.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="cgnal.core.html">cgnal.core package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="cgnal.core.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l6"><a class="reference internal" href="cgnal.core.config.html">cgnal.core.config package</a></li>
+<li class="toctree-l6 current"><a class="reference internal" href="cgnal.core.data.html">cgnal.core.data package</a></li>
+<li class="toctree-l6"><a class="reference internal" href="cgnal.core.logging.html">cgnal.core.logging package</a></li>
+<li class="toctree-l6"><a class="reference internal" href="cgnal.core.tests.html">cgnal.core.tests package</a></li>
+<li class="toctree-l6"><a class="reference internal" href="cgnal.core.typing.html">cgnal.core.typing package</a></li>
+<li class="toctree-l6"><a class="reference internal" href="cgnal.core.utils.html">cgnal.core.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="cgnal.core.html#module-cgnal.core">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cgnal-core</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">cgnal</a> &raquo;</li>
+          <li><a href="cgnal.html">cgnal namespace</a> &raquo;</li>
+          <li><a href="cgnal.core.html">cgnal.core package</a> &raquo;</li>
+          <li><a href="cgnal.core.data.html">cgnal.core.data package</a> &raquo;</li>
+          <li><a href="cgnal.core.data.layer.html">cgnal.core.data.layer package</a> &raquo;</li>
+      <li>cgnal.core.data.layer.pandas package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/cgnal.core.data.layer.pandas.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cgnal-core-data-layer-pandas-package">
+<h1>cgnal.core.data.layer.pandas package<a class="headerlink" href="#cgnal-core-data-layer-pandas-package" title="Permalink to this headline"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-cgnal.core.data.layer.pandas.archivers">
+<span id="cgnal-core-data-layer-pandas-archivers-module"></span><h2>cgnal.core.data.layer.pandas.archivers module<a class="headerlink" href="#module-cgnal.core.data.layer.pandas.archivers" title="Permalink to this headline"></a></h2>
+<p>Module with abstraction for accessing to data persistent in pickles, mimicking a ficticious database.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.CsvArchiver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.pandas.archivers.</span></span><span class="sig-name descname"><span class="pre">CsvArchiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dao</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cgnal.core.data.layer.html#cgnal.core.data.layer.DAO" title="cgnal.core.data.layer.DAO"><span class="pre">cgnal.core.data.layer.DAO</span></a><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.series.Series</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">';'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.CsvArchiver" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver" title="cgnal.core.data.layer.pandas.archivers.PandasArchiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.layer.pandas.archivers.PandasArchiver</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.typing.T</span></code>]</p>
+<p>Archiver based on persistent layers based on tabular files stored on csv.</p>
+<p>Create an in-memory archiver based on structured data stored in the filesystem as a CSV.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – str, path object or file like object. Any valid string path to a csv file.</p></li>
+<li><p><strong>dao</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.layer.pandas.dao.DocumentDao/SeriesDAO/DataFrameDAO</span></code>
+that helps to retrieve/archive a <cite>pd.Dataframe</cite> row.</p></li>
+<li><p><strong>sep</strong> – str, default ‘;’. Delimiter to use</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.PandasArchiver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.pandas.archivers.</span></span><span class="sig-name descname"><span class="pre">PandasArchiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dao</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cgnal.core.data.layer.html#cgnal.core.data.layer.DAO" title="cgnal.core.data.layer.DAO"><span class="pre">cgnal.core.data.layer.DAO</span></a><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.series.Series</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="cgnal.core.data.layer.html#cgnal.core.data.layer.Archiver" title="cgnal.core.data.layer.Archiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.layer.Archiver</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.typing.T</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Archiver based on persistent layers based on tabular files, represented in memory by a pandas DataFrame.</p>
+<p>Create an in-memory archiver based on structured data stored as a pandas DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dao</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.layer.pandas.dao.DocumentDao/SeriesDAO/DataFrameDAO</span></code> that helps
+to retrieve/archive a pd.DataFrame row</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.PandasArchiver.archive">
+<span class="sig-name descname"><span class="pre">archive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver.archive" title="Permalink to this definition"></a></dt>
+<dd><p>Insert one or more objects in the underlying pd.DataFrame object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>objs</strong> – object or list of objects to be archived. The objects can be of the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.model.text.Document</span></code>, <cite>pd.DataFrame</cite> or <cite>pd.Series</cite></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>self i.e. an instance of <code class="docutils literal notranslate"><span class="pre">PandasArchiver</span></code> with updated self.data object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.PandasArchiver.archiveMany">
+<span class="sig-name descname"><span class="pre">archiveMany</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver" title="cgnal.core.data.layer.pandas.archivers.PandasArchiver"><span class="pre">cgnal.core.data.layer.pandas.archivers.PandasArchiver</span></a></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver.archiveMany" title="Permalink to this definition"></a></dt>
+<dd><p>Insert many objects of type Document/pd.DataFrame/pd.Series in a pd.DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>objs</strong> – List of objects to be inserted. The objects can be of the following class instances
+<code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.model.text.Document</span></code>, <cite>pd.DataFrame</cite> or <cite>pd.Series</cite></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>self i.e. an instance of <code class="docutils literal notranslate"><span class="pre">PandasArchiver</span></code> with updated self.data object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.PandasArchiver.archiveOne">
+<span class="sig-name descname"><span class="pre">archiveOne</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cgnal.core.typing.T</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver.archiveOne" title="Permalink to this definition"></a></dt>
+<dd><p>Insert an object of type Document/pd.DataFrame/pd.Series in a pd.DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.model.text.Document,</span> <span class="pre">pd.DataFrame</span> <span class="pre">or</span> <span class="pre">pd.Series</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>self i.e. an instance of <code class="docutils literal notranslate"><span class="pre">PandasArchiver</span></code> with updated self.data object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.PandasArchiver.commit">
+<span class="sig-name descname"><span class="pre">commit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver" title="cgnal.core.data.layer.pandas.archivers.PandasArchiver"><span class="pre">cgnal.core.data.layer.pandas.archivers.PandasArchiver</span></a></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver.commit" title="Permalink to this definition"></a></dt>
+<dd><p>Persist data stored in memory in the file.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.PandasArchiver.data">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span></em><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver.data" title="Permalink to this definition"></a></dt>
+<dd><p>Return tabular data stored in memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.PandasArchiver.retrieve">
+<span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver.retrieve" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve rows satisfying condition, sorted according to given ordering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>condition</strong> – condition to satisfy. If None return all rows.</p></li>
+<li><p><strong>sort_by</strong> – ordering to respect. If None, no ordering is given.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>iterator of (ordered) rows satisfying given condition</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.PandasArchiver.retrieveById">
+<span class="sig-name descname"><span class="pre">retrieveById</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uuid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.indexes.base.Index</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">cgnal.core.typing.T</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver.retrieveById" title="Permalink to this definition"></a></dt>
+<dd><p>Retrive row from a dataframe by id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uuid</strong> – row id</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>retrieved row parsed according to self.dao</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.PandasArchiver.retrieveGenerator">
+<span class="sig-name descname"><span class="pre">retrieveGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cgnal.core.data.model.html#cgnal.core.data.model.core.IterGenerator" title="cgnal.core.data.model.core.IterGenerator"><span class="pre">cgnal.core.data.model.core.IterGenerator</span></a><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver.retrieveGenerator" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieve a generator of rows satisfying condition, sorted according to given ordering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>condition</strong> – condition to satisfy. If None return all rows.</p></li>
+<li><p><strong>sort_by</strong> – ordering to respect. If None, no ordering is given.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>generator of rows satisfying given condition. The generator is of the the type
+<code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.model.core.IterGenerator</span></code> (ordered)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.PickleArchiver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.pandas.archivers.</span></span><span class="sig-name descname"><span class="pre">PickleArchiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dao</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cgnal.core.data.layer.html#cgnal.core.data.layer.DAO" title="cgnal.core.data.layer.DAO"><span class="pre">cgnal.core.data.layer.DAO</span></a><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.series.Series</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.PickleArchiver" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver" title="cgnal.core.data.layer.pandas.archivers.PandasArchiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.layer.pandas.archivers.PandasArchiver</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.typing.T</span></code>]</p>
+<p>Archiver based on persistent layers based on tabular files stored on a pickle.</p>
+<p>Create an in-memory archiver based on structured data stored in the filesystem as a Pickle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – str, path object or file like object. Any valid string path to a pickle file.</p></li>
+<li><p><strong>dao</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.layer.pandas.dao.DocumentDao/SeriesDAO/DataFrameDAO</span></code>
+that helps to retrieve/archive a <cite>pd.Dataframe</cite> row.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.TableArchiver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.pandas.archivers.</span></span><span class="sig-name descname"><span class="pre">TableArchiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cgnal.core.data.layer.pandas.databases.Table" title="cgnal.core.data.layer.pandas.databases.Table"><span class="pre">cgnal.core.data.layer.pandas.databases.Table</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dao</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cgnal.core.data.layer.html#cgnal.core.data.layer.DAO" title="cgnal.core.data.layer.DAO"><span class="pre">cgnal.core.data.layer.DAO</span></a><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.series.Series</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.TableArchiver" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver" title="cgnal.core.data.layer.pandas.archivers.PandasArchiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.layer.pandas.archivers.PandasArchiver</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.typing.T</span></code>]</p>
+<p>Archiver based on persistent layers based on tabular files stored on a table in a database.</p>
+<p>Create an in-memory archiver based on structured data stored as a table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.layer.pandas.databases.Table</span></code></p></li>
+<li><p><strong>dao</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.layer.pandas.dao.DocumentDao/SeriesDAO/DataFrameDAO</span></code>
+that helps to retrieve/archive a <cite>pd.Dataframe</cite> row.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-cgnal.core.data.layer.pandas.dao">
+<span id="cgnal-core-data-layer-pandas-dao-module"></span><h2>cgnal.core.data.layer.pandas.dao module<a class="headerlink" href="#module-cgnal.core.data.layer.pandas.dao" title="Permalink to this headline"></a></h2>
+<p>Module with the implementation and abstraction for serializing/deserializing objects into DataFrames.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.DataFrameDAO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.pandas.dao.</span></span><span class="sig-name descname"><span class="pre">DataFrameDAO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.DataFrameDAO" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="cgnal.core.data.layer.html#cgnal.core.data.layer.DAO" title="cgnal.core.data.layer.DAO"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.layer.DAO</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>]</p>
+<p>Data Access Object for pd.DataFrames.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.DataFrameDAO.addName">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">addName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Hashable</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.DataFrameDAO.addName" title="Permalink to this definition"></a></dt>
+<dd><p>Add name to the input dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – pd.DataFrame</p></li>
+<li><p><strong>name</strong> – str</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.DataFrameDAO.computeKey">
+<span class="sig-name descname"><span class="pre">computeKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Hashable</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.DataFrameDAO.computeKey" title="Permalink to this definition"></a></dt>
+<dd><p>Get dataframe name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> – pd.DataFrame. A pandas dataframe</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>str, name of the dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.DataFrameDAO.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.series.Series</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.DataFrameDAO.get" title="Permalink to this definition"></a></dt>
+<dd><p>Get dataframe as pd.Series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> – pd.DataFrame. A pandas dataframe</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.DataFrameDAO.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.series.Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.DataFrameDAO.parse" title="Permalink to this definition"></a></dt>
+<dd><p>Get a row i.e. pd.Series as a pandas DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>row</strong> – pd.Series, row of a pd.DataFrame</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pd.DataFrame, a pandas dataframe object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.DocumentDAO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.pandas.dao.</span></span><span class="sig-name descname"><span class="pre">DocumentDAO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.DocumentDAO" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="cgnal.core.data.layer.html#cgnal.core.data.layer.DAO" title="cgnal.core.data.layer.DAO"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.layer.DAO</span></code></a>[<a class="reference internal" href="cgnal.core.data.model.html#cgnal.core.data.model.text.Document" title="cgnal.core.data.model.text.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.text.Document</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>]</p>
+<p>Data access object for documents.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.DocumentDAO.computeKey">
+<span class="sig-name descname"><span class="pre">computeKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cgnal.core.data.model.html#cgnal.core.data.model.text.Document" title="cgnal.core.data.model.text.Document"><span class="pre">cgnal.core.data.model.text.Document</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Hashable</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.DocumentDAO.computeKey" title="Permalink to this definition"></a></dt>
+<dd><p>Get document id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>doc</strong> – an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.model.text.Document</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>uuid i.e. id of the given document</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.DocumentDAO.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="cgnal.core.data.model.html#cgnal.core.data.model.text.Document" title="cgnal.core.data.model.text.Document"><span class="pre">cgnal.core.data.model.text.Document</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.series.Series</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.DocumentDAO.get" title="Permalink to this definition"></a></dt>
+<dd><p>Get doc as pd.Series with uuid as name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>doc</strong> – an instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.model.text.Document</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.DocumentDAO.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.series.Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cgnal.core.data.model.html#cgnal.core.data.model.text.Document" title="cgnal.core.data.model.text.Document"><span class="pre">cgnal.core.data.model.text.Document</span></a></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.DocumentDAO.parse" title="Permalink to this definition"></a></dt>
+<dd><p>Get a row i.e. pd.Series as a Document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>row</strong> – pd.Series, row of a pd.DataFrame</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.model.text.Document</span></code>, a Document object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.SeriesDAO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.pandas.dao.</span></span><span class="sig-name descname"><span class="pre">SeriesDAO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Hashable</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Hashable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Hashable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.SeriesDAO" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="cgnal.core.data.layer.html#cgnal.core.data.layer.DAO" title="cgnal.core.data.layer.DAO"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.layer.DAO</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.series.Series</span></code>]</p>
+<p>Data Access Object for pd.Series.</p>
+<p>Create a Data Access Object for pd.Series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapping</strong> – mapping of names between the file and the Series. The value of the key represent
+the name in the file, the value represent the name we want to have in the Series</p></li>
+<li><p><strong>keys</strong> – which of the fields in the Series should be used as keys</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.SeriesDAO.computeKey">
+<span class="sig-name descname"><span class="pre">computeKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serie</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Hashable</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.SeriesDAO.computeKey" title="Permalink to this definition"></a></dt>
+<dd><p>Get series name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>serie</strong> – pd.Series</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dict representing the key</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.SeriesDAO.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serie</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.series.Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.series.Series</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.SeriesDAO.get" title="Permalink to this definition"></a></dt>
+<dd><p>Get a series as series object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> – pd.Series</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.SeriesDAO.inverseMapping">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">inverseMapping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Hashable</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Hashable</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.SeriesDAO.inverseMapping" title="Permalink to this definition"></a></dt>
+<dd><p>Return the inverse mapping between field names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dict with inverse mapping</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.dao.SeriesDAO.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.series.Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.series.Series</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.dao.SeriesDAO.parse" title="Permalink to this definition"></a></dt>
+<dd><p>Get a row as a pd.Series object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>row</strong> – pd.Series</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cgnal.core.data.layer.pandas.databases">
+<span id="cgnal-core-data-layer-pandas-databases-module"></span><h2>cgnal.core.data.layer.pandas.databases module<a class="headerlink" href="#module-cgnal.core.data.layer.pandas.databases" title="Permalink to this headline"></a></h2>
+<p>Module with abstraction for databases and tables.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.databases.Database">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.pandas.databases.</span></span><span class="sig-name descname"><span class="pre">Database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'.p'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.pandas.databases.Database" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="cgnal.core.logging.html#cgnal.core.logging.defaults.WithLogging" title="cgnal.core.logging.defaults.WithLogging"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.logging.defaults.WithLogging</span></code></a>, <a class="reference internal" href="cgnal.core.data.layer.html#cgnal.core.data.layer.DatabaseABC" title="cgnal.core.data.layer.DatabaseABC"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.layer.DatabaseABC</span></code></a></p>
+<p>Class representing a Database object.</p>
+<p>Return an instance of a class implementing standard read and write methods to pickle data sources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – path to pickles</p></li>
+<li><p><strong>extension</strong> – standard pickle extension</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.databases.Database.table">
+<span class="sig-name descname"><span class="pre">table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cgnal.core.data.layer.pandas.databases.Table" title="cgnal.core.data.layer.pandas.databases.Table"><span class="pre">cgnal.core.data.layer.pandas.databases.Table</span></a></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.databases.Database.table" title="Permalink to this definition"></a></dt>
+<dd><p>Select table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table_name</strong> – name of the table</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>object of class PickleTable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.databases.Database.tables">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tables</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.data.layer.pandas.databases.Database.tables" title="Permalink to this definition"></a></dt>
+<dd><p>Complete pickle names with appropriate extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pickle names with appropriate extensions</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.databases.Table">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.pandas.databases.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cgnal.core.data.layer.pandas.databases.Database" title="cgnal.core.data.layer.pandas.databases.Database"><span class="pre">cgnal.core.data.layer.pandas.databases.Database</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.pandas.databases.Table" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="cgnal.core.logging.html#cgnal.core.logging.defaults.WithLogging" title="cgnal.core.logging.defaults.WithLogging"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.logging.defaults.WithLogging</span></code></a>, <a class="reference internal" href="cgnal.core.data.layer.html#cgnal.core.data.layer.TableABC" title="cgnal.core.data.layer.TableABC"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.layer.TableABC</span></code></a></p>
+<p>Class representing a Table in a Database.</p>
+<p>Implement a constructor for tables using pickle file format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> – database to which the table belongs</p></li>
+<li><p><strong>table_name</strong> – name of the table</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.databases.Table.data">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span></em><a class="headerlink" href="#cgnal.core.data.layer.pandas.databases.Table.data" title="Permalink to this definition"></a></dt>
+<dd><p>Read pickle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pd.DataFrame or pd.Series read from pickle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.databases.Table.filename">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.data.layer.pandas.databases.Table.filename" title="Permalink to this definition"></a></dt>
+<dd><p>Return path to pickle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>path to pickle file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.databases.Table.to_df">
+<span class="sig-name descname"><span class="pre">to_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.databases.Table.to_df" title="Permalink to this definition"></a></dt>
+<dd><p>Read pickle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pd.DataFrame or pd.Series read from pickle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.databases.Table.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.databases.Table.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write pickle of data, eventually outer joined with an input DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – input data</p></li>
+<li><p><strong>overwrite</strong> – whether or not to overwrite existing file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cgnal.core.data.layer.pandas">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cgnal.core.data.layer.pandas" title="Permalink to this headline"></a></h2>
+<p>Data layer for pandas integration</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cgnal.core.data.layer.mongo.html" class="btn btn-neutral float-left" title="cgnal.core.data.layer.mongo package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cgnal.core.data.model.html" class="btn btn-neutral float-right" title="cgnal.core.data.model package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CGnal s.r.l..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
