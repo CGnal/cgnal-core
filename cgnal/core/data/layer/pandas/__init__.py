@@ -1,3 +1,1 @@
-"""
-Data layer for pandas integration
-"""
+"""Data layer for pandas integration."""

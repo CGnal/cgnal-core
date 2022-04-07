@@ -1,5 +1,5 @@
 """
-Data model module
+Data model module.
 
-In this module are defined the data types used in CGnal framework
+In this module the data types used in CGnal framework are defined.
 """
