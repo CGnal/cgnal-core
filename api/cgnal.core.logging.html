@@ -191,10 +191,12 @@
 </section>
 <section id="module-cgnal.core.logging">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cgnal.core.logging" title="Permalink to this headline"></a></h2>
+<p>Logging module.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cgnal.core.logging.LevelsDict">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.logging.</span></span><span class="sig-name descname"><span class="pre">LevelsDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.logging.LevelsDict" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<p>Dictionary of logging levels.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cgnal.core.logging.LevelsDict.CRITICAL">
 <span class="sig-name descname"><span class="pre">CRITICAL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">typing_extensions.Literal[50]</span></em><a class="headerlink" href="#cgnal.core.logging.LevelsDict.CRITICAL" title="Permalink to this definition"></a></dt>
@@ -231,25 +233,36 @@
 <dt class="sig sig-object py" id="cgnal.core.logging.LoggingConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.logging.</span></span><span class="sig-name descname"><span class="pre">LoggingConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cfg_load.Configuration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.logging.LoggingConfig" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="cgnal.core.config.html#cgnal.core.config.BaseConfig" title="cgnal.core.config.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.config.BaseConfig</span></code></a></p>
+<p>Logging configuration.</p>
+<p>Class instance initializer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – configuration</p>
+</dd>
+</dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.logging.LoggingConfig.capture_warnings">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">capture_warnings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cgnal.core.logging.LoggingConfig.capture_warnings" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Flag that determines whether waring are captured.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.logging.LoggingConfig.default_config_file">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_config_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.logging.LoggingConfig.default_config_file" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return default logging configuration file.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.logging.LoggingConfig.filename">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.logging.LoggingConfig.filename" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Name of the file where logs are stored.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.logging.LoggingConfig.level">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.logging.LoggingConfig.level" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Returnn logging level.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -257,11 +270,16 @@
 <dt class="sig sig-object py" id="cgnal.core.logging.WithLoggingABC">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.logging.</span></span><span class="sig-name descname"><span class="pre">WithLoggingABC</span></span><a class="headerlink" href="#cgnal.core.logging.WithLoggingABC" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Abstract class providing logging capabilities.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.logging.WithLoggingABC.logger">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">logging.Logger</span></em><a class="headerlink" href="#cgnal.core.logging.WithLoggingABC.logger" title="Permalink to this definition"></a></dt>
-<dd><p>Logger instance to be used to output logs within a class
-:return: None, outputs logs</p>
+<dd><p>Logger instance to be used to output logs within a class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None, outputs logs</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

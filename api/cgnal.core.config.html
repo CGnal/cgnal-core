@@ -102,29 +102,61 @@
 <h1>cgnal.core.config package<a class="headerlink" href="#cgnal-core-config-package" title="Permalink to this headline"></a></h1>
 <section id="module-cgnal.core.config">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cgnal.core.config" title="Permalink to this headline"></a></h2>
+<p>Implementation of classes that parse configuration files.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.config.</span></span><span class="sig-name descname"><span class="pre">AuthConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cfg_load.Configuration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.config.AuthConfig" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cgnal.core.config.BaseConfig" title="cgnal.core.config.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.config.BaseConfig</span></code></a></p>
+<p>Authetication configuration.</p>
+<p>Class instance initializer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – configuration</p>
+</dd>
+</dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthConfig.filename">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.config.AuthConfig.filename" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the name of the file containing the authentication details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return PathLike</dt>
+<dd class="field-odd"><p>name of the file containing the authentication details</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthConfig.method">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">method</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.config.AuthConfig.method" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the authentication method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return str</dt>
+<dd class="field-odd"><p>authentication method</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthConfig.password">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.config.AuthConfig.password" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the password.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return str</dt>
+<dd class="field-odd"><p>password</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthConfig.user">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">user</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.config.AuthConfig.user" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the user name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return str</dt>
+<dd class="field-odd"><p>user name</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -132,20 +164,45 @@
 <dt class="sig sig-object py" id="cgnal.core.config.AuthService">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.config.</span></span><span class="sig-name descname"><span class="pre">AuthService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cfg_load.Configuration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.config.AuthService" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cgnal.core.config.BaseConfig" title="cgnal.core.config.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.config.BaseConfig</span></code></a></p>
+<p>Configuration for the authentication data.</p>
+<p>Class instance initializer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – configuration</p>
+</dd>
+</dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthService.check">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.config.AuthService.check" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return check.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return str</dt>
+<dd class="field-odd"><p>check</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthService.decode">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decode</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.config.AuthService.decode" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return decode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return str</dt>
+<dd class="field-odd"><p>decode</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthService.url">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.config.AuthService.url" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the url of the authentication service.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return str</dt>
+<dd class="field-odd"><p>url of the authentication service</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -153,35 +210,78 @@
 <dt class="sig sig-object py" id="cgnal.core.config.AuthenticationServiceConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.config.</span></span><span class="sig-name descname"><span class="pre">AuthenticationServiceConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cfg_load.Configuration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.config.AuthenticationServiceConfig" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cgnal.core.config.BaseConfig" title="cgnal.core.config.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.config.BaseConfig</span></code></a></p>
+<p>Configuration of the authentication service.</p>
+<p>Class instance initializer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – configuration</p>
+</dd>
+</dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthenticationServiceConfig.ap_name">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ap_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.config.AuthenticationServiceConfig.ap_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the ap name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return str</dt>
+<dd class="field-odd"><p>ap name</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthenticationServiceConfig.auth_service">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">auth_service</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cgnal.core.config.AuthService" title="cgnal.core.config.AuthService"><span class="pre">cgnal.core.config.AuthService</span></a></em><a class="headerlink" href="#cgnal.core.config.AuthenticationServiceConfig.auth_service" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the authentication data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return AuthService</dt>
+<dd class="field-odd"><p>authentication data</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthenticationServiceConfig.check_service">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_service</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cgnal.core.config.CheckService" title="cgnal.core.config.CheckService"><span class="pre">cgnal.core.config.CheckService</span></a></em><a class="headerlink" href="#cgnal.core.config.AuthenticationServiceConfig.check_service" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the check service configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return CheckService</dt>
+<dd class="field-odd"><p>check service configuration</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthenticationServiceConfig.cors">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.config.AuthenticationServiceConfig.cors" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the cors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return str</dt>
+<dd class="field-odd"><p>cors</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthenticationServiceConfig.jwt_free_endpoints">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">jwt_free_endpoints</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.config.AuthenticationServiceConfig.jwt_free_endpoints" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the jwt free endpoints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return List[str]</dt>
+<dd class="field-odd"><p>jwt free endpoints</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.AuthenticationServiceConfig.secured">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">secured</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cgnal.core.config.AuthenticationServiceConfig.secured" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the secured flag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return bool</dt>
+<dd class="field-odd"><p>secured flag</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -189,25 +289,68 @@
 <dt class="sig sig-object py" id="cgnal.core.config.BaseConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.config.</span></span><span class="sig-name descname"><span class="pre">BaseConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cfg_load.Configuration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.config.BaseConfig" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base configuration class.</p>
+<p>Class instance initializer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – configuration</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.config.BaseConfig.getValue">
 <span class="sig-name descname"><span class="pre">getValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#cgnal.core.config.BaseConfig.getValue" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Get the value of a configuration node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name of the configuration node</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>value of the configuratio node</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.config.BaseConfig.safeGetValue">
 <span class="sig-name descname"><span class="pre">safeGetValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#cgnal.core.config.BaseConfig.safeGetValue" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Get the value of a configuration node, gracefully returning None if the node does not exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>Hashable</em>) – name of the node</p>
+</dd>
+<dt class="field-even">Return Any</dt>
+<dd class="field-even"><p>value of the node, or None if the node does not exist</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.config.BaseConfig.sublevel">
 <span class="sig-name descname"><span class="pre">sublevel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">cfg_load.Configuration</span></span></span><a class="headerlink" href="#cgnal.core.config.BaseConfig.sublevel" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return a sublevel of the main configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – name of the sublevel</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>configuration of the sublevel</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.config.BaseConfig.update">
 <span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">my_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cgnal.core.config.BaseConfig" title="cgnal.core.config.BaseConfig"><span class="pre">cgnal.core.config.BaseConfig</span></a></span></span><a class="headerlink" href="#cgnal.core.config.BaseConfig.update" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Update the current configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>my_dict</strong> (<em>dict</em>) – dictionary containing the nodes of the configuration to be updated</p>
+</dd>
+<dt class="field-even">Return BaseConfig</dt>
+<dd class="field-even"><p>new configuration with the updated nodes</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -215,20 +358,45 @@
 <dt class="sig sig-object py" id="cgnal.core.config.CheckService">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.config.</span></span><span class="sig-name descname"><span class="pre">CheckService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cfg_load.Configuration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.config.CheckService" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cgnal.core.config.BaseConfig" title="cgnal.core.config.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.config.BaseConfig</span></code></a></p>
+<p>Configuration for the check service.</p>
+<p>Class instance initializer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – configuration</p>
+</dd>
+</dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.CheckService.login">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">login</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.config.CheckService.login" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the login url.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return str</dt>
+<dd class="field-odd"><p>login url</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.CheckService.logout">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">logout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.config.CheckService.logout" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the logout url.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return str</dt>
+<dd class="field-odd"><p>logout url</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.CheckService.url">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.config.CheckService.url" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the url of the check service.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return str</dt>
+<dd class="field-odd"><p>url of the check service.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -236,27 +404,58 @@
 <dt class="sig sig-object py" id="cgnal.core.config.FileSystemConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.config.</span></span><span class="sig-name descname"><span class="pre">FileSystemConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cfg_load.Configuration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.config.FileSystemConfig" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cgnal.core.config.BaseConfig" title="cgnal.core.config.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.config.BaseConfig</span></code></a></p>
+<p>Configuration for file system paths.</p>
+<p>Class instance initializer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – configuration</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.config.FileSystemConfig.getFile">
 <span class="sig-name descname"><span class="pre">getFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.config.FileSystemConfig.getFile" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the file name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>Hashable</em>) – name of the configuration node</p>
+</dd>
+<dt class="field-even">Return PathLike</dt>
+<dd class="field-even"><p>file name</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.config.FileSystemConfig.getFolder">
 <span class="sig-name descname"><span class="pre">getFolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Hashable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.config.FileSystemConfig.getFolder" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the folder name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>Hashable</em>) – name of the configuration node</p>
+</dd>
+<dt class="field-even">Return PathLike</dt>
+<dd class="field-even"><p>folder name</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.config.FileSystemConfig.root">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.config.FileSystemConfig.root" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the root node value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return PathLike</dt>
+<dd class="field-odd"><p>root node value</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cgnal.core.config.get_all_configuration_file">
 <span class="sig-prename descclassname"><span class="pre">cgnal.core.config.</span></span><span class="sig-name descname"><span class="pre">get_all_configuration_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">application_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'application.yml'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CONFIG_FILE'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.config.get_all_configuration_file" title="Permalink to this definition"></a></dt>
-<dd><p>Retrieve all configuration files from system path, including the one in environment variable</p>
+<dd><p>Retrieve all configuration files from system path, including the one in environment variable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -273,12 +472,13 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="cgnal.core.config.joinPath">
 <span class="sig-prename descclassname"><span class="pre">cgnal.core.config.</span></span><span class="sig-name descname"><span class="pre">joinPath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">yaml.loader.Loader</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">yaml.loader.FullLoader</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">yaml.loader.UnsafeLoader</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">yaml.nodes.Node</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.config.joinPath" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Join pieces of a file system path. Can be used as a custom tag handler.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cgnal.core.config.load">
 <span class="sig-prename descclassname"><span class="pre">cgnal.core.config.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">cfg_load.Configuration</span></span></span><a class="headerlink" href="#cgnal.core.config.load" title="Permalink to this definition"></a></dt>
-<dd><p>Load configuration reading given filename</p>
+<dd><p>Load configuration reading given filename.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>filename</strong> – file to read</p>
@@ -292,7 +492,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="cgnal.core.config.merge_confs">
 <span class="sig-prename descclassname"><span class="pre">cgnal.core.config.</span></span><span class="sig-name descname"><span class="pre">merge_confs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'defaults.yml'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">cfg_load.Configuration</span></span></span><a class="headerlink" href="#cgnal.core.config.merge_confs" title="Permalink to this definition"></a></dt>
-<dd><p>Merge configurations in given files</p>
+<dd><p>Merge configurations in given files.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -309,7 +509,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="cgnal.core.config.path_constructor">
 <span class="sig-prename descclassname"><span class="pre">cgnal.core.config.</span></span><span class="sig-name descname"><span class="pre">path_constructor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">yaml.loader.Loader</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">yaml.loader.FullLoader</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">yaml.loader.UnsafeLoader</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">yaml.nodes.Node</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.config.path_constructor" title="Permalink to this definition"></a></dt>
-<dd><p>Extract the matched value, expand env variable, and replace the match</p>
+<dd><p>Extract the matched value, expand env variable, and replace the match.</p>
 </dd></dl>
 
 </section>

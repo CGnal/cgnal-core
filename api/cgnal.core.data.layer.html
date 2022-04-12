@@ -125,35 +125,84 @@
 </section>
 <section id="module-cgnal.core.data.layer">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cgnal.core.data.layer" title="Permalink to this headline"></a></h2>
+<p>Data layer module.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.Archiver">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.</span></span><span class="sig-name descname"><span class="pre">Archiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.Archiver" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.typing.T</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Object that retrieve data from source and stores it in memory</p>
+<p>Object that retrieve data from source and stores it in memory.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.Archiver.archive">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">archive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cgnal.core.typing.T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cgnal.core.data.layer.Archiver" title="cgnal.core.data.layer.Archiver"><span class="pre">cgnal.core.data.layer.Archiver</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pymongo.results.UpdateResult</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">pymongo.results.UpdateResult</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.layer.Archiver.archive" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Archive an object in the persistance layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<em>T</em>) – object to be archived</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>archiver or update result</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.Archiver.foreach">
 <span class="sig-name descname"><span class="pre">foreach</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.Archiver.foreach" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Apply a function to each object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>]</em><em>, </em><em>None</em><em>]</em>) – function</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.Archiver.map">
 <span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">cgnal.core.data.layer.V</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.data.layer.V</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.layer.Archiver.map" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Apply a tranformation to each object and return an iterator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>]</em><em>, </em><em>V</em><em>]</em>) – function</p>
+</dd>
+<dt class="field-even">Yield Iterator[V]</dt>
+<dd class="field-even"><p>iterator over transformed objects</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.Archiver.retrieve">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">retrieve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.layer.Archiver.retrieve" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieve objects under given filter conditions and sorting options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>condition</strong> (<em>Any</em>) – filter to be applied in the persistance layer</p></li>
+<li><p><strong>sort_by</strong> (<em>Any</em>) – sorting options</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yield Iterator[T]</dt>
+<dd class="field-even"><p>iterator over the objects retrieved from the persistance layer</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.Archiver.retrieveGenerator">
 <span class="sig-name descname"><span class="pre">retrieveGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">condition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="cgnal.core.data.model.html#cgnal.core.data.model.core.IterGenerator" title="cgnal.core.data.model.core.IterGenerator"><span class="pre">cgnal.core.data.model.core.IterGenerator</span></a><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.typing.T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.layer.Archiver.retrieveGenerator" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Wrap the retrieve method to return an iterator generator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>condition</strong> (<em>Any</em>) – filter condition</p></li>
+<li><p><strong>sort_by</strong> (<em>Any</em>) – sorting options</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return IterGenerator[T]</dt>
+<dd class="field-even"><p>iterator generator</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -161,21 +210,48 @@
 <dt class="sig sig-object py" id="cgnal.core.data.layer.DAO">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.</span></span><span class="sig-name descname"><span class="pre">DAO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.DAO" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.typing.T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.layer.V</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Data Access Object</p>
+<p>Data Access Object.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.DAO.computeKey">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">computeKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cgnal.core.typing.T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Hashable</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bson.objectid.ObjectId</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.layer.DAO.computeKey" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Compute the key of a given object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<em>T</em>) – object</p>
+</dd>
+<dt class="field-even">Return Union[Hashable, Dict[str, ObjectId]]</dt>
+<dd class="field-even"><p>hashable key</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.DAO.get">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cgnal.core.typing.T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">cgnal.core.data.layer.V</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.DAO.get" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the record from the persistance layer corresponding to a object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<em>T</em>) – object</p>
+</dd>
+<dt class="field-even">Return V</dt>
+<dd class="field-even"><p>value</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.DAO.parse">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cgnal.core.data.layer.V</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">cgnal.core.typing.T</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.DAO.parse" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Parse the record of the persistance layer into a object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>V</em>) – record of the persistance layer</p>
+</dd>
+<dt class="field-even">Return T</dt>
+<dd class="field-even"><p>object</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -183,11 +259,20 @@
 <dt class="sig sig-object py" id="cgnal.core.data.layer.DatabaseABC">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.</span></span><span class="sig-name descname"><span class="pre">DatabaseABC</span></span><a class="headerlink" href="#cgnal.core.data.layer.DatabaseABC" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Abstract class for databases</p>
+<p>Abstract class for databases.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.DatabaseABC.table">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cgnal.core.data.layer.TableABC" title="cgnal.core.data.layer.TableABC"><span class="pre">cgnal.core.data.layer.TableABC</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.layer.DatabaseABC.table" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the table with a given name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table_name</strong> (<em>str</em>) – name of the table</p>
+</dd>
+<dt class="field-even">Return Optional[TableABC]</dt>
+<dd class="field-even"><p>table or None if table not found</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -195,11 +280,20 @@
 <dt class="sig sig-object py" id="cgnal.core.data.layer.EmptyDatabase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.</span></span><span class="sig-name descname"><span class="pre">EmptyDatabase</span></span><a class="headerlink" href="#cgnal.core.data.layer.EmptyDatabase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cgnal.core.data.layer.DatabaseABC" title="cgnal.core.data.layer.DatabaseABC"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.layer.DatabaseABC</span></code></a></p>
-<p>Class for empty Databases</p>
+<p>Class for empty Databases.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.EmptyDatabase.table">
 <span class="sig-name descname"><span class="pre">table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.EmptyDatabase.table" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Raise an exception, since the database is empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>table_name</strong> (<em>str</em>) – name of the table</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="cgnal.core.data.html#cgnal.core.data.exceptions.NoTableException" title="cgnal.core.data.exceptions.NoTableException"><strong>NoTableException</strong></a> – no table is present in an empty database</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -207,16 +301,31 @@
 <dt class="sig sig-object py" id="cgnal.core.data.layer.TableABC">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.</span></span><span class="sig-name descname"><span class="pre">TableABC</span></span><a class="headerlink" href="#cgnal.core.data.layer.TableABC" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Abstract class for tables</p>
+<p>Abstract class for tables.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.TableABC.to_df">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.TableABC.to_df" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Transform the underling data into a pandas dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>str</em>) – query</p>
+</dd>
+<dt class="field-even">Return pd.DataFrame</dt>
+<dd class="field-even"><p>pandas dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.TableABC.write">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.TableABC.write" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Write the pandas dataframe in the persistance layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – pandas dataframe</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -224,16 +333,18 @@
 <dt class="sig sig-object py" id="cgnal.core.data.layer.Writer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.</span></span><span class="sig-name descname"><span class="pre">Writer</span></span><a class="headerlink" href="#cgnal.core.data.layer.Writer" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Abstract class to write Tables</p>
+<p>Abstract class to write Tables.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.Writer.push">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.Writer.push" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Push a pandas dataframe.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.Writer.table">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">table</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cgnal.core.data.layer.TableABC" title="cgnal.core.data.layer.TableABC"><span class="pre">cgnal.core.data.layer.TableABC</span></a></em><a class="headerlink" href="#cgnal.core.data.layer.Writer.table" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return table object.</p>
+</dd></dl>
 
 </dd></dl>
 

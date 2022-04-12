@@ -395,44 +395,67 @@ the _tmp subdirectory of the –dbpath directory. The default is False.</p></li>
 </section>
 <section id="module-cgnal.core.data.layer.mongo">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cgnal.core.data.layer.mongo" title="Permalink to this headline"></a></h2>
+<p>Module for Mongo persistance layer.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.mongo.MongoConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.layer.mongo.</span></span><span class="sig-name descname"><span class="pre">MongoConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">cfg_load.Configuration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.layer.mongo.MongoConfig" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="cgnal.core.config.html#cgnal.core.config.BaseConfig" title="cgnal.core.config.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.config.BaseConfig</span></code></a></p>
+<p>Configuration for a Mongo DB.</p>
+<p>Class instance initializer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – configuration</p>
+</dd>
+</dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.mongo.MongoConfig.admin">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">admin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cgnal.core.config.html#cgnal.core.config.AuthConfig" title="cgnal.core.config.AuthConfig"><span class="pre">cgnal.core.config.AuthConfig</span></a></em><a class="headerlink" href="#cgnal.core.data.layer.mongo.MongoConfig.admin" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Administrator authentication config.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.mongo.MongoConfig.auth">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">auth</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="cgnal.core.config.html#cgnal.core.config.AuthConfig" title="cgnal.core.config.AuthConfig"><span class="pre">cgnal.core.config.AuthConfig</span></a></em><a class="headerlink" href="#cgnal.core.data.layer.mongo.MongoConfig.auth" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Authetication config.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.mongo.MongoConfig.authSource">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">authSource</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#cgnal.core.data.layer.mongo.MongoConfig.authSource" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return the authentication source.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.mongo.MongoConfig.db_name">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">db_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.data.layer.mongo.MongoConfig.db_name" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Database name.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.mongo.MongoConfig.getCollection">
 <span class="sig-name descname"><span class="pre">getCollection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.mongo.MongoConfig.getCollection" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Return collection name at a given configuration node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – configuration node name</p>
+</dd>
+<dt class="field-even">Return str</dt>
+<dd class="field-even"><p>collection name</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.mongo.MongoConfig.host">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">host</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.data.layer.mongo.MongoConfig.host" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Host name.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.mongo.MongoConfig.port">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">port</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#cgnal.core.data.layer.mongo.MongoConfig.port" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Port.</p>
+</dd></dl>
 
 </dd></dl>
 
