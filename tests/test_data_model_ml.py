@@ -700,6 +700,7 @@ class PandasTimeIndexedDatasetTests(TestCase):
             .all()
         )
 
+    @logTest
     def test_createObject(self):
 
         NewDataset = self.dataset.createObject(
@@ -742,6 +743,17 @@ class PandasTimeIndexedDatasetTests(TestCase):
                 == pd.Series([0, 0], index=self.dateStr[0:2], name="Label").values
             ).all()
         )
+
+    @logTest
+    def test_loc(self):
+        new_dataset = self.dataset.loc(
+            [x for x in pd.date_range("2010-01-01", "2010-01-02")]
+        )
+        to_check = PandasTimeIndexedDataset(
+            features=pd.DataFrame(self.dataset.features.iloc[:2])
+        )
+        self.assertIsInstance(new_dataset, PandasTimeIndexedDataset)
+        self.assertEqual(new_dataset.features, to_check.features)
 
 
 if __name__ == "__main__":

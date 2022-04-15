@@ -38,6 +38,8 @@ if sys.version_info[0] < 3:
 else:
     from itertools import islice
 
+TPandasDataset = TypeVar("TPandasDataset", bound="PandasDataset")
+
 FeatType = TypeVar(
     "FeatType", bound=Union[List[Any], Tuple[Any], np.ndarray, Dict[str, Any]]
 )
@@ -543,11 +545,12 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         """
         return lab if lab is not None else None
 
-    @staticmethod
+    @classmethod
     def createObject(
+        cls: Type[TPandasDataset],
         features: Union[pd.DataFrame, pd.Series],
         labels: Optional[Union[pd.DataFrame, pd.Series]],
-    ) -> "PandasDataset":
+    ) -> TPandasDataset:
         """
         Create a PandasDataset object.
 
@@ -555,7 +558,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         :param labels: labels as pandas dataframe/series
         :return: a ``PandasDataset`` object
         """
-        return PandasDataset(features, labels)
+        return cls(features, labels)
 
     def __len__(self) -> int:
         """
@@ -565,7 +568,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         """
         return len(self.index)
 
-    def takeAsPandas(self, n: int) -> "PandasDataset":
+    def takeAsPandas(self: TPandasDataset, n: int) -> TPandasDataset:
         """
         Return top n records as a PandasDataset.
 
@@ -579,7 +582,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         )
         return self.loc(idx[:n])
 
-    def loc(self, idx: List[Any]) -> "PandasDataset":
+    def loc(self: TPandasDataset, idx: List[Any]) -> TPandasDataset:
         """
         Find given indices in features and labels.
 
@@ -595,7 +598,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
 
         return self.createObject(features, labels)
 
-    def dropna(self, **kwargs) -> "PandasDataset":
+    def dropna(self: TPandasDataset, **kwargs) -> TPandasDataset:
         """
         Drop NAs from feature and labels.
 
@@ -618,7 +621,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
             ),
         )
 
-    def intersection(self) -> "PandasDataset":
+    def intersection(self: TPandasDataset) -> TPandasDataset:
         """
         Intersect feature and labels indices.
 
@@ -729,7 +732,9 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
             raise ValueError("type of labels not allowed for this function")
 
     @classmethod
-    def from_sequence(cls, datasets: Sequence["PandasDataset"]):
+    def from_sequence(
+        cls: Type[TPandasDataset], datasets: Sequence[TPandasDataset]
+    ) -> TPandasDataset:
         """
         Create a PandasDataset from a list of pandas datasets using pd.concat.
 
@@ -747,7 +752,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         features = pd.concat(features_iter)
         return cls.createObject(features, labels)
 
-    def union(self, other: "Dataset") -> "Dataset":
+    def union(self, other: Dataset) -> Dataset:
         """
         Return a union between datasets.
 
@@ -787,17 +792,3 @@ class PandasTimeIndexedDataset(PandasDataset):
         self._features.rename(index=pd.to_datetime, inplace=True)
         if self.labels is not None:
             self._labels.rename(index=pd.to_datetime, inplace=True)
-
-    @staticmethod
-    def createObject(
-        features: Union[pd.DataFrame, pd.Series],
-        labels: Optional[Union[pd.DataFrame, pd.Series]] = None,
-    ) -> "PandasTimeIndexedDataset":
-        """
-        Create a PandasTimeIndexedDataset object.
-
-        :param features: features as pandas dataframe/series where index elements are dates in string format
-        :param labels: labels as pandas dataframe/series where index elements are dates in string format
-        :return: PandasTimeIndexedDataset
-        """
-        return PandasTimeIndexedDataset(features, labels)
