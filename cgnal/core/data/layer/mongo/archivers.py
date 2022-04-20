@@ -73,9 +73,9 @@ class MongoArchiver(Archiver[T]):
         :param obj: document to archive
         :return: an instance of :class:`pymongo.results.UpdateResult` with update operation's results
         """
-        return self.__insert__(obj)
+        return self._insert(obj)
 
-    def __insert__(self, obj: T) -> UpdateResult:
+    def _insert(self, obj: T) -> UpdateResult:
         """
         Insert one document in collection.
 
@@ -93,7 +93,7 @@ class MongoArchiver(Archiver[T]):
         :param objs: documents to archive
         :return: list of instances of :class:`pymongo.results.UpdateResult` with update operations' results
         """
-        return [self.__insert__(obj) for obj in objs]
+        return [self._insert(obj) for obj in objs]
 
     # TODO this method's output type is not consistent with its' ancestor's return type (that should be 'MongoArchiver')
     def archive(

@@ -156,12 +156,12 @@ class Documents(_IterableUtils[Document, "CachedDocuments", "LazyDocuments"], AB
     """Base class representing a collection of documents, that is a corpus."""
 
     @property
-    def __lazyType__(self) -> "Type[LazyDocuments]":
+    def _lazyType(self) -> "Type[LazyDocuments]":
         """Specify the type of LazyObject associated to this class."""
         return LazyDocuments
 
     @property
-    def __cachedType__(self) -> "Type[CachedDocuments]":
+    def _cachedType(self) -> "Type[CachedDocuments]":
         """Specify the type of CachedObject associated to this class."""
         return CachedDocuments
 
@@ -170,7 +170,7 @@ class CachedDocuments(_CachedIterable[Document], DillSerialization, Documents):
     """Class representing a collection of documents cached in memory."""
 
     @staticmethod
-    def __get_key__(key: str, dict: Dict[str, Any]) -> Any:
+    def _get_key(key: str, dict: Dict[str, Any]) -> Any:
         """Return the property of the dictionary or nan."""
         try:
             out = dict
@@ -190,9 +190,7 @@ class CachedDocuments(_CachedIterable[Document], DillSerialization, Documents):
         _fields = fields if fields is not None else []
         return pd.DataFrame.from_dict(
             {
-                doc.uuid: {
-                    field: self.__get_key__(field, doc.data) for field in _fields
-                }
+                doc.uuid: {field: self._get_key(field, doc.data) for field in _fields}
                 for doc in self
             },
             orient="index",

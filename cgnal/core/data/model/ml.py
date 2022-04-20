@@ -113,7 +113,7 @@ class MultiFeatureSample(Sample[List[np.ndarray], LabType]):
     """Class representing an observation defined by a nested list of arrays."""
 
     @staticmethod
-    def __check_features__(features: List[np.ndarray]) -> None:
+    def _check_features(features: List[np.ndarray]) -> None:
         """
         Check that features is list of lists.
 
@@ -144,7 +144,7 @@ class MultiFeatureSample(Sample[List[np.ndarray], LabType]):
         :type label: float, int or None
         :type name: object
         """
-        self.__check_features__(features)
+        self._check_features(features)
         super(MultiFeatureSample, self).__init__(features, label, name)
 
 
@@ -159,12 +159,12 @@ class Dataset(
     """Base class for representing datasets as iterable over Samples."""
 
     @property
-    def __lazyType__(self) -> "Type[LazyDataset]":
+    def _lazyType(self) -> "Type[LazyDataset]":
         """Specify the type of LazyObject associated to this class."""
         return LazyDataset
 
     @property
-    def __cachedType__(self) -> "Type[CachedDataset]":
+    def _cachedType(self) -> "Type[CachedDataset]":
         """Specify the type of CachedObject associated to this class."""
         return CachedDataset
 
@@ -296,13 +296,13 @@ class Dataset(
                 "Union can only be done between Datasets. Found %s" % str(type(other))
             )
 
-        def __generator__():
+        def _generator():
             for sample in self:
                 yield sample
             for sample in other:
                 yield sample
 
-        return LazyDataset(IterGenerator(__generator__))
+        return LazyDataset(IterGenerator(_generator))
 
 
 class CachedDataset(_CachedIterable[SampleTypes], DillSerialization, Dataset):
@@ -339,7 +339,7 @@ class LazyDataset(_LazyIterable[Sample], Dataset):
         :return: ``LazyDataset`` with changed samples
         """
 
-        def __transformed_sample_generator__() -> Iterator[Sample]:
+        def _transformed_sample_generator() -> Iterator[Sample]:
             slices = [islice(self, n, None) for n in range(lookback)]
             for ss in zip(*slices):
                 yield Sample(
@@ -347,7 +347,7 @@ class LazyDataset(_LazyIterable[Sample], Dataset):
                     label=ss[-1].label,
                 )
 
-        return LazyDataset(IterGenerator(__transformed_sample_generator__))
+        return LazyDataset(IterGenerator(_transformed_sample_generator))
 
     def features(self) -> Iterator[FeatType]:
         """
@@ -442,20 +442,20 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         :param labels: a dataframe or a series of labels. None in case no labels are present.
         """
         if isinstance(features, pd.Series):
-            self.__features__ = features.to_frame()
+            self._features = features.to_frame()
         elif isinstance(features, pd.DataFrame):
-            self.__features__ = features
+            self._features = features
         else:
             raise ValueError(
                 "Features must be of type pandas.Series or pandas.DataFrame"
             )
 
         if isinstance(labels, pd.Series):
-            self.__labels__ = labels.to_frame()
+            self._labels = labels.to_frame()
         elif isinstance(labels, pd.DataFrame):
-            self.__labels__ = labels
+            self._labels = labels
         elif labels is None:
-            self.__labels__ = labels
+            self._labels = labels
         else:
             raise ValueError(
                 "Labels must be of type pandas.Series or pandas.DataFrame or None"
@@ -468,14 +468,12 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
 
         :return: Iterator of objects of :class:`cgnal.data.model.ml.Sample`
         """
-        for index, row in dict(self.__features__.to_dict(orient="index")).items():
+        for index, row in dict(self._features.to_dict(orient="index")).items():
             try:
                 yield Sample(
                     name=index,
                     features=row,
-                    label=self.__labels__.loc[index]
-                    if self.__labels__ is not None
-                    else None,
+                    label=self._labels.loc[index] if self._labels is not None else None,
                 )
             except AttributeError:
                 yield Sample(name=index, features=row, label=None)
@@ -517,7 +515,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         return self.intersection().features.index
 
     @staticmethod
-    def __check_none__(lab: Optional[T]) -> Optional[T]:
+    def _check_none(lab: Optional[T]) -> Optional[T]:
         """
         Check whether the label is none (unsupervised or prediction) or not (training).
 
@@ -595,7 +593,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
 
         return self.createObject(
             self.features.dropna(**kwargs_feat),
-            self.__check_none__(
+            self._check_none(
                 self.labels.dropna(**kwargs_labs) if self.labels is not None else None
             ),
         )
@@ -641,12 +639,12 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         :return: features according to the given type
         """
         if type == "array":
-            return np.array(self.__features__)
+            return np.array(self._features)
         elif type == "pandas":
-            return self.__features__
+            return self._features
         elif type == "dict":
             return {
-                self.checkNames(k): list(row) for k, row in self.__features__.iterrows()
+                self.checkNames(k): list(row) for k, row in self._features.iterrows()
             }
         else:
             raise ValueError(
@@ -681,24 +679,24 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         :param type: str, default is 'array', can be 'array','pandas','dict'
         :return: labels according to the given type
         """
-        if self.__labels__ is None:
+        if self._labels is None:
             return None
-        elif isinstance(self.__labels__, pd.DataFrame):
+        elif isinstance(self._labels, pd.DataFrame):
             if type == "array":
-                nCols = len(self.__labels__.columns)
+                nCols = len(self._labels.columns)
                 return (
-                    np.array(self.__labels__)
+                    np.array(self._labels)
                     if nCols > 1
-                    else np.array(self.__labels__[self.__labels__.columns[0]])
+                    else np.array(self._labels[self._labels.columns[0]])
                 )
             elif type == "pandas":
-                return self.__labels__
+                return self._labels
             elif type == "dict":
-                nCols = len(self.__labels__.columns)
+                nCols = len(self._labels.columns)
                 return (
-                    dict(self.__labels__.to_dict(orient="index"))
+                    dict(self._labels.to_dict(orient="index"))
                     if nCols > 1
-                    else self.__labels__[self.__labels__.columns[0]].to_dict()
+                    else self._labels[self._labels.columns[0]].to_dict()
                 )
             else:
                 raise ValueError(
@@ -764,9 +762,9 @@ class PandasTimeIndexedDataset(PandasDataset):
         :param labels: pandas dataframe/series where index elements are dates in string format
         """
         super(PandasTimeIndexedDataset, self).__init__(features, labels)
-        self.__features__.rename(index=pd.to_datetime, inplace=True)
+        self._features.rename(index=pd.to_datetime, inplace=True)
         if self.labels is not None:
-            self.__labels__.rename(index=pd.to_datetime, inplace=True)
+            self._labels.rename(index=pd.to_datetime, inplace=True)
 
     @staticmethod
     def createObject(

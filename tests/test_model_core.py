@@ -60,12 +60,12 @@ class TestLazyIterable(TestCase):
         self.assertEqual(list(lazy.take(1))[0], 0)
 
     @logTest
-    def test__lazyType__(self):
-        self.assertEqual(lazy.__lazyType__, LazyIterable)
+    def test_lazyType(self):
+        self.assertEqual(lazy._lazyType, LazyIterable)
 
     @logTest
-    def test__cachedType__(self):
-        self.assertEqual(lazy.__cachedType__, CachedIterable)
+    def test_cachedType(self):
+        self.assertEqual(lazy._cachedType, CachedIterable)
 
     @logTest
     def test_filter(self):
@@ -138,12 +138,12 @@ class TestCachedIterables(TestCase):
         self.assertEqual(list(plusOne.asCached)[0], 1)
 
     @logTest
-    def test__lazyType__(self):
-        self.assertEqual(lazy.__lazyType__, LazyIterable)
+    def test_lazyType(self):
+        self.assertEqual(lazy._lazyType, LazyIterable)
 
     @logTest
-    def test__cachedType__(self):
-        self.assertTrue(cached.__cachedType__, CachedIterable)
+    def test_cachedType(self):
+        self.assertTrue(cached._cachedType, CachedIterable)
 
     @logTest
     def test_take(self):
@@ -232,9 +232,9 @@ class TestRange(TestCase):
         self.assertEqual(len(self.firstRange.range("B")), 6)
 
     @logTest
-    def test__overlaps_range__(self):
-        self.assertTrue(self.firstRange.__overlaps_range__(self.secondRange))
-        self.assertFalse(self.firstRange.__overlaps_range__(self.thirdRange))
+    def test_overlaps_range(self):
+        self.assertTrue(self.firstRange._overlaps_range(self.secondRange))
+        self.assertFalse(self.firstRange._overlaps_range(self.thirdRange))
 
     @logTest
     def test_overlaps(self):

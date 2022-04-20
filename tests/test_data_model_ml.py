@@ -383,9 +383,9 @@ class PandasDatasetTests(TestCase):
     )
 
     @logTest
-    def test__check_none__(self):
-        self.assertEqual(self.dataset.__check_none__(None), None)
-        self.assertEqual(self.dataset.__check_none__("test"), "test")
+    def test_check_none(self):
+        self.assertEqual(self.dataset._check_none(None), None)
+        self.assertEqual(self.dataset._check_none("test"), "test")
 
     @logTest
     def test__len__(self):

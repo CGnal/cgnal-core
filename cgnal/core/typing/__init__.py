@@ -14,11 +14,11 @@ K = TypeVar("K", bound=Hashable)
 class SupportsLessThan(Protocol):
     """Protocol for a class that must support the less than operator."""
 
-    def __lt__(self, __other: Any) -> bool:
+    def __lt__(self, other: Any) -> bool:
         """
         Less than operator.
 
-        :param Any __other: other operand
-        :return bool: whether self is less than __other
+        :param Any other: other operand
+        :return bool: whether self is less than other
         """
         ...
