@@ -153,7 +153,7 @@ class _LazyIterable(_BaseIterable[T], Generic[T]):
                 "For lazy iterables the input must be an IterGenerator(object). Input of type %s passed"
                 % type(items)
             )
-        self.__items__ = items
+        self._items = items
 
     @property
     def items(self) -> Iterator[T]:
@@ -161,7 +161,7 @@ class _LazyIterable(_BaseIterable[T], Generic[T]):
 
         :return: Iterable[T]
         """
-        return self.__items__.iterator
+        return self._items.iterator
 
     @property
     def cached(self) -> bool:
@@ -182,7 +182,7 @@ class _CachedIterable(_BaseIterable[T], Generic[T]):
 
         :param items: sequence or iterable of elements
         """
-        self.__items__ = list(items)
+        self._items = list(items)
 
     def __len__(self) -> int:
         """Return the size of the list of elements."""
@@ -195,7 +195,7 @@ class _CachedIterable(_BaseIterable[T], Generic[T]):
 
         :return: Iterable[T]
         """
-        return self.__items__
+        return self._items
 
     def __getitem__(self, item: int) -> T:
         """
@@ -222,14 +222,14 @@ C = TypeVar("C", bound=_CachedIterable)
 class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
     @property
     @abstractmethod
-    def __lazyType__(self) -> Type[L]:
+    def _lazyType(self) -> Type[L]:
         """Specify the type of LazyObject associated to this class."""
         raise NotImplementedError
         # return LazyIterable[T]
 
     @property
     @abstractmethod
-    def __cachedType__(self) -> Type[C]:
+    def _cachedType(self) -> Type[C]:
         """Specify the type of CachedObject associated to this class."""
         raise NotImplementedError
         # return CachedIterable[T]
@@ -246,7 +246,7 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
             for item in self:
                 yield item
 
-        return self.__lazyType__(IterGenerator(generator))
+        return self._lazyType(IterGenerator(generator))
 
     @property
     def asCached(self) -> C:
@@ -255,7 +255,7 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
 
         :return: cached iterable
         """
-        return self.__cachedType__(list(self.items))
+        return self._cachedType(list(self.items))
 
     def take(self, size: int) -> C:
         """
@@ -264,7 +264,7 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
         :param size: number of elements to be taken
         :return: cached iterable with the first elements
         """
-        return self.__cachedType__(list(islice(self, size)))
+        return self._cachedType(list(islice(self, size)))
 
     def filter(self, f: Callable[[T], bool]) -> L:
         """
@@ -279,7 +279,7 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
                 if f(item):
                     yield item
 
-        return self.__lazyType__(IterGenerator(generator))
+        return self._lazyType(IterGenerator(generator))
 
     def __iter__(self) -> Iterator[T]:
         """Return an iterator over the items."""
@@ -294,7 +294,7 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
         :return: iterator of batches
         """
         for batch in groupIterable(self.items, batch_size=size):
-            yield self.__cachedType__(batch)
+            yield self._cachedType(batch)
 
     def map(self, f: Callable[[T], T_co]) -> L:
         """
@@ -308,7 +308,7 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
             for item in self:
                 yield f(item)
 
-        return self.__lazyType__(IterGenerator(generator))
+        return self._lazyType(IterGenerator(generator))
 
     def foreach(self, f: Callable[[T], Any]):
         """
@@ -327,12 +327,12 @@ class BaseIterable(
     """Basic class for extending iterable classes with boosted functionalities."""
 
     @property
-    def __lazyType__(self) -> "Type[LazyIterable]":
+    def _lazyType(self) -> "Type[LazyIterable]":
         """Specify the type of LazyObject associated to this class."""
         return LazyIterable
 
     @property
-    def __cachedType__(self) -> "Type[CachedIterable]":
+    def _cachedType(self) -> "Type[CachedIterable]":
         """Specify the type of CachedObject associated to this class."""
         return CachedIterable
 
@@ -455,8 +455,8 @@ class Range(BaseRange):
         :param start: starting datetime for the range
         :param end: ending datetime for the range
         """
-        self.__start__ = pd.to_datetime(start)
-        self.__end__ = pd.to_datetime(end)
+        self._start = pd.to_datetime(start)
+        self._end = pd.to_datetime(end)
 
         if self.start > self.end:
             raise ValueError(
@@ -470,7 +470,7 @@ class Range(BaseRange):
 
         :return: Timestamp
         """
-        return self.__start__
+        return self._start
 
     @property
     def end(self) -> Timestamp:
@@ -479,7 +479,7 @@ class Range(BaseRange):
 
         :return: Timestamp
         """
-        return self.__end__
+        return self._end
 
     def __iter__(self) -> Iterator["Range"]:
         """
@@ -498,7 +498,7 @@ class Range(BaseRange):
         """
         return pd.date_range(self.start, self.end, freq=freq).tolist()
 
-    def __overlaps_range__(self, other: "Range") -> bool:
+    def _overlaps_range(self, other: "Range") -> bool:
         """
         Check whether there is any overlap between current and other range.
 
@@ -516,7 +516,7 @@ class Range(BaseRange):
         :param other: other range to be compared with
         :return: True or False whether the two overlaps
         """
-        return any([self.__overlaps_range__(r) for r in other])
+        return any([self._overlaps_range(r) for r in other])
 
     def __add__(self, other: BaseRange) -> Union["CompositeRange", "Range"]:
         """

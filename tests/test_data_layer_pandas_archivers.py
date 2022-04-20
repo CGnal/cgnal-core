@@ -42,18 +42,22 @@ class TestTableArchiver(TestCase):
     def test_write_read(self):
         table3 = self.db.table("my_table_3")
         a = TableArchiver(table3, self.dao_df)
-        a.archive([self.df1]).__write__()
+        a.archive([self.df1]).commit()
+
+        b = TableArchiver(table3, self.dao_df)
         self.assertEqual(
-            a.__read__()["a"], pd.DataFrame({"row1": [1.0, 1.0, 1.0, 1.0, 1.0]}).T
+            b.data["a"], pd.DataFrame({"row1": [1.0, 1.0, 1.0, 1.0, 1.0]}).T
         )
         self.assertEqual(
-            a.__read__()["b"], pd.DataFrame({"row1": [2.0, 2.0, 2.0, 2.0, 2.0]}).T
+            a.data["b"], pd.DataFrame({"row1": [2.0, 2.0, 2.0, 2.0, 2.0]}).T
         )
 
         table4 = self.db.table("my_table_4")
         a = TableArchiver(table4, self.dao_series)
-        a.archive([self.s1]).__write__()
-        self.assertEqual(a.__read__(), pd.DataFrame(self.s1).T)
+        a.archive([self.s1]).commit()
+
+        b = TableArchiver(table4, self.dao_series)
+        self.assertEqual(b.data, pd.DataFrame(self.s1).T)
 
     @logTest
     def test_retrieve(self):
@@ -70,13 +74,15 @@ class TestTableArchiver(TestCase):
     def test_data(self):
         table3 = self.db.table("my_table_3")
         a = TableArchiver(table3, self.dao_df)
-        a.archive([self.df1]).__write__()
-        self.assertEqual(a.data, a.__read__())
+        a.archive([self.df1]).commit()
+        b = TableArchiver(table3, self.dao_df)
+        self.assertEqual(a.data, b.data)
 
         table4 = self.db.table("my_table_4")
         a = TableArchiver(table4, self.dao_series)
-        a.archive([self.s1]).__write__()
-        self.assertEqual(a.data, a.__read__())
+        a.archive([self.s1]).commit()
+        b = TableArchiver(table4, self.dao_series)
+        self.assertEqual(a.data, b.data)
 
         a.data = self.df2
         self.assertEqual(a.data, self.df2)
@@ -138,17 +144,20 @@ class TestTableArchiver(TestCase):
         table3 = self.db.table("my_table_3")
         a = TableArchiver(table3, self.dao_df)
         a.archive([self.df1]).commit()
+        b = TableArchiver(table3, self.dao_df)
+
         self.assertEqual(
-            a.__read__()["a"], pd.DataFrame({"row1": [1.0, 1.0, 1.0, 1.0, 1.0]}).T
+            b.data["a"], pd.DataFrame({"row1": [1.0, 1.0, 1.0, 1.0, 1.0]}).T
         )
         self.assertEqual(
-            a.__read__()["b"], pd.DataFrame({"row1": [2.0, 2.0, 2.0, 2.0, 2.0]}).T
+            b.data["b"], pd.DataFrame({"row1": [2.0, 2.0, 2.0, 2.0, 2.0]}).T
         )
 
         table4 = self.db.table("my_table_4")
         a = TableArchiver(table4, self.dao_series)
         a.archive([self.s1]).commit()
-        self.assertEqual(a.__read__(), pd.DataFrame(self.s1).T)
+        b = TableArchiver(table4, self.dao_series)
+        self.assertEqual(b.data, pd.DataFrame(self.s1).T)
 
     @logTest
     def test_retrieveById(self):
@@ -189,19 +198,15 @@ class TestPickleArchiver(TestCase):
         self.assertEqual(a.retrieveById("row3"), self.s1)
 
     @logTest
-    def test__write__read__(self):
+    def test_write_read(self):
         self.df1.to_pickle(os.path.join(TMP_FOLDER, "df1.pkl"))
         a = PickleArchiver(os.path.join(TMP_FOLDER, "df1.pkl"), SeriesDAO())
-        a.archive([self.s1]).__write__()
-        self.assertEqual(a.__read__(), a.data)
+        a.archive([self.s1]).commit()
+        b = PickleArchiver(os.path.join(TMP_FOLDER, "df1.pkl"), SeriesDAO())
+        self.assertEqual(b.data, a.data)
 
     @logTest
     def test_commit(self):
-        self.df1.to_pickle(TMP_FOLDER + "/df1.pkl")
-        a = PickleArchiver(TMP_FOLDER + "/df1.pkl", SeriesDAO())
-        a.archiveOne(self.s1).commit()
-        self.assertEqual(a.data, a.__read__())
-
         b = PickleArchiver(os.path.join(TMP_FOLDER, "df2.pkl"), SeriesDAO())
         b.archiveOne(self.s1).commit()
         self.assertTrue(os.path.exists(os.path.join(TMP_FOLDER, "df2.pkl")))
@@ -343,20 +348,20 @@ class TestCsvArchiver(TestCase):
         self.assertEqual(self.a.retrieveById(doc.uuid).data["symbols"], ["test_symbol"])
 
     @logTest
-    def test__write__read__(self):
+    def test_write_read(self):
         doc = next(self.a.retrieve())
         doc.data.update({"symbols": ["test_symbol"]})
-        self.a.archive(doc).__write__()
-        self.assertEqual(self.a.__read__().loc[doc.uuid]["symbols"], "['test_symbol']")
+        self.a.archive(doc).commit()
+        b = CsvArchiver(os.path.join(TMP_FOLDER, "test_copy.csv"), self.dao)
+        self.assertEqual(b.data.loc[doc.uuid]["symbols"], "['test_symbol']")
 
     @logTest
     def test_commit(self):
         doc = next(self.a.retrieve())
         doc.data.update({"symbols": ["test_symbol_2"]})
         self.a.archive(doc).commit()
-        self.assertEqual(
-            self.a.__read__().loc[doc.uuid]["symbols"], "['test_symbol_2']"
-        )
+        b = CsvArchiver(os.path.join(TMP_FOLDER, "test_copy.csv"), self.dao)
+        self.assertEqual(b.data.loc[doc.uuid]["symbols"], "['test_symbol_2']")
 
     @logTest
     def test_retrieve(self):

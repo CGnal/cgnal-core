@@ -49,13 +49,13 @@ class Cached(object):
     """Class to cache results and export them as pickle to be later reloaded."""
 
     @property
-    def __cache__(self):
+    def _cache(self):
         """Hidden property that stores the custom cache that can be exported and imported."""
         try:
-            return self.__cache
+            return self._cache_data
         except AttributeError:
-            self.__cache = {}
-            return self.__cache__
+            self._cache_data = {}
+            return self._cache
 
     @staticmethod
     def cache(func: Callable[["Cached"], T]) -> property:
@@ -69,10 +69,10 @@ class Cached(object):
         @wraps(func)
         def _wrap(obj: "Cached"):
             try:
-                return obj.__cache__[func.__name__]
+                return obj._cache[func.__name__]
             except KeyError:
                 score = func(obj)
-                obj.__cache__[func.__name__] = score
+                obj._cache[func.__name__] = score
                 return score
 
         return property(_wrap)
@@ -83,7 +83,7 @@ class Cached(object):
 
         :return: None
         """
-        self.__cache__.clear()
+        self._cache.clear()
 
     def save_pickles(self, path: PathLike) -> None:
         """
@@ -94,7 +94,7 @@ class Cached(object):
         """
         path = create_dir_if_not_exists(path)
 
-        for k, data in self.__cache__.items():
+        for k, data in self._cache.items():
             Cached.save_element(os.path.join(path, k), data)
 
     @staticmethod
@@ -124,7 +124,7 @@ class Cached(object):
         :param filename: path to pickles
         :return: None
         """
-        self.__cache__.update(dict(self.load_element(filename, "")))
+        self._cache.update(dict(self.load_element(filename, "")))
         return None
 
     @classmethod
@@ -141,14 +141,14 @@ class Cached(object):
         if os.path.isdir(filename):
             for path in glob(os.path.join(filename, "*")):
                 for name, obj in cls.load_element(
-                    path, f"{cls.__reformat_name(filename)}_"
+                    path, f"{cls._reformat_name(filename)}_"
                 ):
                     yield f"{prefix}{name}", obj
         else:
-            yield str(cls.__reformat_name(filename)), pd.read_pickle(filename)
+            yield str(cls._reformat_name(filename)), pd.read_pickle(filename)
 
     @staticmethod
-    def __reformat_name(filename: PathLike) -> PathLike:
+    def _reformat_name(filename: PathLike) -> PathLike:
         """
         Reformat file name to make it readable with load_element.
 

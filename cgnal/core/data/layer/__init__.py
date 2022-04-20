@@ -113,10 +113,11 @@ class Archiver(Generic[T], ABC):
         :param Any sort_by: sorting options
         :return IterGenerator[T]: iterator generator
         """
-        def __iterator__():
+
+        def _iterator():
             return self.retrieve(condition=condition, sort_by=sort_by)
 
-        return IterGenerator(__iterator__)
+        return IterGenerator(_iterator)
 
 
 class TableABC(ABC):

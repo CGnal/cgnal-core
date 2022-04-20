@@ -17,12 +17,12 @@ class PandasArchiver(Archiver[T], ABC):
     """Archiver based on persistent layers based on tabular files, represented in memory by a pandas DataFrame."""
 
     @abstractmethod
-    def __read__(self) -> pd.DataFrame:
+    def _read(self) -> pd.DataFrame:
         """Read data from the file and return it as pandas Dataframe."""
         ...
 
     @abstractmethod
-    def __write__(self) -> None:
+    def _write(self) -> None:
         """Write data (stored in a dataframe in memory) to the file."""
         ...
 
@@ -47,9 +47,9 @@ class PandasArchiver(Archiver[T], ABC):
         :return: pd.DataFrame
         """
         try:
-            return self.__data__
+            return self._data
         except AttributeError:
-            self.__data__: pd.DataFrame = self.__read__()
+            self._data: pd.DataFrame = self._read()
         return self.data
 
     @data.setter
@@ -60,11 +60,11 @@ class PandasArchiver(Archiver[T], ABC):
         :param value: value to set
         :return: None
         """
-        self.__data__ = value
+        self._data = value
 
     def commit(self) -> "PandasArchiver":
         """Persist data stored in memory in the file."""
-        self.__write__()
+        self._write()
         return self
 
     def retrieveById(self, uuid: pd.Index) -> T:
@@ -107,10 +107,10 @@ class PandasArchiver(Archiver[T], ABC):
             :class:`cgnal.data.model.core.IterGenerator` (ordered)
         """
 
-        def __iterator__():
+        def _iterator():
             return self.retrieve(condition=condition, sort_by=sort_by)
 
-        return IterGenerator(__iterator__)
+        return IterGenerator(_iterator)
 
     def archiveOne(self, obj: T):
         """
@@ -175,7 +175,7 @@ class CsvArchiver(PandasArchiver[T]):
         self.filename = filename
         self.sep = sep
 
-    def __write__(self) -> None:
+    def _write(self) -> None:
         """
         Write object to a csv file.
 
@@ -183,7 +183,7 @@ class CsvArchiver(PandasArchiver[T]):
         """
         self.data.to_csv(self.filename, sep=self.sep)
 
-    def __read__(self) -> pd.DataFrame:
+    def _read(self) -> pd.DataFrame:
         """
         Read csv file into a pandas DataFrame.
 
@@ -215,7 +215,7 @@ class PickleArchiver(PandasArchiver[T]):
 
         self.filename = filename
 
-    def __write__(self) -> None:
+    def _write(self) -> None:
         """
         Write object to a pickle file.
 
@@ -223,7 +223,7 @@ class PickleArchiver(PandasArchiver[T]):
         """
         self.data.to_pickle(self.filename)
 
-    def __read__(self) -> pd.DataFrame:
+    def _read(self) -> pd.DataFrame:
         """
         Read pickle file into a pandas Dataframe.
 
@@ -253,7 +253,7 @@ class TableArchiver(PandasArchiver[T]):
         assert isinstance(table, Table)
         self.table = table
 
-    def __write__(self) -> None:
+    def _write(self) -> None:
         """
         Write Table object as a pickle file.
 
@@ -261,7 +261,7 @@ class TableArchiver(PandasArchiver[T]):
         """
         self.table.write(self.data, overwrite=True)
 
-    def __read__(self) -> pd.DataFrame:
+    def _read(self) -> pd.DataFrame:
         """
         Read object into a pandas Dataframe.
 

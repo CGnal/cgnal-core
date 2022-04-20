@@ -114,14 +114,14 @@ def unflattenKeys(input_dict: Dict[str, Any], sep: str = ".") -> Dict[str, Any]:
     :return: dict
     """
 
-    def __translate(key: str, value: Any) -> Dict[str, Any]:
+    def _translate(key: str, value: Any) -> Dict[str, Any]:
         levels = list(reversed(key.split(sep)))
         return reduce(lambda agg, level: {level: agg}, levels[1:], {levels[0]: value})
 
-    return union(*[__translate(key, value) for key, value in input_dict.items()])
+    return union(*[_translate(key, value) for key, value in input_dict.items()])
 
 
-def __check(value: Optional[T]) -> bool:
+def _check(value: Optional[T]) -> bool:
     return False if value is None else True
 
 
@@ -136,7 +136,7 @@ def filterNones(_dict: Dict[T, Any]) -> Dict[T, Any]:
     for k, v in _dict.items():
         if isinstance(v, dict):
             agg[k] = filterNones(v)
-        elif __check(v):
+        elif _check(v):
             agg[k] = v
     return agg
 
