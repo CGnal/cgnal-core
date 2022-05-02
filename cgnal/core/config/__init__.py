@@ -36,6 +36,7 @@ def path_constructor(
     :param node: YAML node
     :return: path
     :raises SyntaxError: if the node value does not match the regex expression for a path-like string
+    :raises KeyError: raises an exception if the environment variable is missing
     """
     value = node.value
     match = path_matcher.match(value)
@@ -44,7 +45,13 @@ def path_constructor(
         raise SyntaxError("Can't match pattern")
 
     env_var = match.group()[2:-1]
-    return os.environ.get(env_var) + value[match.end() :]
+    try:
+        return os.environ[env_var] + value[match.end() :]
+    except KeyError:
+        raise KeyError(
+            f"Missing definition of environment variable {env_var} "
+            f"needed when parsing configuration file"
+        )
 
 
 def joinPath(loader: Union[Loader, FullLoader, UnsafeLoader], node: Node) -> PathLike:
