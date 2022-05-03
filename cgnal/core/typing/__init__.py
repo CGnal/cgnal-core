@@ -18,7 +18,7 @@ class SupportsLessThan(Protocol):
         """
         Less than operator.
 
-        :param Any other: other operand
+        :param other: other operand
         :return bool: whether self is less than other
         """
         ...

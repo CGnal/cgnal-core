@@ -27,14 +27,22 @@ class Serializable(ABC):
     """Abstract Class to be used to extend objects that can be serialised."""
 
     @abstractmethod
-    def write(self, filaname: PathLike) -> None:
-        """Write class to a file."""
+    def write(self, filename: PathLike) -> None:
+        """
+        Write class to a file.
+
+        :param filename: filename
+        """
         ...
 
     @classmethod
     @abstractmethod
     def load(cls, filename: PathLike) -> "Serializable":
-        """Load class from a file."""
+        """
+        Load class from a file.
+
+        :param filename: filename
+        """
         ...
 
 
@@ -46,8 +54,6 @@ class PickleSerialization(Serializable):
         Write instance as pickle.
 
         :param filename: Name of the file where to save the instance
-
-        :return: None
         """
         with open(filename, "wb") as fid:
             pickle.dump(self, fid)
@@ -72,8 +78,6 @@ class DillSerialization(Serializable):
         Write instance as pickle.
 
         :param filename: Name of the file where to save the instance
-
-        :return: None
         """
         with open(filename, "wb") as fid:
             dill.dump(self, fid)
@@ -147,6 +151,7 @@ class _LazyIterable(_BaseIterable[T], Generic[T]):
         Return an instance of the class to be used for implementing lazy iterables.
 
         :param items: IterGenerator containing the generator of items
+        :raises TypeError: if items is not an instance of IterGenerator
         """
         if not isinstance(items, IterGenerator):
             raise TypeError(
@@ -185,7 +190,11 @@ class _CachedIterable(_BaseIterable[T], Generic[T]):
         self._items = list(items)
 
     def __len__(self) -> int:
-        """Return the size of the list of elements."""
+        """
+        Return the size of the list of elements.
+
+        :return: size of the list of elements
+        """
         return len(self.items)
 
     @property
@@ -202,6 +211,7 @@ class _CachedIterable(_BaseIterable[T], Generic[T]):
         Get the item by position index.
 
         :param item: integer representing the position.
+        :return: item
         """
         return self.items[item]
 
@@ -282,7 +292,11 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
         return self._lazyType(IterGenerator(generator))
 
     def __iter__(self) -> Iterator[T]:
-        """Return an iterator over the items."""
+        """
+        Return an iterator over the items.
+
+        :yield: items
+        """
         for item in self.items:
             yield item
 
@@ -291,7 +305,7 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
         Return an iterator of batches of size *size*.
 
         :param size: dimension of the batch
-        :return: iterator of batches
+        :yield: iterator of batches
         """
         for batch in groupIterable(self.items, batch_size=size):
             yield self._cachedType(batch)
@@ -315,7 +329,6 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
         Execute the provided function on each element of the iterable.
 
         :param f: function to be executed for each element
-        :return: None
         """
         for doc in self.items:
             f(doc)
@@ -328,12 +341,20 @@ class BaseIterable(
 
     @property
     def _lazyType(self) -> "Type[LazyIterable]":
-        """Specify the type of LazyObject associated to this class."""
+        """
+        Specify the type of LazyObject associated to this class.
+
+        :return: LazyIterable type
+        """
         return LazyIterable
 
     @property
     def _cachedType(self) -> "Type[CachedIterable]":
-        """Specify the type of CachedObject associated to this class."""
+        """
+        Specify the type of CachedObject associated to this class.
+
+        :return: CachedIterable type
+        """
         return CachedIterable
 
 
@@ -414,7 +435,11 @@ class BaseRange(ABC):
         ...
 
     def __str__(self) -> str:
-        """Return string representation."""
+        """
+        Return string representation.
+
+        :return: string representation
+        """
         return " // ".join([f"{r.start}-{r.end}" for r in self])
 
     @property
@@ -454,6 +479,7 @@ class Range(BaseRange):
 
         :param start: starting datetime for the range
         :param end: ending datetime for the range
+        :raises ValueError: if start > end
         """
         self._start = pd.to_datetime(start)
         self._end = pd.to_datetime(end)
@@ -485,7 +511,7 @@ class Range(BaseRange):
         """
         Return an iterator over continuous ranges.
 
-        :return: Iterator[Range]
+        :yield: Iterator[Range]
         """
         yield Range(self.start, self.end)
 
@@ -524,9 +550,10 @@ class Range(BaseRange):
 
         :param other: other range to be merged
         :return: merged range
+        :raises TypeError: other is not of type Range
         """
         if not isinstance(other, Range):
-            raise ValueError(
+            raise TypeError(
                 f"add operator not defined for argument of type {type(other)}. Argument should be of "
                 f"type Range"
             )
@@ -600,7 +627,7 @@ class CompositeRange(BaseRange):
         """
         Return an iterator over continuous ranges.
 
-        :return: Iterator[Range]
+        :yield: Iterator[Range]
         """
         for range in self.ranges:
             yield range
@@ -627,9 +654,10 @@ class CompositeRange(BaseRange):
 
         :param other: BaseRange, other range to be merged
         :return: BaseRange, merged range
+        :raises TypeError: other is not of type BaseRange
         """
         if not isinstance(other, BaseRange):
-            raise ValueError(
+            raise TypeError(
                 f"add operator not defined for argument of type {type(other)}. Argument should be of "
                 f"type BaseRange"
             )

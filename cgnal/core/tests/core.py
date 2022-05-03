@@ -18,7 +18,6 @@ class TestCase(CoreTestCase, WithLogging):
         :param first: first list
         :param second: second list
         :param strict: whether to check element by element (strict) or only dimensions (non-strict)
-        :return: None
         """
         if strict:
             for item1, item2 in zip(first, second):
@@ -33,7 +32,6 @@ class TestCase(CoreTestCase, WithLogging):
         :param first: first dictionary
         :param second: second dictionary
         :param strict: whether to check element by element (strict) or only dimensions (non-strict)
-        :return: None
         """
         for key in set(first.keys()).union(second.keys()):
             if isinstance(first[key], dict):
@@ -52,7 +50,7 @@ class TestCase(CoreTestCase, WithLogging):
         :param first: first dataframe
         :param second: second dataframe
         :param msg: message
-        :return: None
+        :raises failureException: if the dataframe are different
         """
         try:
             pd.testing.assert_frame_equal(first, second)
@@ -66,7 +64,7 @@ class TestCase(CoreTestCase, WithLogging):
         :param first: first series
         :param second: second series
         :param msg: message
-        :return: None
+        :raises failureException: if the dataframe are different
         """
         try:
             pd.testing.assert_series_equal(first, second)
@@ -80,7 +78,7 @@ class TestCase(CoreTestCase, WithLogging):
         :param first: first array
         :param second: second array
         :param msg: message
-        :return: None
+        :raises failureException: if the dataframe are different
         """
         try:
             np.testing.assert_almost_equal(first, second, decimal=7)
@@ -88,11 +86,7 @@ class TestCase(CoreTestCase, WithLogging):
             raise self.failureException("Input arrays are different") from e
 
     def setUp(self) -> None:
-        """
-        Set up the class to add custom comparing/assertion functionalities.
-
-        :return: None
-        """
+        """Set up the class to add custom comparing/assertion functionalities."""
         self.addTypeEqualityFunc(pd.DataFrame, self.compareDataFrames)
         self.addTypeEqualityFunc(pd.Series, self.compareSeries)
         self.addTypeEqualityFunc(np.ndarray, self.compareArrays)

@@ -11,7 +11,7 @@ def mkdir(path: PathLike) -> None:
     Create a dir, using a formulation consistent between 2.x and 3.x python versions.
 
     :param path: path to create
-    :return: None
+    :raises OSError: whenever OSError is raised by makedirs and it's not because the directory exists
     """
     try:
         os.makedirs(path)

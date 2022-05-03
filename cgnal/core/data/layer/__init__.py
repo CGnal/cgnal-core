@@ -34,8 +34,8 @@ class DAO(Generic[T, V], ABC):
         """
         Compute the key of a given object.
 
-        :param T obj: object
-        :return Union[Hashable, Dict[str, ObjectId]]: hashable key
+        :param obj: object
+        :return: hashable key
         """
         ...
 
@@ -44,8 +44,8 @@ class DAO(Generic[T, V], ABC):
         """
         Return the record from the persistance layer corresponding to a object.
 
-        :param T obj: object
-        :return V: value
+        :param obj: object
+        :return: value
         """
         ...
 
@@ -54,8 +54,8 @@ class DAO(Generic[T, V], ABC):
         """
         Parse the record of the persistance layer into a object.
 
-        :param V row: record of the persistance layer
-        :return T: object
+        :param row: record of the persistance layer
+        :return: object
         """
         ...
 
@@ -68,9 +68,9 @@ class Archiver(Generic[T], ABC):
         """
         Retrieve objects under given filter conditions and sorting options.
 
-        :param Any condition: filter to be applied in the persistance layer
-        :param Any sort_by: sorting options
-        :yield Iterator[T]: iterator over the objects retrieved from the persistance layer
+        :param condition: filter to be applied in the persistance layer
+        :param sort_by: sorting options
+        :yield: iterator over the objects retrieved from the persistance layer
         """
         ...
 
@@ -81,7 +81,7 @@ class Archiver(Generic[T], ABC):
         """
         Archive an object in the persistance layer.
 
-        :param T obj: object to be archived
+        :param obj: object to be archived
         :return: archiver or update result
         """
         ...
@@ -90,8 +90,10 @@ class Archiver(Generic[T], ABC):
         """
         Apply a tranformation to each object and return an iterator.
 
-        :param Callable[[T], V] f: function
-        :yield Iterator[V]: iterator over transformed objects
+        :param f: function
+        :param args: other arguments passed to the retrieve method
+        :param kwargs: other keyworded arguments passed to the retrieve method
+        :yield: iterator over transformed objects
         """
         for obj in self.retrieve(*args, **kwargs):  # type: T
             yield f(obj)
@@ -100,7 +102,9 @@ class Archiver(Generic[T], ABC):
         """
         Apply a function to each object.
 
-        :param Callable[[T], None] f: function
+        :param f: function
+        :param args: other arguments passed to the retrieve method
+        :param kwargs: other keyworded arguments passed to the retrieve method
         """
         for obj in self.retrieve(*args, **kwargs):  # type: T
             f(obj)
@@ -109,9 +113,9 @@ class Archiver(Generic[T], ABC):
         """
         Wrap the retrieve method to return an iterator generator.
 
-        :param Any condition: filter condition
-        :param Any sort_by: sorting options
-        :return IterGenerator[T]: iterator generator
+        :param condition: filter condition
+        :param sort_by: sorting options
+        :return: iterator generator
         """
 
         def _iterator():
@@ -128,8 +132,8 @@ class TableABC(ABC):
         """
         Transform the underling data into a pandas dataframe.
 
-        :param str query: query
-        :return pd.DataFrame: pandas dataframe
+        :param query: query
+        :return: pandas dataframe
         """
         ...
 
@@ -138,7 +142,7 @@ class TableABC(ABC):
         """
         Write the pandas dataframe in the persistance layer.
 
-        :param pd.DataFrame df: pandas dataframe
+        :param df: pandas dataframe
         """
         ...
 
@@ -151,8 +155,8 @@ class DatabaseABC(ABC):
         """
         Return the table with a given name.
 
-        :param str table_name: name of the table
-        :return Optional[TableABC]: table or None if table not found
+        :param table_name: name of the table
+        :return: table or None if table not found
         """
         ...
 
@@ -168,7 +172,11 @@ class Writer(ABC):
 
     @abstractmethod
     def push(self, df: pd.DataFrame) -> None:
-        """Push a pandas dataframe."""
+        """
+        Push a pandas dataframe.
+
+        :param df: dataframe
+        """
         ...
 
 
@@ -179,7 +187,7 @@ class EmptyDatabase(DatabaseABC):
         """
         Raise an exception, since the database is empty.
 
-        :param str table_name: name of the table
+        :param table_name: name of the table
         :raises NoTableException: no table is present in an empty database
         """
         raise NoTableException(f"No table found with name {table_name}")

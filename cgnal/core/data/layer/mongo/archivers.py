@@ -57,7 +57,7 @@ class MongoArchiver(Archiver[T]):
 
         :param condition: condition to satisfy. If {}, return all documents.
         :param sort_by: ordering to respect. If None, no ordering is given.
-        :return: iterator of (ordered) documents satisfying given condition
+        :yield: iterator of (ordered) documents satisfying given condition
         """
         jsons = self.collection.find(condition, no_cursor_timeout=True)
         if sort_by is not None:
@@ -128,7 +128,7 @@ class MongoArchiver(Archiver[T]):
         :param pipeline: a list of aggregation pipeline stages
         :param allowDiskUse: Enables writing to temporary files. When set to `True`, aggregation stages can write data to
             the _tmp subdirectory of the --dbpath directory. The default is False.
-        :return: iterator with parsed aggregated documents
+        :yield: iterator with parsed aggregated documents
         """
         jsons = self.collection.aggregate(pipeline, allowDiskUse=allowDiskUse)
         for json in jsons:

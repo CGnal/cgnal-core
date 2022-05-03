@@ -34,6 +34,8 @@ commonmark==0.9.1
     # via recommonmark
 coverage[toml]==6.3.2
     # via pytest-cov
+darglint==1.8.1
+    # via -r requirements/requirements_ci.in
 deprecated==1.2.13
     # via -r requirements/requirements.in
 dill==0.3.4
