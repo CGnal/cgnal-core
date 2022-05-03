@@ -118,7 +118,7 @@ class MultiFeatureSample(Sample[List[np.ndarray], LabType]):
         Check that features is list of lists.
 
         :param features: list of lists
-        :return: None
+        :raises TypeError: if features is not a list or one of the feature content is not a numpy array
         """
         if not isinstance(features, list):
             raise TypeError("features must be a list")
@@ -140,9 +140,6 @@ class MultiFeatureSample(Sample[List[np.ndarray], LabType]):
         :param label: labels of the sample (optional)
         :param name: id of the sample (optional)
 
-        :type features: list of lists
-        :type label: float, int or None
-        :type name: object
         """
         self._check_features(features)
         super(MultiFeatureSample, self).__init__(features, label, name)
@@ -160,17 +157,31 @@ class Dataset(
 
     @property
     def _lazyType(self) -> "Type[LazyDataset]":
-        """Specify the type of LazyObject associated to this class."""
+        """
+        Specify the type of LazyObject associated to this class.
+
+        :return: LazyDatasetType
+        """
         return LazyDataset
 
     @property
     def _cachedType(self) -> "Type[CachedDataset]":
-        """Specify the type of CachedObject associated to this class."""
+        """
+        Specify the type of CachedObject associated to this class.
+
+        :return: CachedDatasetType
+        """
         return CachedDataset
 
     @staticmethod
     def checkNames(x: Optional[Union[str, int, Any]]) -> Union[str, int]:
-        """Check that feature names comply with format and cast them to either string or int."""
+        """
+        Check that feature names comply with format and cast them to either string or int.
+
+        :param x: feature name
+        :return: name as int or str
+        :raises AttributeError: if x is none
+        """
         if x is None:
             raise AttributeError("With type 'dict' all samples must have a name")
         else:
@@ -202,6 +213,7 @@ class Dataset(
 
         :param type: type of return. Can be one of "pandas", "dict", "list" or "array
         :return: an object of the specified type containing the features
+        :raises ValueError: if the provided type is not one of the allowed ones
         """
         if type == "array":
             return np.array([sample.features for sample in self])
@@ -256,6 +268,7 @@ class Dataset(
 
         :param type: type of return. Can be one of "pandas", "dict", "list" or "array
         :return: an object of the specified type containing the features
+        :raises ValueError: if the provided type is not one of the allowed ones
         """
         if type == "array":
             return np.array([sample.label for sample in self])
@@ -290,9 +303,10 @@ class Dataset(
 
         :param other: Dataset
         :return: LazyDataset
+        :raises TypeError: other is not an instance of Dataset
         """
         if not isinstance(other, Dataset):
-            raise ValueError(
+            raise TypeError(
                 "Union can only be done between Datasets. Found %s" % str(type(other))
             )
 
@@ -324,7 +338,11 @@ class CachedDataset(_CachedIterable[SampleTypes], DillSerialization, Dataset):
 
     @property
     def asPandasDataset(self) -> "PandasDataset":
-        """Cast object as a PandasDataset."""
+        """
+        Cast object as a PandasDataset.
+
+        :return: dataset
+        """
         return PandasDataset(self.getFeaturesAs("pandas"), self.getLabelsAs("pandas"))
 
 
@@ -440,13 +458,14 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
 
         :param features: a dataframe or a series of features
         :param labels: a dataframe or a series of labels. None in case no labels are present.
+        :raises TypeError: if the labels or features are not DataFrames nor Series
         """
         if isinstance(features, pd.Series):
             self._features = features.to_frame()
         elif isinstance(features, pd.DataFrame):
             self._features = features
         else:
-            raise ValueError(
+            raise TypeError(
                 "Features must be of type pandas.Series or pandas.DataFrame"
             )
 
@@ -457,7 +476,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         elif labels is None:
             self._labels = labels
         else:
-            raise ValueError(
+            raise TypeError(
                 "Labels must be of type pandas.Series or pandas.DataFrame or None"
             )
 
@@ -466,7 +485,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         """
         Get features as an iterator of Samples.
 
-        :return: Iterator of objects of :class:`cgnal.data.model.ml.Sample`
+        :yield: Iterator of objects of :class:`cgnal.data.model.ml.Sample`
         """
         for index, row in dict(self._features.to_dict(orient="index")).items():
             try:
@@ -580,6 +599,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         """
         Drop NAs from feature and labels.
 
+        :param kwargs: keyworded arguments are passed to dropna
         :return: ``PandasDataset`` with features and labels without NAs
         """
         kwargs_feat = {
@@ -637,6 +657,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
 
         :param type: str, default is 'array', can be 'array','pandas','dict'
         :return: features according to the given type
+        :raises ValueError: provided type not allowed
         """
         if type == "array":
             return np.array(self._features)
@@ -678,6 +699,7 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
 
         :param type: str, default is 'array', can be 'array','pandas','dict'
         :return: labels according to the given type
+        :raises ValueError: provided type not allowed
         """
         if self._labels is None:
             return None
@@ -729,8 +751,8 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         """
         Return a union between datasets.
 
-        other: Dataset to be merged
-        return: Dataset resulting from the merge
+        :param other: Dataset to be merged
+        :return: Dataset resulting from the merge
         """
         if isinstance(other, self.__class__):
             features = pd.concat([self.features, other.features])

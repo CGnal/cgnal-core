@@ -119,6 +119,7 @@ class SeriesDAO(DAO[pd.Series, pd.Series]):
         Return the inverse mapping between field names.
 
         :return: dict with inverse mapping
+        :raises ValueError: mapping is not invertible because of duplicated values
         """
         if len(set(self.mapping.values())) != len(self.mapping):
             raise ValueError("Mapping is not invertible as there are duplicated values")
@@ -130,6 +131,7 @@ class SeriesDAO(DAO[pd.Series, pd.Series]):
 
         :param serie: pd.Series
         :return: dict representing the key
+        :raises ValueError: keys and series name have different dimensions
         """
         if serie.name is None:
             raise ValueError("Cannot persist Series without name (to be used as index)")
@@ -151,7 +153,7 @@ class SeriesDAO(DAO[pd.Series, pd.Series]):
         """
         Get a series as series object.
 
-        :param s: pd.Series
+        :param serie: pd.Series
         :return: pd.Series
         """
         row = serie.rename(self.inverseMapping)

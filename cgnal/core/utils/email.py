@@ -54,7 +54,7 @@ class EmailSender(WithLogging):
         :param subject: The subject of the email
         :param destination: The destination email address
         :param attachments: List with the files to send as attachments to the email
-        :return: None
+        :raises NotImplementedError: if given protocol is not implemented
         """
         msg = MIMEMultipart()
         msg["Subject"] = subject
@@ -69,24 +69,21 @@ class EmailSender(WithLogging):
                 part["Content-Disposition"] = 'attachment; filename="%s"' % basename(f)
                 msg.attach(part)
 
-        try:
-            if self.auth_protocol == "SSL":
-                port = 465 if self.port is None else self.port
-                server: Union[smtplib.SMTP_SSL, smtplib.SMTP] = smtplib.SMTP_SSL(
-                    self.smtp_address, port=port
-                )
-            elif self.auth_protocol == "TLS":
-                port = 587 if self.port is None else self.port
-                server = smtplib.SMTP(self.smtp_address, port=port)
-                server.starttls()
-            elif self.auth_protocol == "None":
-                port = 25 if self.port is None else self.port
-                server = smtplib.SMTP(self.smtp_address, port=port)
-            else:
-                raise Exception(f"{self.auth_protocol} not implemented")
-            server.ehlo()
-            server.login(self.username, self.password)
-            server.sendmail(self.email_address, destination, msg.as_string())
-            server.close()
-        except Exception as e:
-            raise e
+        if self.auth_protocol == "SSL":
+            port = 465 if self.port is None else self.port
+            server: Union[smtplib.SMTP_SSL, smtplib.SMTP] = smtplib.SMTP_SSL(
+                self.smtp_address, port=port
+            )
+        elif self.auth_protocol == "TLS":
+            port = 587 if self.port is None else self.port
+            server = smtplib.SMTP(self.smtp_address, port=port)
+            server.starttls()
+        elif self.auth_protocol == "None":
+            port = 25 if self.port is None else self.port
+            server = smtplib.SMTP(self.smtp_address, port=port)
+        else:
+            raise NotImplementedError(f"{self.auth_protocol} not implemented")
+        server.ehlo()
+        server.login(self.username, self.password)
+        server.sendmail(self.email_address, destination, msg.as_string())
+        server.close()

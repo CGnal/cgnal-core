@@ -31,12 +31,8 @@ class WithLoggingABC(ABC):
     @property
     @abstractmethod
     def logger(self) -> Logger:
-        """
-        Logger instance to be used to output logs within a class.
-
-        :return: None, outputs logs
-        """
-        pass
+        """Logger instance to be used to output logs within a class."""
+        raise NotImplementedError
 
 
 class LoggingConfig(BaseConfig):
@@ -44,20 +40,36 @@ class LoggingConfig(BaseConfig):
 
     @property
     def level(self) -> str:
-        """Returnn logging level."""
+        """
+        Returnn logging level.
+
+        :return: level
+        """
         return self.getValue("level")
 
     @property
     def filename(self) -> PathLike:
-        """Name of the file where logs are stored."""
+        """
+        Name of the file where logs are stored.
+
+        :return: filename
+        """
         return self.getValue("filename")
 
     @property
     def default_config_file(self) -> PathLike:
-        """Return default logging configuration file."""
+        """
+        Return default logging configuration file.
+
+        :return: default config file
+        """
         return self.getValue("default_config_file")
 
     @property
     def capture_warnings(self) -> bool:
-        """Flag that determines whether waring are captured."""
+        """
+        Flag that determines whether waring are captured.
+
+        :return: capture warnings
+        """
         return self.getValue("capture_warnings")

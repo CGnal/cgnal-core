@@ -72,9 +72,10 @@ class Table(WithLogging, TableABC):
 
         :param db: database to which the table belongs
         :param table_name: name of the table
+        :raises TypeError: if the provided database is not an instance of Database
         """
         if not isinstance(db, Database):
-            raise ValueError(
+            raise TypeError(
                 f"The db should an instance of {'.'.join([Database.__module__, Database.__name__])}"
             )
 
@@ -94,6 +95,7 @@ class Table(WithLogging, TableABC):
         """
         Read pickle.
 
+        :param query: query
         :return: pd.DataFrame or pd.Series read from pickle
         """
         df = pd.read_pickle(self.filename)
@@ -114,7 +116,6 @@ class Table(WithLogging, TableABC):
 
         :param df: input data
         :param overwrite: whether or not to overwrite existing file
-        :return: None
         """
         # self.data can fail with:
         #   - KeyError if it tries to read a non-pickle file

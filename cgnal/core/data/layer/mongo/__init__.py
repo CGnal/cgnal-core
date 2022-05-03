@@ -9,17 +9,29 @@ class MongoConfig(BaseConfig):
 
     @property
     def host(self) -> str:
-        """Host name."""
+        """
+        Return ost name.
+
+        :return: host name
+        """
         return self.getValue("host")
 
     @property
     def port(self) -> int:
-        """Port."""
+        """
+        Return port.
+
+        :return: port
+        """
         return self.getValue("port")
 
     @property
     def db_name(self) -> str:
-        """Database name."""
+        """
+        Return database name.
+
+        :return: database name
+        """
         return self.getValue("db_name")
 
     def getCollection(self, name) -> str:
@@ -27,21 +39,33 @@ class MongoConfig(BaseConfig):
         Return collection name at a given configuration node.
 
         :param name: configuration node name
-        :return str: collection name
+        :return: collection name
         """
         return self.config["collections"][name]
 
     @property
     def auth(self) -> AuthConfig:
-        """Authetication config."""
+        """
+        Return authetication config.
+
+        :return: authetication config
+        """
         return AuthConfig(self.sublevel("auth"))
 
     @property
     def admin(self) -> AuthConfig:
-        """Administrator authentication config."""
+        """
+        Return administrator authentication config.
+
+        :return: administrator authentication config
+        """
         return AuthConfig(self.sublevel("admin"))
 
     @property
     def authSource(self) -> Any:
-        """Return the authentication source."""
+        """
+        Return the authentication source.
+
+        :return: authentication source
+        """
         return self.safeGetValue("authSource")

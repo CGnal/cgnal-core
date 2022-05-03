@@ -29,7 +29,14 @@ path_matcher = re.compile(r"\$\{([^}^{]+)\}")
 def path_constructor(
     loader: Union[Loader, FullLoader, UnsafeLoader], node: Node
 ) -> PathLike:
-    """Extract the matched value, expand env variable, and replace the match."""
+    """
+    Extract the matched value, expand env variable, and replace the match.
+
+    :param loader: not used
+    :param node: YAML node
+    :return: path
+    :raises SyntaxError: if the node value does not match the regex expression for a path-like string
+    """
     value = node.value
     match = path_matcher.match(value)
 
@@ -41,7 +48,13 @@ def path_constructor(
 
 
 def joinPath(loader: Union[Loader, FullLoader, UnsafeLoader], node: Node) -> PathLike:
-    """Join pieces of a file system path. Can be used as a custom tag handler."""
+    """
+    Join pieces of a file system path. Can be used as a custom tag handler.
+
+    :param loader: YAML file loader
+    :param node: YAML node
+    :return: path
+    """
     seq = loader.construct_sequence(node)
     return os.path.join(*seq)
 
@@ -135,8 +148,8 @@ class BaseConfig(object):
         """
         Get the value of a configuration node, gracefully returning None if the node does not exist.
 
-        :param Hashable name: name of the node
-        :return Any: value of the node, or None if the node does not exist
+        :param name: name of the node
+        :return: value of the node, or None if the node does not exist
         """
         return self.config.get(name, None)
 
@@ -144,8 +157,8 @@ class BaseConfig(object):
         """
         Update the current configuration.
 
-        :param dict my_dict: dictionary containing the nodes of the configuration to be updated
-        :return BaseConfig: new configuration with the updated nodes
+        :param my_dict: dictionary containing the nodes of the configuration to be updated
+        :return: new configuration with the updated nodes
         """
         meta = union(
             self.config.meta,
@@ -167,7 +180,7 @@ class FileSystemConfig(BaseConfig):
         """
         Return the root node value.
 
-        :return PathLike: root node value
+        :return: root node value
         """
         return self.getValue("root")
 
@@ -175,8 +188,8 @@ class FileSystemConfig(BaseConfig):
         """
         Return the folder name.
 
-        :param Hashable path: name of the configuration node
-        :return PathLike: folder name
+        :param path: name of the configuration node
+        :return: folder name
         """
         return self.config["folders"][path]
 
@@ -184,8 +197,8 @@ class FileSystemConfig(BaseConfig):
         """
         Return the file name.
 
-        :param Hashable file: name of the configuration node
-        :return PathLike: file name
+        :param file: name of the configuration node
+        :return: file name
         """
         return self.config["files"][file]
 
@@ -198,7 +211,7 @@ class AuthConfig(BaseConfig):
         """
         Return the authentication method.
 
-        :return str: authentication method
+        :return: authentication method
         """
         return self.getValue("method")
 
@@ -207,7 +220,7 @@ class AuthConfig(BaseConfig):
         """
         Return the name of the file containing the authentication details.
 
-        :return PathLike: name of the file containing the authentication details
+        :return: name of the file containing the authentication details
         """
         return self.getValue("filename")
 
@@ -216,7 +229,7 @@ class AuthConfig(BaseConfig):
         """
         Return the user name.
 
-        :return str: user name
+        :return: user name
         """
         return self.getValue("user")
 
@@ -225,7 +238,7 @@ class AuthConfig(BaseConfig):
         """
         Return the password.
 
-        :return str: password
+        :return: password
         """
         return self.getValue("password")
 
@@ -238,7 +251,7 @@ class AuthService(BaseConfig):
         """
         Return the url of the authentication service.
 
-        :return str: url of the authentication service
+        :return: url of the authentication service
         """
         return self.getValue("url")
 
@@ -247,7 +260,7 @@ class AuthService(BaseConfig):
         """
         Return check.
 
-        :return str: check
+        :return: check
         """
         return self.getValue("check")
 
@@ -256,7 +269,7 @@ class AuthService(BaseConfig):
         """
         Return decode.
 
-        :return str: decode
+        :return: decode
         """
         return self.getValue("decode")
 
@@ -269,7 +282,7 @@ class CheckService(BaseConfig):
         """
         Return the url of the check service.
 
-        :return str: url of the check service.
+        :return: url of the check service.
         """
         return self.getValue("url")
 
@@ -278,7 +291,7 @@ class CheckService(BaseConfig):
         """
         Return the login url.
 
-        :return str: login url
+        :return: login url
         """
         return self.getValue("login")
 
@@ -287,7 +300,7 @@ class CheckService(BaseConfig):
         """
         Return the logout url.
 
-        :return str: logout url
+        :return: logout url
         """
         return self.getValue("logout")
 
@@ -300,7 +313,7 @@ class AuthenticationServiceConfig(BaseConfig):
         """
         Return the secured flag.
 
-        :return bool: secured flag
+        :return: secured flag
         """
         return self.getValue("secured")
 
@@ -309,7 +322,7 @@ class AuthenticationServiceConfig(BaseConfig):
         """
         Return the ap name.
 
-        :return str: ap name
+        :return: ap name
         """
         return self.getValue("ap_name")
 
@@ -318,7 +331,7 @@ class AuthenticationServiceConfig(BaseConfig):
         """
         Return the jwt free endpoints.
 
-        :return List[str]: jwt free endpoints
+        :return: jwt free endpoints
         """
         return self.getValue("jwt_free_endpoints")
 
@@ -327,7 +340,7 @@ class AuthenticationServiceConfig(BaseConfig):
         """
         Return the authentication data.
 
-        :return AuthService: authentication data
+        :return: authentication data
         """
         return AuthService(self.sublevel("auth_service"))
 
@@ -336,7 +349,7 @@ class AuthenticationServiceConfig(BaseConfig):
         """
         Return the check service configuration.
 
-        :return CheckService: check service configuration
+        :return: check service configuration
         """
         return CheckService(self.sublevel("check_service"))
 
@@ -345,6 +358,6 @@ class AuthenticationServiceConfig(BaseConfig):
         """
         Return the cors.
 
-        :return str: cors
+        :return: cors
         """
         return self.getValue("cors")

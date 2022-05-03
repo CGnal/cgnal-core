@@ -87,7 +87,6 @@ def configFromFiles(
     :param config_files: list of configuration files
     :param capture_warnings: whether to capture warnings with logger
     :param catch_exceptions: name of the logger used to catch exceptions. If None do not catch exception with loggers.
-    :return: None
     """
     captureWarnings(capture_warnings)
 

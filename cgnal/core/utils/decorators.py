@@ -50,7 +50,11 @@ class Cached(object):
 
     @property
     def _cache(self):
-        """Hidden property that stores the custom cache that can be exported and imported."""
+        """
+        Hidden property that stores the custom cache that can be exported and imported.
+
+        :return: cached data
+        """
         try:
             return self._cache_data
         except AttributeError:
@@ -78,11 +82,7 @@ class Cached(object):
         return property(_wrap)
 
     def clear_cache(self) -> None:
-        """
-        Clear cache of the object.
-
-        :return: None
-        """
+        """Clear cache of the object."""
         self._cache.clear()
 
     def save_pickles(self, path: PathLike) -> None:
@@ -90,7 +90,6 @@ class Cached(object):
         Save pickle in given path.
 
         :param path: saving path
-        :return: None
         """
         path = create_dir_if_not_exists(path)
 
@@ -104,7 +103,7 @@ class Cached(object):
 
         :param filename: saving path
         :param obj: object to be saved
-        :return: None
+        :raises Exception: if any error occurs while saving the file
         """
         if isinstance(obj, dict):
             create_dir_if_not_exists(filename)
@@ -114,18 +113,16 @@ class Cached(object):
         else:
             try:
                 pd.to_pickle(obj, "%s.p" % filename)
-            except Exception:
-                raise ValueError("Cannot save input of type %s" % str(obj.__class__))
+            except Exception as ex:
+                raise type(ex)("Cannot save input of type %s" % str(obj.__class__))
 
     def load(self, filename: PathLike) -> None:
         """
         Load pickle at given path (or all pickles in given folder).
 
         :param filename: path to pickles
-        :return: None
         """
         self._cache.update(dict(self.load_element(filename, "")))
-        return None
 
     @classmethod
     def load_element(
@@ -136,7 +133,7 @@ class Cached(object):
 
         :param filename: name of the file/directory where the data should be taken from
         :param prefix: prefix to add to elements in filename in case it is a directory
-        :return: iterable of couples (path, loaded object)
+        :yield: iterable of couples (path, loaded object)
         """
         if os.path.isdir(filename):
             for path in glob(os.path.join(filename, "*")):

@@ -32,6 +32,7 @@ class PandasArchiver(Archiver[T], ABC):
 
         :param dao: An instance of :class:`cgnal.data.layer.pandas.dao.DocumentDao/SeriesDAO/DataFrameDAO` that helps
             to retrieve/archive a pd.DataFrame row
+        :raises TypeError: if given DAO is not of the correct type
         """
         if not isinstance(dao, DAO):
             raise TypeError(
@@ -58,12 +59,15 @@ class PandasArchiver(Archiver[T], ABC):
         Set data property to given value.
 
         :param value: value to set
-        :return: None
         """
         self._data = value
 
     def commit(self) -> "PandasArchiver":
-        """Persist data stored in memory in the file."""
+        """
+        Persist data stored in memory in the file.
+
+        :return: self
+        """
         self._write()
         return self
 
@@ -165,7 +169,7 @@ class CsvArchiver(PandasArchiver[T]):
         :param dao: An instance of :class:`cgnal.data.layer.pandas.dao.DocumentDao/SeriesDAO/DataFrameDAO`
             that helps to retrieve/archive a `pd.Dataframe` row.
         :param sep: str, default ';'. Delimiter to use
-
+        :raises TypeError: if filename is not a string
         """
         super(CsvArchiver, self).__init__(dao)
 
@@ -176,11 +180,7 @@ class CsvArchiver(PandasArchiver[T]):
         self.sep = sep
 
     def _write(self) -> None:
-        """
-        Write object to a csv file.
-
-        :return: None
-        """
+        """Write object to a csv file."""
         self.data.to_csv(self.filename, sep=self.sep)
 
     def _read(self) -> pd.DataFrame:
@@ -206,6 +206,7 @@ class PickleArchiver(PandasArchiver[T]):
         :param filename: str, path object or file like object. Any valid string path to a pickle file.
         :param dao: An instance of :class:`cgnal.data.layer.pandas.dao.DocumentDao/SeriesDAO/DataFrameDAO`
             that helps to retrieve/archive a `pd.Dataframe` row.
+        :raises TypeError: if filename is not a string
 
         """
         super(PickleArchiver, self).__init__(dao)
@@ -216,11 +217,7 @@ class PickleArchiver(PandasArchiver[T]):
         self.filename = filename
 
     def _write(self) -> None:
-        """
-        Write object to a pickle file.
-
-        :return:
-        """
+        """Write object to a pickle file."""
         self.data.to_pickle(self.filename)
 
     def _read(self) -> pd.DataFrame:
@@ -254,11 +251,7 @@ class TableArchiver(PandasArchiver[T]):
         self.table = table
 
     def _write(self) -> None:
-        """
-        Write Table object as a pickle file.
-
-        :return: None
-        """
+        """Write Table object as a pickle file."""
         self.table.write(self.data, overwrite=True)
 
     def _read(self) -> pd.DataFrame:

@@ -32,7 +32,11 @@ K = TypeVar("K", bound=Hashable)
 
 
 def generate_random_uuid() -> bytes:
-    """Create a random number with 12 digits."""
+    """
+    Create a random number with 12 digits.
+
+    :return: uuid
+    """
     return uuid.uuid1().bytes[:12]
 
 
@@ -50,7 +54,11 @@ class Document(Generic[K]):
         self.data = data
 
     def __str__(self) -> str:
-        """Return string description of the class."""
+        """
+        Return string description of the class.
+
+        :return: string rep
+        """
         return f"Id: {self.uuid}"
 
     def getOrThrow(self, key: str, default: Optional[Any] = None) -> Optional[Any]:
@@ -60,6 +68,7 @@ class Document(Generic[K]):
         :param key: key to retrieve
         :param default: default value to return
         :return: retrieve element
+        :raises KeyError: if key not found and default not provided
         """
         try:
             return self.data[key]
@@ -137,7 +146,7 @@ class Document(Generic[K]):
         """
         Yield data properties names.
 
-        :return: iterator with data properties names
+        :yield: iterator with data properties names
         """
         for prop in self.data.keys():
             yield prop
@@ -146,7 +155,7 @@ class Document(Generic[K]):
         """
         Yield data items.
 
-        :return: iterator with tuples of data properties names and values
+        :yield: iterator with tuples of data properties names and values
         """
         for prop in self.properties:
             yield prop, self[prop]
@@ -157,12 +166,20 @@ class Documents(_IterableUtils[Document, "CachedDocuments", "LazyDocuments"], AB
 
     @property
     def _lazyType(self) -> "Type[LazyDocuments]":
-        """Specify the type of LazyObject associated to this class."""
+        """
+        Specify the type of LazyObject associated to this class.
+
+        :return: LazyDocuments type
+        """
         return LazyDocuments
 
     @property
     def _cachedType(self) -> "Type[CachedDocuments]":
-        """Specify the type of CachedObject associated to this class."""
+        """
+        Specify the type of CachedObject associated to this class.
+
+        :return: CachedDocuments type
+        """
         return CachedDocuments
 
 
@@ -171,7 +188,13 @@ class CachedDocuments(_CachedIterable[Document], DillSerialization, Documents):
 
     @staticmethod
     def _get_key(key: str, dict: Dict[str, Any]) -> Any:
-        """Return the property of the dictionary or nan."""
+        """
+        Return the property of the dictionary or nan.
+
+        :param key: key
+        :param dict: dict
+        :return: key
+        """
         try:
             out = dict
             for level in key.split("."):

@@ -151,7 +151,7 @@ def groupBy(
 
     :param lst: List
     :param key: function to be used as a key to perform groupby operation
-    :return: Iterator
+    :yield: Iterator
     """
     for k, it in groupby(sorted(lst, key=key), key=key):
         yield k, list(it)

@@ -52,7 +52,7 @@ class CloudSync(WithLogging):
         Return file from the url.
 
         :param filename: name of file to be downloaded
-        :return: None
+        :raises FileNotFoundError: if file is not found
         """
         self.logger.info(f"Getting resource {filename} from {self.url}")
 
@@ -111,11 +111,7 @@ class HTTPRequestHandler(WithLogging, http.server.SimpleHTTPRequestHandler):
     """Performs POST operation."""
 
     def do_POST(self) -> None:
-        """
-        Post given resource.
-
-        :return: None
-        """
+        """Post given resource."""
         path = self.translate_path(self.path)
 
         dirname = os.path.dirname(path)
