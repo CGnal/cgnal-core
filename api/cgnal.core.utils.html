@@ -141,8 +141,8 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>filename</strong> – name of file to be downloaded</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>FileNotFoundError</strong> – if file is not found</p>
 </dd>
 </dl>
 </dd></dl>
@@ -214,11 +214,6 @@
 <dt class="sig sig-object py" id="cgnal.core.utils.cloud.HTTPRequestHandler.do_POST">
 <span class="sig-name descname"><span class="pre">do_POST</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cgnal.core.utils.cloud.HTTPRequestHandler.do_POST" title="Permalink to this definition"></a></dt>
 <dd><p>Post given resource.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 </dd></dl>
@@ -250,11 +245,6 @@
 <dt class="sig sig-object py" id="cgnal.core.utils.decorators.Cached.clear_cache">
 <span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cgnal.core.utils.decorators.Cached.clear_cache" title="Permalink to this definition"></a></dt>
 <dd><p>Clear cache of the object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -264,9 +254,6 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>filename</strong> – path to pickles</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -282,7 +269,7 @@
 <li><p><strong>prefix</strong> – prefix to add to elements in filename in case it is a directory</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Yield</dt>
 <dd class="field-even"><p>iterable of couples (path, loaded object)</p>
 </dd>
 </dl>
@@ -299,8 +286,8 @@
 <li><p><strong>obj</strong> – object to be saved</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception</strong> – if any error occurs while saving the file</p>
 </dd>
 </dl>
 </dd></dl>
@@ -312,9 +299,6 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>path</strong> – saving path</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -430,7 +414,7 @@ The keys are joined by the given separator.</p>
 <li><p><strong>key</strong> – function to be used as a key to perform groupby operation</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Yield</dt>
 <dd class="field-even"><p>Iterator</p>
 </dd>
 </dl>
@@ -535,8 +519,8 @@ The keys are joined by the given separator.</p>
 <li><p><strong>attachments</strong> – List with the files to send as attachments to the email</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – if given protocol is not implemented</p>
 </dd>
 </dl>
 </dd></dl>
@@ -586,8 +570,8 @@ The keys are joined by the given separator.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>path</strong> – path to create</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>OSError</strong> – whenever OSError is raised by makedirs and it’s not because the directory exists</p>
 </dd>
 </dl>
 </dd></dl>

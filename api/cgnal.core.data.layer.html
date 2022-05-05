@@ -137,7 +137,7 @@
 <dd><p>Archive an object in the persistance layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>obj</strong> (<em>T</em>) – object to be archived</p>
+<dd class="field-odd"><p><strong>obj</strong> – object to be archived</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>archiver or update result</p>
@@ -151,7 +151,11 @@
 <dd><p>Apply a function to each object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>]</em><em>, </em><em>None</em><em>]</em>) – function</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> – function</p></li>
+<li><p><strong>args</strong> – other arguments passed to the retrieve method</p></li>
+<li><p><strong>kwargs</strong> – other keyworded arguments passed to the retrieve method</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -162,9 +166,13 @@
 <dd><p>Apply a tranformation to each object and return an iterator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><em>T</em><em>]</em><em>, </em><em>V</em><em>]</em>) – function</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> – function</p></li>
+<li><p><strong>args</strong> – other arguments passed to the retrieve method</p></li>
+<li><p><strong>kwargs</strong> – other keyworded arguments passed to the retrieve method</p></li>
+</ul>
 </dd>
-<dt class="field-even">Yield Iterator[V]</dt>
+<dt class="field-even">Yield</dt>
 <dd class="field-even"><p>iterator over transformed objects</p>
 </dd>
 </dl>
@@ -177,11 +185,11 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>condition</strong> (<em>Any</em>) – filter to be applied in the persistance layer</p></li>
-<li><p><strong>sort_by</strong> (<em>Any</em>) – sorting options</p></li>
+<li><p><strong>condition</strong> – filter to be applied in the persistance layer</p></li>
+<li><p><strong>sort_by</strong> – sorting options</p></li>
 </ul>
 </dd>
-<dt class="field-even">Yield Iterator[T]</dt>
+<dt class="field-even">Yield</dt>
 <dd class="field-even"><p>iterator over the objects retrieved from the persistance layer</p>
 </dd>
 </dl>
@@ -194,11 +202,11 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>condition</strong> (<em>Any</em>) – filter condition</p></li>
-<li><p><strong>sort_by</strong> (<em>Any</em>) – sorting options</p></li>
+<li><p><strong>condition</strong> – filter condition</p></li>
+<li><p><strong>sort_by</strong> – sorting options</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return IterGenerator[T]</dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>iterator generator</p>
 </dd>
 </dl>
@@ -217,9 +225,9 @@
 <dd><p>Compute the key of a given object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>obj</strong> (<em>T</em>) – object</p>
+<dd class="field-odd"><p><strong>obj</strong> – object</p>
 </dd>
-<dt class="field-even">Return Union[Hashable, Dict[str, ObjectId]]</dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>hashable key</p>
 </dd>
 </dl>
@@ -231,9 +239,9 @@
 <dd><p>Return the record from the persistance layer corresponding to a object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>obj</strong> (<em>T</em>) – object</p>
+<dd class="field-odd"><p><strong>obj</strong> – object</p>
 </dd>
-<dt class="field-even">Return V</dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>value</p>
 </dd>
 </dl>
@@ -245,9 +253,9 @@
 <dd><p>Parse the record of the persistance layer into a object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>row</strong> (<em>V</em>) – record of the persistance layer</p>
+<dd class="field-odd"><p><strong>row</strong> – record of the persistance layer</p>
 </dd>
-<dt class="field-even">Return T</dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>object</p>
 </dd>
 </dl>
@@ -266,9 +274,9 @@
 <dd><p>Return the table with a given name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>table_name</strong> (<em>str</em>) – name of the table</p>
+<dd class="field-odd"><p><strong>table_name</strong> – name of the table</p>
 </dd>
-<dt class="field-even">Return Optional[TableABC]</dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>table or None if table not found</p>
 </dd>
 </dl>
@@ -287,7 +295,7 @@
 <dd><p>Raise an exception, since the database is empty.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>table_name</strong> (<em>str</em>) – name of the table</p>
+<dd class="field-odd"><p><strong>table_name</strong> – name of the table</p>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><p><a class="reference internal" href="cgnal.core.data.html#cgnal.core.data.exceptions.NoTableException" title="cgnal.core.data.exceptions.NoTableException"><strong>NoTableException</strong></a> – no table is present in an empty database</p>
@@ -308,9 +316,9 @@
 <dd><p>Transform the underling data into a pandas dataframe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>query</strong> (<em>str</em>) – query</p>
+<dd class="field-odd"><p><strong>query</strong> – query</p>
 </dd>
-<dt class="field-even">Return pd.DataFrame</dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>pandas dataframe</p>
 </dd>
 </dl>
@@ -322,7 +330,7 @@
 <dd><p>Write the pandas dataframe in the persistance layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – pandas dataframe</p>
+<dd class="field-odd"><p><strong>df</strong> – pandas dataframe</p>
 </dd>
 </dl>
 </dd></dl>
@@ -338,6 +346,11 @@
 <dt class="sig sig-object py" id="cgnal.core.data.layer.Writer.push">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.Writer.push" title="Permalink to this definition"></a></dt>
 <dd><p>Push a pandas dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> – dataframe</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">

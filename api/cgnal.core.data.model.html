@@ -319,9 +319,6 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>filename</strong> – Name of the file where to save the instance</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -361,6 +358,9 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>items</strong> – IterGenerator containing the generator of items</p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if items is not an instance of IterGenerator</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -391,9 +391,6 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>filename</strong> – Name of the file where to save the instance</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -411,6 +408,9 @@
 <li><p><strong>start</strong> – starting datetime for the range</p></li>
 <li><p><strong>end</strong> – ending datetime for the range</p></li>
 </ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if start &gt; end</p>
 </dd>
 </dl>
 <dl class="py property">
@@ -474,12 +474,22 @@
 <dt class="sig sig-object py" id="cgnal.core.data.model.core.Serializable.load">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cgnal.core.data.model.core.Serializable" title="cgnal.core.data.model.core.Serializable"><span class="pre">Serializable</span></a></span></span><a class="headerlink" href="#cgnal.core.data.model.core.Serializable.load" title="Permalink to this definition"></a></dt>
 <dd><p>Load class from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – filename</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.model.core.Serializable.write">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filaname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cgnal.core.data.model.core.Serializable.write" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#cgnal.core.data.model.core.Serializable.write" title="Permalink to this definition"></a></dt>
 <dd><p>Write class to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – filename</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -503,6 +513,11 @@
 <dt class="sig sig-object py" id="cgnal.core.data.model.ml.CachedDataset.asPandasDataset">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">asPandasDataset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#cgnal.core.data.model.ml.PandasDataset" title="cgnal.core.data.model.ml.PandasDataset"><span class="pre">cgnal.core.data.model.ml.PandasDataset</span></a></em><a class="headerlink" href="#cgnal.core.data.model.ml.CachedDataset.asPandasDataset" title="Permalink to this definition"></a></dt>
 <dd><p>Cast object as a PandasDataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>dataset</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -527,6 +542,17 @@
 <dt class="sig sig-object py" id="cgnal.core.data.model.ml.Dataset.checkNames">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkNames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.model.ml.Dataset.checkNames" title="Permalink to this definition"></a></dt>
 <dd><p>Check that feature names comply with format and cast them to either string or int.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – feature name</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>name as int or str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>AttributeError</strong> – if x is none</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -547,6 +573,9 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>an object of the specified type containing the features</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – if the provided type is not one of the allowed ones</p>
 </dd>
 </dl>
 </dd></dl>
@@ -570,6 +599,9 @@
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>an object of the specified type containing the features</p>
 </dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – if the provided type is not one of the allowed ones</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -583,6 +615,9 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>LazyDataset</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>TypeError</strong> – other is not an instance of Dataset</p>
 </dd>
 </dl>
 </dd></dl>
@@ -598,6 +633,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>items</strong> – IterGenerator containing the generator of items</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if items is not an instance of IterGenerator</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -691,9 +729,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>features</strong> (<em>list of lists</em>) – features of the sample</p></li>
-<li><p><strong>label</strong> (<em>float</em><em>, </em><em>int</em><em> or </em><em>None</em>) – labels of the sample (optional)</p></li>
-<li><p><strong>name</strong> (<em>object</em>) – id of the sample (optional)</p></li>
+<li><p><strong>features</strong> – features of the sample</p></li>
+<li><p><strong>label</strong> – labels of the sample (optional)</p></li>
+<li><p><strong>name</strong> – id of the sample (optional)</p></li>
 </ul>
 </dd>
 </dl>
@@ -713,6 +751,9 @@ dataframe, numpy array or a dictionary. For unsupervised learning tasks the labe
 <li><p><strong>features</strong> – a dataframe or a series of features</p></li>
 <li><p><strong>labels</strong> – a dataframe or a series of labels. None in case no labels are present.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if the labels or features are not DataFrames nor Series</p>
 </dd>
 </dl>
 <dl class="py property">
@@ -748,8 +789,11 @@ dataframe, numpy array or a dictionary. For unsupervised learning tasks the labe
 <span class="sig-name descname"><span class="pre">dropna</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cgnal.core.data.model.ml.PandasDataset" title="cgnal.core.data.model.ml.PandasDataset"><span class="pre">cgnal.core.data.model.ml.PandasDataset</span></a></span></span><a class="headerlink" href="#cgnal.core.data.model.ml.PandasDataset.dropna" title="Permalink to this definition"></a></dt>
 <dd><p>Drop NAs from feature and labels.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">PandasDataset</span></code> with features and labels without NAs</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – keyworded arguments are passed to dropna</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">PandasDataset</span></code> with features and labels without NAs</p>
 </dd>
 </dl>
 </dd></dl>
@@ -798,6 +842,9 @@ dataframe, numpy array or a dictionary. For unsupervised learning tasks the labe
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>features according to the given type</p>
 </dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – provided type not allowed</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -819,6 +866,9 @@ dataframe, numpy array or a dictionary. For unsupervised learning tasks the labe
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>labels according to the given type</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – provided type not allowed</p>
 </dd>
 </dl>
 </dd></dl>
@@ -850,7 +900,7 @@ dataframe, numpy array or a dictionary. For unsupervised learning tasks the labe
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cgnal.core.data.model.ml.Sample" title="cgnal.core.data.model.ml.Sample"><span class="pre">cgnal.core.data.model.ml.Sample</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.data.model.ml.PandasDataset.items" title="Permalink to this definition"></a></dt>
 <dd><p>Get features as an iterator of Samples.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Yield</dt>
 <dd class="field-odd"><p>Iterator of objects of <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.model.ml.Sample</span></code></p>
 </dd>
 </dl>
@@ -899,8 +949,14 @@ dataframe, numpy array or a dictionary. For unsupervised learning tasks the labe
 <dt class="sig sig-object py" id="cgnal.core.data.model.ml.PandasDataset.union">
 <span class="sig-name descname"><span class="pre">union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cgnal.core.data.model.ml.Dataset" title="cgnal.core.data.model.ml.Dataset"><span class="pre">cgnal.core.data.model.ml.Dataset</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cgnal.core.data.model.ml.Dataset" title="cgnal.core.data.model.ml.Dataset"><span class="pre">cgnal.core.data.model.ml.Dataset</span></a></span></span><a class="headerlink" href="#cgnal.core.data.model.ml.PandasDataset.union" title="Permalink to this definition"></a></dt>
 <dd><p>Return a union between datasets.</p>
-<p>other: Dataset to be merged
-return: Dataset resulting from the merge</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> – Dataset to be merged</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataset resulting from the merge</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1061,6 +1117,9 @@ For unsupervised learning tasks the labels are left as None.</p>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>retrieve element</p>
 </dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>KeyError</strong> – if key not found and default not provided</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1069,7 +1128,7 @@ For unsupervised learning tasks the labels are left as None.</p>
 <span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.model.text.Document.items" title="Permalink to this definition"></a></dt>
 <dd><p>Yield data items.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Yield</dt>
 <dd class="field-odd"><p>iterator with tuples of data properties names and values</p>
 </dd>
 </dl>
@@ -1091,7 +1150,7 @@ For unsupervised learning tasks the labels are left as None.</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">properties</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.data.model.text.Document.properties" title="Permalink to this definition"></a></dt>
 <dd><p>Yield data properties names.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Yield</dt>
 <dd class="field-odd"><p>iterator with data properties names</p>
 </dd>
 </dl>
@@ -1152,6 +1211,9 @@ For unsupervised learning tasks the labels are left as None.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>items</strong> – IterGenerator containing the generator of items</p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if items is not an instance of IterGenerator</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1159,6 +1221,11 @@ For unsupervised learning tasks the labels are left as None.</p>
 <dt class="sig sig-object py" id="cgnal.core.data.model.text.generate_random_uuid">
 <span class="sig-prename descclassname"><span class="pre">cgnal.core.data.model.text.</span></span><span class="sig-name descname"><span class="pre">generate_random_uuid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#cgnal.core.data.model.text.generate_random_uuid" title="Permalink to this definition"></a></dt>
 <dd><p>Create a random number with 12 digits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uuid</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

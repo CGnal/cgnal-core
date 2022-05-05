@@ -123,6 +123,9 @@ that helps to retrieve/archive a <cite>pd.Dataframe</cite> row.</p></li>
 <li><p><strong>sep</strong> – str, default ‘;’. Delimiter to use</p></li>
 </ul>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if filename is not a string</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -136,6 +139,9 @@ that helps to retrieve/archive a <cite>pd.Dataframe</cite> row.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>dao</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.layer.pandas.dao.DocumentDao/SeriesDAO/DataFrameDAO</span></code> that helps
 to retrieve/archive a pd.DataFrame row</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if given DAO is not of the correct type</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -186,6 +192,11 @@ to retrieve/archive a pd.DataFrame row</p>
 <dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.archivers.PandasArchiver.commit">
 <span class="sig-name descname"><span class="pre">commit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver" title="cgnal.core.data.layer.pandas.archivers.PandasArchiver"><span class="pre">cgnal.core.data.layer.pandas.archivers.PandasArchiver</span></a></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.archivers.PandasArchiver.commit" title="Permalink to this definition"></a></dt>
 <dd><p>Persist data stored in memory in the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>self</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -263,6 +274,9 @@ to retrieve/archive a pd.DataFrame row</p>
 <li><p><strong>dao</strong> – An instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.data.layer.pandas.dao.DocumentDao/SeriesDAO/DataFrameDAO</span></code>
 that helps to retrieve/archive a <cite>pd.Dataframe</cite> row.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if filename is not a string</p>
 </dd>
 </dl>
 </dd></dl>
@@ -429,6 +443,9 @@ the name in the file, the value represent the name we want to have in the Series
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>dict representing the key</p>
 </dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – keys and series name have different dimensions</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -438,7 +455,7 @@ the name in the file, the value represent the name we want to have in the Series
 <dd><p>Get a series as series object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>s</strong> – pd.Series</p>
+<dd class="field-odd"><p><strong>serie</strong> – pd.Series</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>pd.Series</p>
@@ -453,6 +470,9 @@ the name in the file, the value represent the name we want to have in the Series
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>dict with inverse mapping</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – mapping is not invertible because of duplicated values</p>
 </dd>
 </dl>
 </dd></dl>
@@ -531,6 +551,9 @@ the name in the file, the value represent the name we want to have in the Series
 <li><p><strong>table_name</strong> – name of the table</p></li>
 </ul>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if the provided database is not an instance of Database</p>
+</dd>
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.data.layer.pandas.databases.Table.data">
@@ -559,8 +582,11 @@ the name in the file, the value represent the name we want to have in the Series
 <span class="sig-name descname"><span class="pre">to_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.core.frame.DataFrame</span></span></span><a class="headerlink" href="#cgnal.core.data.layer.pandas.databases.Table.to_df" title="Permalink to this definition"></a></dt>
 <dd><p>Read pickle.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>pd.DataFrame or pd.Series read from pickle</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> – query</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pd.DataFrame or pd.Series read from pickle</p>
 </dd>
 </dl>
 </dd></dl>
@@ -575,9 +601,6 @@ the name in the file, the value represent the name we want to have in the Series
 <li><p><strong>df</strong> – input data</p></li>
 <li><p><strong>overwrite</strong> – whether or not to overwrite existing file</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>

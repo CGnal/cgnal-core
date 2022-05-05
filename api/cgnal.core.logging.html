@@ -154,9 +154,6 @@
 <li><p><strong>catch_exceptions</strong> – name of the logger used to catch exceptions. If None do not catch exception with loggers.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -244,24 +241,44 @@
 <dt class="sig sig-object py" id="cgnal.core.logging.LoggingConfig.capture_warnings">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">capture_warnings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#cgnal.core.logging.LoggingConfig.capture_warnings" title="Permalink to this definition"></a></dt>
 <dd><p>Flag that determines whether waring are captured.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>capture warnings</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.logging.LoggingConfig.default_config_file">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default_config_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.logging.LoggingConfig.default_config_file" title="Permalink to this definition"></a></dt>
 <dd><p>Return default logging configuration file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>default config file</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.logging.LoggingConfig.filename">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cgnal.core.logging.LoggingConfig.filename" title="Permalink to this definition"></a></dt>
 <dd><p>Name of the file where logs are stored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>filename</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cgnal.core.logging.LoggingConfig.level">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#cgnal.core.logging.LoggingConfig.level" title="Permalink to this definition"></a></dt>
 <dd><p>Returnn logging level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>level</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -275,11 +292,6 @@
 <dt class="sig sig-object py" id="cgnal.core.logging.WithLoggingABC.logger">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">logging.Logger</span></em><a class="headerlink" href="#cgnal.core.logging.WithLoggingABC.logger" title="Permalink to this definition"></a></dt>
 <dd><p>Logger instance to be used to output logs within a class.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>None, outputs logs</p>
-</dd>
-</dl>
 </dd></dl>
 
 </dd></dl>
