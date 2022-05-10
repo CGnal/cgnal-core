@@ -268,6 +268,23 @@ class TestDocumentArchivers(TestCase):
         user = config.getValue("user")
         self.assertEqual(user, os.environ["USER"])
 
+    @logTest
+    def test_missing_environ_variable(self):
+        test_file = "defaults.yml"
+
+        os.environ["CONFIG_FILE"] = os.path.join(TEST_DATA_PATH, test_file)
+        user = os.environ.pop("USER")
+
+        with self.assertRaises(KeyError) as context:
+            merge_confs(
+                get_all_configuration_file(),
+                os.path.join(config_dir, "defaults.yml"),
+            )
+
+        os.environ["USER"] = user
+        print(context.exception)
+        self.assertIn("USER", str(context.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
