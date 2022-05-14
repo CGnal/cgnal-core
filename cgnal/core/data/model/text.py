@@ -164,21 +164,21 @@ class Document(Generic[K]):
 class Documents(_IterableUtils[Document, "CachedDocuments", "LazyDocuments"], ABC):
     """Base class representing a collection of documents, that is a corpus."""
 
-    @property
-    def _lazyType(self) -> "Type[LazyDocuments]":
-        """
-        Specify the type of LazyObject associated to this class.
+    __type__ = Document
 
-        :return: LazyDocuments type
+    @property
+    def __lazyType__(self) -> "Type[LazyDocuments]":
+        """Pre-defined lazy type to cast lazy outputs.
+
+        :return: Lazy Iterable Class
         """
         return LazyDocuments
 
     @property
-    def _cachedType(self) -> "Type[CachedDocuments]":
-        """
-        Specify the type of CachedObject associated to this class.
+    def __cachedType__(self) -> "Type[CachedDocuments]":
+        """Pre-defined cached type to cast cached outputs.
 
-        :return: CachedDocuments type
+        :return: Cached Iterable Class
         """
         return CachedDocuments
 

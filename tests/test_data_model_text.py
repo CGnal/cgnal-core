@@ -102,12 +102,12 @@ class TestCachedDocuments(TestCase):
     @logTest
     def test_lazyType(self):
         self.assertIsInstance(
-            cached_doc._lazyType(IterGenerator(samples_gen)), LazyDocuments
+            cached_doc.__lazyType__(IterGenerator(samples_gen)), LazyDocuments
         )
 
     @logTest
     def test_cachedType(self):
-        self.assertIsInstance(cached_doc._cachedType([doc1, doc2]), CachedDocuments)
+        self.assertIsInstance(cached_doc.__cachedType__([doc1, doc2]), CachedDocuments)
 
     @logTest
     def test_asLazy(self):
@@ -202,13 +202,13 @@ class TestLazyDocuments(TestCase):
     @logTest
     def test_lazyType(self):
         self.assertIsInstance(
-            lazy_doc._lazyType(IterGenerator(samples_gen)), LazyDocuments
+            lazy_doc.__lazyType__(IterGenerator(samples_gen)), LazyDocuments
         )
 
     @logTest
     def test_cachedType(self):
         self.assertIsInstance(
-            lazy_doc._cachedType([dict_doc1, dict_doc2]), CachedDocuments
+            lazy_doc.__cachedType__([dict_doc1, dict_doc2]), CachedDocuments
         )
 
     @logTest
