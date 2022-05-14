@@ -16,7 +16,7 @@ def createCorpus(n):
 
 class TestDocuments(TestCase):
     docs = (
-        CachedDocuments(createCorpus(n))
+        CachedDocuments(list(createCorpus(n)))
         .map(lambda x: x.addProperty("tags", {"1": "1"}))
         .map(lambda x: x.addProperty("tags", {"2": "2"}))
     )
