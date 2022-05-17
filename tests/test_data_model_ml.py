@@ -37,9 +37,6 @@ def samples_gen():
             yield sample
 
 
-lazyDat = LazyDataset(IterGenerator(samples_gen))
-
-
 class features_and_labels_to_datasetTests(TestCase):
     def test_features_and_labels_to_dataset(self):
 
@@ -311,7 +308,7 @@ class LazyDatasetTests(TestCase):
 
     @logTest
     def test_features_labels(self):
-
+        lazyDat = LazyDataset(IterGenerator(samples_gen))
         self.assertTrue(isinstance(lazyDat.features(), Generator))
         self.assertTrue(isinstance(lazyDat.labels(), Generator))
         self.assertTrue(isinstance(lazyDat.getFeaturesAs(), Generator))
@@ -323,19 +320,25 @@ class LazyDatasetTests(TestCase):
 
 
 class CachedDatasetTests(TestCase):
+    lazyDat: LazyDataset
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.lazyDat = LazyDataset(IterGenerator(samples_gen))
+
     @logTest
     def test_to_df(self):
 
-        self.assertTrue(isinstance(lazyDat.asCached.to_df(), pd.DataFrame))
+        self.assertTrue(isinstance(self.lazyDat.to_cached().to_df(), pd.DataFrame))
         self.assertTrue(
             (
-                CachedDataset(lazyDat).to_df()["features"][0].values
+                CachedDataset(self.lazyDat).to_df()["features"][0].values
                 == [100, 102, 104, 106, 108, 110, 112, 114, 116]
             ).all()
         )
         self.assertTrue(
             (
-                CachedDataset(lazyDat).to_df()["labels"][0].values
+                CachedDataset(self.lazyDat).to_df()["labels"][0].values
                 == [1, 2, 3, 4, 5, 6, 7, 8, 9]
             ).all()
         )
@@ -344,17 +347,17 @@ class CachedDatasetTests(TestCase):
     def test_asPandasDataset(self):
 
         self.assertTrue(
-            isinstance(CachedDataset(lazyDat).asPandasDataset, PandasDataset)
+            isinstance(CachedDataset(self.lazyDat).asPandasDataset, PandasDataset)
         )
         self.assertTrue(
             (
-                CachedDataset(lazyDat).asPandasDataset.features[0].values
+                CachedDataset(self.lazyDat).asPandasDataset.features[0].values
                 == [100, 102, 104, 106, 108, 110, 112, 114, 116]
             ).all()
         )
         self.assertTrue(
             (
-                CachedDataset(lazyDat).asPandasDataset.labels[0].values
+                CachedDataset(self.lazyDat).asPandasDataset.labels[0].values
                 == [1, 2, 3, 4, 5, 6, 7, 8, 9]
             ).all()
         )
@@ -580,14 +583,14 @@ class PandasDatasetTests(TestCase):
 
         lazyDataset = CachedDataset(samples).filter(lambda x: x.label <= 5)
 
-        assert isinstance(lazyDataset, LazyDataset)
+        self.assertIsInstance(lazyDataset, LazyDataset)
 
         for format in ["pandas", "array", "dict"]:
 
             features1 = lazyDataset.getFeaturesAs(format)
             labels1 = lazyDataset.getLabelsAs(format)
 
-            cached: CachedDataset = lazyDataset.asCached
+            cached: CachedDataset = lazyDataset.to_cached()
 
             features2 = cached.getFeaturesAs(format)
             labels2 = cached.getLabelsAs(format)
