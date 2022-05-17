@@ -3,6 +3,8 @@ import os
 import pandas as pd
 
 from cgnal.core.data.model.core import (
+    DillSerialization,
+    IterableUtilsMixin,
     Range,
     CompositeRange,
     CachedIterable,
@@ -24,8 +26,20 @@ def generator() -> Iterator[int]:
         yield i
 
 
-lazy = LazyIterable[int](IterGenerator(generator))
-cached = CachedIterable([i for i in range(n)])
+class IntLazyIterable(LazyIterable[int], IterableUtilsMixin[int, 'IntLazyIterable', 'IntCachedIterable']):
+    def __init__(self, items: IterGenerator[int]):
+        IterableUtilsMixin.__init__(self, IntLazyIterable, IntCachedIterable)
+        LazyIterable.__init__(self, items)
+
+
+class IntCachedIterable(CachedIterable[int], IterableUtilsMixin[int, 'IntLazyIterable', 'IntCachedIterable'], DillSerialization):
+    def __init__(self, items: Sequence[int]):
+        IterableUtilsMixin.__init__(self, IntLazyIterable, IntCachedIterable)
+        CachedIterable.__init__(self, items)
+
+
+lazy = IntLazyIterable(IterGenerator(generator))
+cached = IntCachedIterable([i for i in range(n)])
 
 
 class TestIterGenerator(TestCase):
@@ -42,47 +56,37 @@ class TestIterGenerator(TestCase):
 class TestLazyIterable(TestCase):
     @logTest
     def test_map(self):
-
         plusOne = lazy.map(lambda x: x + 1)
-        self.assertTrue(isinstance(plusOne, LazyIterable))
+        self.assertIsInstance(plusOne, LazyIterable)
         self.assertEqual([i for i in plusOne][0], 1)
-        self.assertEqual(len(plusOne.asCached), n)
+        self.assertEqual(len(plusOne.to_cached()), n)
 
     @logTest
     def test__iter__(self):
-        self.assertTrue(isinstance(lazy.__iter__(), Iterator))
+        self.assertIsInstance(lazy.__iter__(), Iterator)
         self.assertEqual(list(lazy.__iter__()), list(range(n)))
 
     @logTest
     def test_take(self):
-
-        self.assertTrue(isinstance(lazy.take(1), CachedIterable))
+        self.assertIsInstance(lazy.take(1), CachedIterable)
         self.assertEqual(list(lazy.take(1))[0], 0)
-
-    @logTest
-    def test_lazyType(self):
-        self.assertEqual(lazy._lazyType, LazyIterable)
-
-    @logTest
-    def test_cachedType(self):
-        self.assertEqual(lazy._cachedType, CachedIterable)
 
     @logTest
     def test_filter(self):
 
         half = lazy.map(lambda x: x + 1).filter(lambda x: x % 2 == 0)
-        self.assertEqual([i for i in half.asCached], [2, 4, 6, 8, 10])
+        self.assertEqual([i for i in half.to_cached()], [2, 4, 6, 8, 10])
 
     @logTest
-    def test_asCached(self):
-        cached = lazy.asCached
-        self.assertTrue(isinstance(cached, CachedIterable))
+    def test_toCached(self):
+        cached = lazy.to_cached()
+        self.assertIsInstance(cached, CachedIterable)
         self.assertEqual(list(cached), list(lazy))
 
-    def test_asLazy(self):
-        new_lazy = lazy.asLazy
+    def test_toLazy(self):
+        new_lazy = lazy.to_lazy()
 
-        self.assertTrue(isinstance(new_lazy, LazyIterable))
+        self.assertIsInstance(new_lazy, LazyIterable)
         self.assertEqual(list(new_lazy), list(lazy))
 
     @logTest
@@ -92,7 +96,7 @@ class TestLazyIterable(TestCase):
         batches = lazy.map(lambda x: x + 1).batch(batch_size)
 
         for batch in batches:
-            self.assertTrue(isinstance(batch, CachedIterable))
+            self.assertIsInstance(batch, CachedIterable)
 
         batches = lazy.map(lambda x: x + 1).batch(batch_size)
         self.assertEqual([i for i in next(batches)], [1, 2])
@@ -111,7 +115,7 @@ class TestLazyIterable(TestCase):
         self.assertTrue(not lazy.cached)
 
     def test_items(self):
-        self.assertTrue(isinstance(lazy.items, Iterator))
+        self.assertIsInstance(lazy.items, Iterator)
         self.assertEqual(list(lazy), list(range(n)))
 
 
@@ -133,17 +137,9 @@ class TestCachedIterables(TestCase):
 
         plusOne = cached.map(lambda x: x + 1)
 
-        self.assertTrue(isinstance(plusOne, LazyIterable))
-        self.assertEqual(len(plusOne.asCached), n)
-        self.assertEqual(list(plusOne.asCached)[0], 1)
-
-    @logTest
-    def test_lazyType(self):
-        self.assertEqual(lazy._lazyType, LazyIterable)
-
-    @logTest
-    def test_cachedType(self):
-        self.assertTrue(cached._cachedType, CachedIterable)
+        self.assertIsInstance(plusOne, LazyIterable)
+        self.assertEqual(len(plusOne.to_cached()), n)
+        self.assertEqual(list(plusOne.to_cached())[0], 1)
 
     @logTest
     def test_take(self):
@@ -154,7 +150,7 @@ class TestCachedIterables(TestCase):
     def test_filter(self):
 
         half = cached.map(lambda x: x + 1).filter(lambda x: x % 2 == 0)
-        self.assertEqual([i for i in half.asCached], [2, 4, 6, 8, 10])
+        self.assertEqual([i for i in half.to_cached()], [2, 4, 6, 8, 10])
 
     @logTest
     def test_batch(self):
@@ -163,22 +159,22 @@ class TestCachedIterables(TestCase):
         batches = cached.map(lambda x: x + 1).batch(batch_size)
 
         for batch in batches:
-            self.assertTrue(isinstance(batch, CachedIterable))
+            self.assertIsInstance(batch, CachedIterable)
 
         batches = cached.map(lambda x: x + 1).batch(batch_size)
         self.assertEqual([i for i in next(batches)], [1, 2])
 
     @logTest
-    def test_asLazy(self):
+    def test_toLazy(self):
 
-        lazy = cached.asLazy
-        self.assertTrue(isinstance(lazy, LazyIterable))
+        lazy = cached.to_lazy()
+        self.assertIsInstance(lazy, LazyIterable)
         self.assertEqual(list(lazy), list(cached))
 
     @logTest
-    def test_asCached(self):
-        new_cached = cached.asCached
-        self.assertTrue(isinstance(new_cached, CachedIterable))
+    def test_toCached(self):
+        new_cached = cached.to_cached()
+        self.assertIsInstance(new_cached, CachedIterable)
         self.assertEqual(new_cached.items, cached.items)
 
     @logTest
@@ -187,12 +183,12 @@ class TestCachedIterables(TestCase):
 
     @logTest
     def test_items(self):
-        self.assertTrue(isinstance(cached.items, Sequence))
+        self.assertIsInstance(cached.items, Sequence)
         self.assertEqual(cached.items, list(range(10)))
 
     @logTest
     def test__iter__(self):
-        self.assertTrue(isinstance(cached.__iter__(), Iterator))
+        self.assertIsInstance(cached.__iter__(), Iterator)
         self.assertEqual(list(cached.__iter__()), list(range(n)))
 
     def test_write_load(self):

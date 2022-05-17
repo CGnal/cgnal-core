@@ -580,14 +580,14 @@ class PandasDatasetTests(TestCase):
 
         lazyDataset = CachedDataset(samples).filter(lambda x: x.label <= 5)
 
-        assert isinstance(lazyDataset, LazyDataset)
+        self.assertIsInstance(lazyDataset, LazyDataset)
 
         for format in ["pandas", "array", "dict"]:
 
             features1 = lazyDataset.getFeaturesAs(format)
             labels1 = lazyDataset.getLabelsAs(format)
 
-            cached: CachedDataset = lazyDataset.asCached
+            cached: CachedDataset = lazyDataset.to_cached()
 
             features2 = cached.getFeaturesAs(format)
             labels2 = cached.getLabelsAs(format)

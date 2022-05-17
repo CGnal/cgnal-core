@@ -15,22 +15,18 @@ def createCorpus(n):
 
 
 class TestDocuments(TestCase):
-    docs = (
-        CachedDocuments(createCorpus(n))
-        .map(lambda x: x.addProperty("tags", {"1": "1"}))
-        .map(lambda x: x.addProperty("tags", {"2": "2"}))
-    )
+    docs = CachedDocuments(createCorpus(n)).map(lambda x: x.addProperty("tags", {"1": "1"})).map(lambda x: x.addProperty("tags", {"2": "2"}))
 
     @logTest
     def test_documents_parsing(self):
         filteredDocs = self.docs.filter(lambda x: int(x.uuid) % 2)
-        self.assertTrue(isinstance(filteredDocs, LazyDocuments))
-        self.assertEqual(len(filteredDocs.asCached), n / 2)
+        self.assertIsInstance(filteredDocs, LazyDocuments)
+        self.assertEqual(len(filteredDocs.to_cached()), n / 2)
 
     @logTest
     def test_documents_cached(self):
-        filteredDocs = self.docs.filter(lambda x: int(x.uuid) % 2).asCached
-        self.assertTrue(isinstance(filteredDocs, CachedDocuments))
+        filteredDocs = self.docs.filter(lambda x: int(x.uuid) % 2).to_cached()
+        self.assertIsInstance(filteredDocs, CachedDocuments)
 
 
 if __name__ == "__main__":

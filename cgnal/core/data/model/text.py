@@ -1,31 +1,23 @@
 """Module for providing abstraction and classes for handling NLP data."""
 
 import uuid
-from abc import ABC
 from typing import (
     Dict,
     Any,
     Optional,
     Iterator,
+    Sequence,
     Tuple,
     List,
     Hashable,
     Generic,
-    Type,
     TypeVar,
 )
 
 import numpy as np
 import pandas as pd
 
-from cgnal.core.data.model.core import (
-    _IterableUtils,
-    _LazyIterable,
-    _CachedIterable,
-    DillSerialization,
-)
-
-# from cgnal.core.typing import K
+from cgnal.core.data.model.core import CachedIterable, DillSerialization, IterGenerator, IterableUtilsMixin, LazyIterable
 from cgnal.core.utils.dict import union, unflattenKeys
 
 K = TypeVar("K", bound=Hashable)
@@ -161,30 +153,17 @@ class Document(Generic[K]):
             yield prop, self[prop]
 
 
-class Documents(_IterableUtils[Document, "CachedDocuments", "LazyDocuments"], ABC):
-    """Base class representing a collection of documents, that is a corpus."""
-
-    @property
-    def _lazyType(self) -> "Type[LazyDocuments]":
-        """
-        Specify the type of LazyObject associated to this class.
-
-        :return: LazyDocuments type
-        """
-        return LazyDocuments
-
-    @property
-    def _cachedType(self) -> "Type[CachedDocuments]":
-        """
-        Specify the type of CachedObject associated to this class.
-
-        :return: CachedDocuments type
-        """
-        return CachedDocuments
-
-
-class CachedDocuments(_CachedIterable[Document], DillSerialization, Documents):
+class CachedDocuments(IterableUtilsMixin[Document, 'LazyDocuments', 'CachedDocuments'], CachedIterable[Document], DillSerialization):
     """Class representing a collection of documents cached in memory."""
+
+    def __init__(self, items: Sequence[Document]):
+        """
+        Return instance of a class to be used for implementing cached iterables.
+
+        :param items: sequence or iterable of documents
+        """
+        IterableUtilsMixin.__init__(self, LazyDocuments, CachedDocuments)
+        CachedIterable.__init__(self, items)
 
     @staticmethod
     def _get_key(key: str, dict: Dict[str, Any]) -> Any:
@@ -220,7 +199,14 @@ class CachedDocuments(_CachedIterable[Document], DillSerialization, Documents):
         )
 
 
-class LazyDocuments(_LazyIterable[Document], Documents):
+class LazyDocuments(IterableUtilsMixin[Document, 'LazyDocuments', 'CachedDocuments'], LazyIterable[Document]):
     """Class representing a collection of documents provided by a generator."""
 
-    ...
+    def __init__(self, items: IterGenerator[Document]):
+        """
+        Return an instance of the class to be used for implementing lazy iterables.
+
+        :param items: IterGenerator containing the generator of documents
+        """
+        IterableUtilsMixin.__init__(self, LazyDocuments, CachedDocuments)
+        LazyIterable.__init__(self, items)

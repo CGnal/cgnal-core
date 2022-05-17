@@ -5,7 +5,7 @@ import sys
 from abc import ABC, abstractmethod
 from functools import reduce
 from itertools import islice
-from typing import List, Iterable, Iterator, Tuple, Union, Type, Any, TypeVar
+from typing import List, Iterable, Iterator, Tuple, Type, Union, Any, TypeVar
 
 import dill
 import numpy as np
@@ -115,12 +115,12 @@ class IterGenerator(Generic[T]):
         return self.generator_function()
 
 
-class _BaseIterable(Generic[T], ABC):
-    """
-    Class to provide base interfaces and methods for enhancing iterables classes and enable more functional approaches.
+LazyIterableType = TypeVar('LazyIterableType', bound='LazyIterable')
+CachedIterableType = TypeVar('CachedIterableType', bound='CachedIterable')
 
-    In particular, the class provides among others implementation for map, filter and foreach methods.
-    """
+
+class BaseIterable(Generic[T]):
+    """Abstract class defining interface for iterables."""
 
     @property
     @abstractmethod
@@ -143,8 +143,23 @@ class _BaseIterable(Generic[T], ABC):
         raise NotImplementedError
 
 
-class _LazyIterable(_BaseIterable[T], Generic[T]):
+class LazyIterable(BaseIterable[T]):
     """Base class to be used for implementing lazy iterables."""
+
+    @classmethod
+    def from_iterable(cls: LazyIterableType, iterable: BaseIterable[T]) -> LazyIterableType:
+        """
+        Create a new instance of this class from a BaseIterable instance.
+
+        :param iterable: iterable instance
+        :return: lazy iterable
+        """
+
+        def generator():
+            for item in iterable:
+                yield item
+
+        return cls(IterGenerator(generator))
 
     def __init__(self, items: IterGenerator):
         """
@@ -178,8 +193,18 @@ class _LazyIterable(_BaseIterable[T], Generic[T]):
         return False
 
 
-class _CachedIterable(_BaseIterable[T], Generic[T]):
+class CachedIterable(BaseIterable[T]):
     """Base class to be used for implementing cached iterables."""
+
+    @classmethod
+    def from_iterable(cls: CachedIterableType, iterable: BaseIterable[T]) -> CachedIterableType:
+        """
+        Create a new instance of this class from a BaseIterable instance.
+
+        :param iterable: iterable instance
+        :return: cached iterable
+        """
+        return cls(list(iterable.items))
 
     def __init__(self, items: Sequence[T]):
         """
@@ -225,63 +250,70 @@ class _CachedIterable(_BaseIterable[T], Generic[T]):
         return True
 
 
-L = TypeVar("L", bound=_LazyIterable)
-C = TypeVar("C", bound=_CachedIterable)
+class IterableUtilsMixin(Generic[T, LazyIterableType, CachedIterableType], ABC):
+    """
+    Class to provide base interfaces and methods for enhancing iterables classes and enable more functional approaches.
 
+    In particular, the class provides among others implementation for map, filter and foreach methods.
+    """
 
-class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
-    @property
-    @abstractmethod
-    def _lazyType(self) -> Type[L]:
-        """Specify the type of LazyObject associated to this class."""
-        raise NotImplementedError
-        # return LazyIterable[T]
-
-    @property
-    @abstractmethod
-    def _cachedType(self) -> Type[C]:
-        """Specify the type of CachedObject associated to this class."""
-        raise NotImplementedError
-        # return CachedIterable[T]
-
-    @property
-    def asLazy(self) -> L:
+    def __init__(self, lazy_type: Type[CachedIterableType], cached_type: Type[CachedIterableType]):
         """
-        Provide a lazy representation of the iterable.
+        Class instance initialization.
 
-        :return: lazy iterable
+        :param cached_type: cached type
+        :param lazy_type: lazy type
         """
+        self.cached_type = cached_type
+        self.lazy_type = lazy_type
 
-        def generator():
-            for item in self:
-                yield item
-
-        return self._lazyType(IterGenerator(generator))
-
-    @property
-    def asCached(self) -> C:
+    def to_cached(self) -> CachedIterableType:
         """
-        Provide an in-memory cached representation of the iterable.
+        Create a new cached instance of this instance.
 
         :return: cached iterable
+        :raises RuntimeError: if the __init__ method was never executed
         """
-        return self._cachedType(list(self.items))
+        try:
+            return self.cached_type.from_iterable(self)
+        except AttributeError as ex:
+            if 'cached_type' in ex.args[0] or 'lazy_type' in ex.args[0]:
+                raise RuntimeError("The __init__ of this class was never executed.")
 
-    def take(self, size: int) -> C:
+    def to_lazy(self) -> LazyIterableType:
+        """
+        Create a new lazy instance of this instance.
+
+        :return: lazy iterable
+        :raises RuntimeError: if the __init__ method was never executed
+        """
+        try:
+            return self.lazy_type.from_iterable(self)
+        except AttributeError as ex:
+            if 'cached_type' in ex.args[0] or 'lazy_type' in ex.args[0]:
+                raise RuntimeError("The __init__ of this class was never executed.")
+
+    def take(self, size: int) -> CachedIterableType:
         """
         Take the first n elements of the iterables.
 
         :param size: number of elements to be taken
         :return: cached iterable with the first elements
+        :raises RuntimeError: if the __init__ method was never executed
         """
-        return self._cachedType(list(islice(self, size)))
+        try:
+            return self.cached_type(list(islice(self, size)))
+        except AttributeError as ex:
+            if 'cached_type' in ex.args[0] or 'lazy_type' in ex.args[0]:
+                raise RuntimeError("The __init__ of this class was never executed.")
 
-    def filter(self, f: Callable[[T], bool]) -> L:
+    def filter(self, f: Callable[[T], bool]) -> LazyIterableType:
         """
         Return an iterable where elements have been filtered based on a boolean function.
 
         :param f: boolean function that selects items
         :return: lazy iterable with elements filtered
+        :raises RuntimeError: if the __init__ method was never executed
         """
 
         def generator():
@@ -289,7 +321,11 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
                 if f(item):
                     yield item
 
-        return self._lazyType(IterGenerator(generator))
+        try:
+            return self.lazy_type(IterGenerator(generator))
+        except AttributeError as ex:
+            if 'cached_type' in ex.args[0] or 'lazy_type' in ex.args[0]:
+                raise RuntimeError("The __init__ of this class was never executed.")
 
     def __iter__(self) -> Iterator[T]:
         """
@@ -300,29 +336,38 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
         for item in self.items:
             yield item
 
-    def batch(self, size: int = 100) -> Iterator[C]:
+    def batch(self, size: int = 100) -> Iterator[CachedIterableType]:
         """
         Return an iterator of batches of size *size*.
 
         :param size: dimension of the batch
         :yield: iterator of batches
+        :raises RuntimeError: if the __init__ method was never executed
         """
-        for batch in groupIterable(self.items, batch_size=size):
-            yield self._cachedType(batch)
+        try:
+            for batch in groupIterable(self.items, batch_size=size):
+                yield self.cached_type(batch)
+        except AttributeError as ex:
+            if 'cached_type' in ex.args[0] or 'lazy_type' in ex.args[0]:
+                raise RuntimeError("The __init__ of this class was never executed.")
 
-    def map(self, f: Callable[[T], T_co]) -> L:
+    def map(self, f: Callable[[T], T_co]) -> LazyIterableType:
         """
         Map all elements of an iterable with the provided function.
 
         :param f: function to be used to map the elements
         :return: mapped iterable
+        :raises RuntimeError: if the __init__ method was never executed
         """
 
         def generator():
             for item in self:
                 yield f(item)
-
-        return self._lazyType(IterGenerator(generator))
+        try:
+            return self.lazy_type(IterGenerator(generator))
+        except AttributeError as ex:
+            if 'cached_type' in ex.args[0] or 'lazy_type' in ex.args[0]:
+                raise RuntimeError("The __init__ of this class was never executed.")
 
     def foreach(self, f: Callable[[T], Any]):
         """
@@ -332,44 +377,6 @@ class _IterableUtils(_BaseIterable[T], Generic[T, C, L], ABC):
         """
         for doc in self.items:
             f(doc)
-
-
-class BaseIterable(
-    _IterableUtils[T, "CachedIterable[T]", "LazyIterable[T]"], Generic[T]
-):
-    """Basic class for extending iterable classes with boosted functionalities."""
-
-    @property
-    def _lazyType(self) -> "Type[LazyIterable]":
-        """
-        Specify the type of LazyObject associated to this class.
-
-        :return: LazyIterable type
-        """
-        return LazyIterable
-
-    @property
-    def _cachedType(self) -> "Type[CachedIterable]":
-        """
-        Specify the type of CachedObject associated to this class.
-
-        :return: CachedIterable type
-        """
-        return CachedIterable
-
-
-class CachedIterable(
-    _CachedIterable[T], BaseIterable[T], Generic[T], DillSerialization
-):
-    """Basic class for extending cached iterable class with boosted functionalities."""
-
-    ...
-
-
-class LazyIterable(_LazyIterable[T], BaseIterable[T], Generic[T]):
-    """Basic class for extending lazy iterable class with boosted functionalities."""
-
-    ...
 
 
 class BaseRange(ABC):
