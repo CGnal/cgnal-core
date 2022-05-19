@@ -30,6 +30,7 @@ from cgnal.core.data.model.core import (
     DillSerialization,
     IterableUtilsMixin,
     LazyIterable,
+    RegisterLazyCachedIterables,
 )
 from cgnal.core.utils.decorators import lazyproperty as lazy
 from cgnal.core.utils.pandas import loc
@@ -152,15 +153,15 @@ SampleTypes = Union[Sample[FeatType, LabType], MultiFeatureSample[LabType]]
 
 
 class DatasetUtilsMixin(
-    IterableUtilsMixin[SampleTypes, 'LazyDataset[FeatType, LabType]', 'CachedDataset[FeatType, LabType]'],
+    IterableUtilsMixin[
+        SampleTypes,
+        "LazyDataset[FeatType, LabType]",
+        "CachedDataset[FeatType, LabType]",
+    ],
     Generic[FeatType, LabType],
     ABC,
 ):
     """Base class for representing datasets as iterable over Samples."""
-
-    def __init__(self):
-        """Return an instance of the class."""
-        IterableUtilsMixin.__init__(self, LazyDataset, CachedDataset)
 
     @staticmethod
     def checkNames(x: Optional[Union[str, int, Any]]) -> Union[str, int]:
@@ -286,7 +287,7 @@ class DatasetUtilsMixin(
         else:
             raise ValueError("Type %s not allowed" % type)
 
-    def union(self, other: "DatasetUtilsMixin") -> "DatasetUtilsMixin":
+    def union(self, other: BaseIterable[SampleTypes]) -> "LazyDataset":
         """
         Return a union of datasets.
 
@@ -294,7 +295,7 @@ class DatasetUtilsMixin(
         :return: LazyDataset
         :raises TypeError: other is not an instance of Dataset
         """
-        if not isinstance(other, DatasetUtilsMixin):
+        if not isinstance(other, BaseIterable):
             raise TypeError(
                 "Union can only be done between Datasets. Found %s" % str(type(other))
             )
@@ -317,17 +318,10 @@ class DatasetUtilsMixin(
         return PandasDataset(self.getFeaturesAs("pandas"), self.getLabelsAs("pandas"))
 
 
-class CachedDataset(DatasetUtilsMixin[FeatType, LabType], CachedIterable[SampleTypes], DillSerialization):
+class CachedDataset(
+    DatasetUtilsMixin[FeatType, LabType], CachedIterable[SampleTypes], DillSerialization
+):
     """Class that represents dataset cached in-memory, derived by a cached iterables of samples."""
-
-    def __init__(self, items: Sequence[Sample]):
-        """
-        Return instance of a class to be used for implementing cached iterables.
-
-        :param items: sequence or iterable of documents
-        """
-        DatasetUtilsMixin.__init__(self)
-        CachedIterable.__init__(self, items)
 
     def to_df(self) -> pd.DataFrame:
         """
@@ -344,17 +338,9 @@ class CachedDataset(DatasetUtilsMixin[FeatType, LabType], CachedIterable[SampleT
         )
 
 
-class LazyDataset(DatasetUtilsMixin[FeatType, LabType], LazyIterable[Sample]):
+@RegisterLazyCachedIterables(CachedDataset)
+class LazyDataset(DatasetUtilsMixin[FeatType, LabType], LazyIterable[SampleTypes]):
     """Class that represents dataset derived by a lazy iterable of samples."""
-
-    def __init__(self, items: IterGenerator[Sample]):
-        """
-        Return an instance of the class to be used for implementing lazy iterables.
-
-        :param items: IterGenerator containing the generator of samples
-        """
-        DatasetUtilsMixin.__init__(self)
-        LazyIterable.__init__(self, items)
 
     def withLookback(self, lookback: int) -> "LazyDataset":
         """
@@ -449,7 +435,10 @@ class LazyDataset(DatasetUtilsMixin[FeatType, LabType], LazyIterable[Sample]):
         return super(LazyDataset, self).getLabelsAs(type)
 
 
-class PandasDataset(DatasetUtilsMixin[FeatType, LabType], BaseIterable[Sample], DillSerialization):
+@RegisterLazyCachedIterables(LazyDataset, unidirectional_link=True)
+class PandasDataset(
+    DatasetUtilsMixin[FeatType, LabType], BaseIterable[SampleTypes], DillSerialization
+):
     """Dataset represented via pandas Dataframes for features and labels."""
 
     def __init__(
@@ -467,7 +456,6 @@ class PandasDataset(DatasetUtilsMixin[FeatType, LabType], BaseIterable[Sample], 
         :param labels: a dataframe or a series of labels. None in case no labels are present.
         :raises TypeError: if the labels or features are not DataFrames nor Series
         """
-        DatasetUtilsMixin.__init__(self)
         if isinstance(features, pd.Series):
             self._features = features.to_frame()
         elif isinstance(features, pd.DataFrame):
@@ -758,7 +746,7 @@ class PandasDataset(DatasetUtilsMixin[FeatType, LabType], BaseIterable[Sample], 
         features = pd.concat(features_iter)
         return cls.createObject(features, labels)
 
-    def union(self, other: DatasetUtilsMixin) -> DatasetUtilsMixin:
+    def union(self, other: BaseIterable[SampleTypes]) -> Union['PandasDataset[SampleTypes]', LazyDataset]:
         """
         Return a union between datasets.
 

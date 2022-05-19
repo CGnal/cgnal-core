@@ -10,6 +10,7 @@ from cgnal.core.data.model.core import (
     CachedIterable,
     LazyIterable,
     IterGenerator,
+    RegisterLazyCachedIterables,
 )
 from cgnal.core.logging.defaults import getDefaultLogger
 from cgnal.core.tests.core import logTest, TestCase
@@ -26,16 +27,19 @@ def generator() -> Iterator[int]:
         yield i
 
 
-class IntLazyIterable(LazyIterable[int], IterableUtilsMixin[int, 'IntLazyIterable', 'IntCachedIterable']):
-    def __init__(self, items: IterGenerator[int]):
-        IterableUtilsMixin.__init__(self, IntLazyIterable, IntCachedIterable)
-        LazyIterable.__init__(self, items)
+class IntLazyIterable(
+    LazyIterable[int], IterableUtilsMixin[int, "IntLazyIterable", "IntCachedIterable"]
+):
+    pass
 
 
-class IntCachedIterable(CachedIterable[int], IterableUtilsMixin[int, 'IntLazyIterable', 'IntCachedIterable'], DillSerialization):
-    def __init__(self, items: Sequence[int]):
-        IterableUtilsMixin.__init__(self, IntLazyIterable, IntCachedIterable)
-        CachedIterable.__init__(self, items)
+@RegisterLazyCachedIterables(IntLazyIterable)
+class IntCachedIterable(
+    CachedIterable[int],
+    IterableUtilsMixin[int, "IntLazyIterable", "IntCachedIterable"],
+    DillSerialization,
+):
+    pass
 
 
 lazy = IntLazyIterable(IterGenerator(generator))

@@ -6,7 +6,6 @@ from typing import (
     Any,
     Optional,
     Iterator,
-    Sequence,
     Tuple,
     List,
     Hashable,
@@ -17,7 +16,13 @@ from typing import (
 import numpy as np
 import pandas as pd
 
-from cgnal.core.data.model.core import CachedIterable, DillSerialization, IterGenerator, IterableUtilsMixin, LazyIterable
+from cgnal.core.data.model.core import (
+    CachedIterable,
+    DillSerialization,
+    IterableUtilsMixin,
+    LazyIterable,
+    RegisterLazyCachedIterables,
+)
 from cgnal.core.utils.dict import union, unflattenKeys
 
 K = TypeVar("K", bound=Hashable)
@@ -153,17 +158,12 @@ class Document(Generic[K]):
             yield prop, self[prop]
 
 
-class CachedDocuments(IterableUtilsMixin[Document, 'LazyDocuments', 'CachedDocuments'], CachedIterable[Document], DillSerialization):
+class CachedDocuments(
+    IterableUtilsMixin[Document, "LazyDocuments", "CachedDocuments"],
+    CachedIterable[Document],
+    DillSerialization,
+):
     """Class representing a collection of documents cached in memory."""
-
-    def __init__(self, items: Sequence[Document]):
-        """
-        Return instance of a class to be used for implementing cached iterables.
-
-        :param items: sequence or iterable of documents
-        """
-        IterableUtilsMixin.__init__(self, LazyDocuments, CachedDocuments)
-        CachedIterable.__init__(self, items)
 
     @staticmethod
     def _get_key(key: str, dict: Dict[str, Any]) -> Any:
@@ -199,14 +199,11 @@ class CachedDocuments(IterableUtilsMixin[Document, 'LazyDocuments', 'CachedDocum
         )
 
 
-class LazyDocuments(IterableUtilsMixin[Document, 'LazyDocuments', 'CachedDocuments'], LazyIterable[Document]):
+@RegisterLazyCachedIterables(CachedDocuments)
+class LazyDocuments(
+    IterableUtilsMixin[Document, "LazyDocuments", "CachedDocuments"],
+    LazyIterable[Document],
+):
     """Class representing a collection of documents provided by a generator."""
 
-    def __init__(self, items: IterGenerator[Document]):
-        """
-        Return an instance of the class to be used for implementing lazy iterables.
-
-        :param items: IterGenerator containing the generator of documents
-        """
-        IterableUtilsMixin.__init__(self, LazyDocuments, CachedDocuments)
-        LazyIterable.__init__(self, items)
+    pass
