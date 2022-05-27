@@ -101,7 +101,7 @@ uninstall:
 install: setup $(install_tag)
 
 tests: setup_ci $(install_tag)
-	${PYTHON} -m pytest
+	${PYTHON} -m pytest tests
 
 mypy: setup_ci $(install_tag)
 	mypy --install-types --non-interactive --follow-imports silent $(folders)
