@@ -97,13 +97,37 @@ class DillSerialization(Serializable):
 class IterGenerator(Generic[T]):
     """Base class representing any generator."""
 
-    def __init__(self, generator_function: Callable[[], Iterator[T]]):
+    def __init__(
+        self,
+        generator_function: Callable[[], Iterator[T]],
+        _type: Optional[Type[T]] = None,
+    ):
         """
         Class that allows a given generator to be accessed as an Iterator via .iterator property.
 
         :param generator_function: function that outputs a generator
+        :param _type: type returned by the generartor, required when the generator is empty
+        :raises TypeError: when type mismatch happens between generator and provided type
+        :raises ValueError: when an empty generator is provided without _type specification
         """
         self.generator_function = generator_function
+
+        try:
+            inferred_type = type(next(self.iterator))
+            if _type is not None:
+                if not issubclass(inferred_type, _type):
+                    raise TypeError(
+                        f"Provided type {_type} not compliant with type provided by the generator function"
+                    )
+                self.type = _type
+            else:
+                self.type = inferred_type
+        except StopIteration:
+            if _type is None:
+                raise ValueError(
+                    "_type argument must be provided when generator is empty."
+                )
+            self.type = _type
 
     @property
     def iterator(self) -> Iterator[T]:
@@ -127,17 +151,10 @@ class _BaseIterable(Generic[T], ABC):
     In particular, the class provides among others implementation for map, filter and foreach methods.
     """
 
-    __type__: Optional[Type[T]] = None
-
     @property
-    def type(self) -> Optional[Type[T]]:
-        if self.__type__ is not None:
-            return self.__type__
-        else:
-            try:
-                return type(next(iter(self.items)))
-            except StopIteration:
-                return None
+    @abstractmethod
+    def type(self) -> Type[T]:
+        """Return the type of the objects in the Iterable."""
 
     @property
     @abstractmethod
@@ -173,15 +190,8 @@ class _LazyIterable(_BaseIterable[T], Generic[T]):
         Return an instance of the class to be used for implementing lazy iterables.
 
         :param items: IterGenerator containing the generator of items
-        :raises TypeError: if items is not an instance of IterGenerator
         """
-        if not isinstance(items, IterGenerator):
-            raise TypeError(
-                "For lazy iterables the input must be an IterGenerator(object). Input of type %s passed"
-                % type(items)
-            )
         self._items = items
-        self._type = self.type
 
     @property
     def items(self) -> Iterator[T]:
@@ -218,7 +228,6 @@ class _CachedIterable(_BaseIterable[T], Generic[T]):
         :param items: sequence or iterable of elements
         """
         self._items = list(items)
-        self._type = self.type
 
     def __len__(self) -> int:
         """
@@ -402,13 +411,53 @@ class CachedIterable(
 ):
     """Basic class for extending cached iterable class with boosted functionalities."""
 
-    ...
+    def type(self) -> Type[T]:
+        """
+        Return the type of the objects in the Iterable.
+
+        :return: type of the object of the iterable
+        """
+        return self.__type
+
+    def __init__(self, items: Sequence[T], _type: Optional[Type[T]] = None):
+        """
+        Return instance of a class to be used for implementing cached iterables.
+
+        :param items: sequence or iterable of elements
+        :param _type: type returned by the generartor, required when the generator is empty
+        :raises TypeError: when type mismatch happens between sequence elements and provided type
+        :raises ValueError: when an empty sequence is provided without _type specification
+        """
+        try:
+            inferred_type = type(items[0])
+            if _type is not None:
+                if not issubclass(inferred_type, _type):
+                    raise TypeError(
+                        f"Provided type {_type} not compliant with type provided by the generator function"
+                    )
+                self.__type = _type
+            else:
+                self.__type = inferred_type
+        except StopIteration:
+            if _type is None:
+                raise ValueError(
+                    "_type argument must be provided when generator is empty."
+                )
+            self.__type = _type
+
+        super().__init__(items)
 
 
 class LazyIterable(_LazyIterable[T], BaseIterable[T], Generic[T]):
     """Basic class for extending lazy iterable class with boosted functionalities."""
 
-    ...
+    def type(self) -> Type[T]:
+        """
+        Return the type of the objects in the Iterable.
+
+        :return: type of the object of the iterable
+        """
+        return self._items.type
 
 
 class BaseRange(ABC):

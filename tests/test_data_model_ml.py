@@ -326,7 +326,7 @@ class CachedDatasetTests(TestCase):
     @logTest
     def test_to_df(self):
 
-        self.assertTrue(isinstance(CachedDataset(lazyDat).to_df(), pd.DataFrame))
+        self.assertTrue(isinstance(lazyDat.asCached.to_df(), pd.DataFrame))
         self.assertTrue(
             (
                 CachedDataset(lazyDat).to_df()["features"][0].values

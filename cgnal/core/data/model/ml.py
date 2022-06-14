@@ -154,7 +154,13 @@ class Dataset(
 ):
     """Base class for representing datasets as iterable over Samples."""
 
-    # __type__ = Sample
+    def type(self):
+        """
+        Return the type of the objects in the Iterable.
+
+        :return: type of the object of the iterable
+        """
+        return Sample
 
     @property
     def __lazyType__(self) -> "Type[LazyDataset]":
