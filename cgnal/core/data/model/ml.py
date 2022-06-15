@@ -147,31 +147,34 @@ class MultiFeatureSample(Sample[List[np.ndarray], LabType]):
         super(MultiFeatureSample, self).__init__(features, label, name)
 
 
-SampleTypes = Union[Sample[FeatType, LabType], MultiFeatureSample[LabType]]
-
-
 class Dataset(
-    _IterableUtils[SampleTypes, "CachedDataset", "LazyDataset"],
+    _IterableUtils[Sample[FeatType, LabType], "CachedDataset", "LazyDataset"],
     Generic[FeatType, LabType],
     ABC,
 ):
     """Base class for representing datasets as iterable over Samples."""
 
-    @property
-    def _lazyType(self) -> "Type[LazyDataset]":
+    def type(self):
         """
-        Specify the type of LazyObject associated to this class.
+        Return the type of the objects in the Iterable.
 
-        :return: LazyDatasetType
+        :return: type of the object of the iterable
+        """
+        return Sample
+
+    @property
+    def __lazyType__(self) -> "Type[LazyDataset]":
+        """Pre-defined lazy type to cast lazy outputs.
+
+        :return: Lazy Iterable Class
         """
         return LazyDataset
 
     @property
-    def _cachedType(self) -> "Type[CachedDataset]":
-        """
-        Specify the type of CachedObject associated to this class.
+    def __cachedType__(self) -> "Type[CachedDataset]":
+        """Pre-defined cached type to cast cached outputs.
 
-        :return: CachedDatasetType
+        :return: Cached Iterable Class
         """
         return CachedDataset
 
@@ -321,7 +324,9 @@ class Dataset(
         return LazyDataset(IterGenerator(_generator))
 
 
-class CachedDataset(_CachedIterable[SampleTypes], DillSerialization, Dataset):
+class CachedDataset(
+    _CachedIterable[Sample[FeatType, LabType]], DillSerialization, Dataset
+):
     """Class that represents dataset cached in-memory, derived by a cached iterables of samples."""
 
     def to_df(self) -> pd.DataFrame:
@@ -444,7 +449,7 @@ class LazyDataset(_LazyIterable[Sample], Dataset):
         return super(LazyDataset, self).getLabelsAs(type)
 
 
-class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
+class PandasDataset(Dataset, DillSerialization):
     """Dataset represented via pandas Dataframes for features and labels."""
 
     def __init__(
@@ -544,6 +549,14 @@ class PandasDataset(Dataset[FeatType, LabType], DillSerialization):
         :return: label itself
         """
         return lab if lab is not None else None
+
+    @classmethod
+    def empty(cls: Type[TPandasDataset]) -> TPandasDataset:
+        """Return empty object.
+
+        :return: Empty instance of class
+        """
+        return cls(pd.DataFrame(), pd.DataFrame())
 
     @classmethod
     def createObject(
