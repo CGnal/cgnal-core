@@ -216,6 +216,7 @@ class _LazyIterable(_BaseIterable[T], Generic[T]):
 
         :return: Empty instance
         """
+
         def empty():
             return iter(())
 
