@@ -3,7 +3,7 @@
 import pandas as pd
 import numpy as np
 from time import time
-from typing import Callable, TypeVar
+from typing import Callable, TypeVar, Dict
 from unittest import TestCase as CoreTestCase
 from cgnal.core.logging.defaults import WithLogging
 
@@ -40,6 +40,19 @@ class TestCase(CoreTestCase, WithLogging):
                 self.compareLists(first[key], second[key], strict)
             else:
                 self.assertEqual(first[key], second[key])
+
+    def compareDictsAlmostEqual(self, first: Dict[str, float], second: Dict[str, float], delta: float = 1e-12):
+        """
+        Compare dictionaries and check if they are almost equal.
+
+        :param first: first dictionary
+        :param second: second dictionary
+        :param delta: difference allowed between dictionaries' elements
+        """
+        self.assertEqual(len(first), len(second))
+        self.assertListEqual(list(first.keys()), list(second.keys()))
+        for first_value, second_value in zip(first.values(), second.values()):
+            self.assertAlmostEqual(first_value, second_value, delta=delta)
 
     def compareDataFrames(
         self, first: pd.DataFrame, second: pd.DataFrame, msg: str
