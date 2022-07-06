@@ -12,7 +12,9 @@ from cgnal.core.data.model.core import (
 from cgnal.core.logging.defaults import getDefaultLogger
 from cgnal.core.tests.core import logTest, TestCase
 from tests import TMP_FOLDER
-from typing import Iterator, Sequence
+from typing import Iterator, Sequence, TypeVar
+
+T = TypeVar("T")
 
 logger = getDefaultLogger()
 
@@ -61,11 +63,11 @@ class TestLazyIterable(TestCase):
 
     @logTest
     def test_lazyType(self):
-        self.assertEqual(lazy._lazyType, LazyIterable)
+        self.assertEqual(str(lazy._lazyType), str(LazyIterable[T]))
 
     @logTest
     def test_cachedType(self):
-        self.assertEqual(lazy._cachedType, CachedIterable)
+        self.assertEqual(str(lazy._cachedType), str(CachedIterable[T]))
 
     @logTest
     def test_filter(self):
@@ -139,11 +141,11 @@ class TestCachedIterables(TestCase):
 
     @logTest
     def test_lazyType(self):
-        self.assertEqual(lazy._lazyType, LazyIterable)
+        self.assertEqual(str(cached._lazyType), str(LazyIterable[T]))
 
     @logTest
     def test_cachedType(self):
-        self.assertTrue(cached._cachedType, CachedIterable)
+        self.assertEqual(str(cached._cachedType), str(CachedIterable[T]))
 
     @logTest
     def test_take(self):
