@@ -206,15 +206,35 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cgnal.core.data.model.core.CachedIterable">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.model.core.</span></span><span class="sig-name descname"><span class="pre">CachedIterable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.data.model.core.T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.model.core.CachedIterable" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.model.core.</span></span><span class="sig-name descname"><span class="pre">CachedIterable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.data.model.core.T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.data.model.core.T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.model.core.CachedIterable" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core._CachedIterable</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.core.T</span></code>], <a class="reference internal" href="#cgnal.core.data.model.core.BaseIterable" title="cgnal.core.data.model.core.BaseIterable"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core.BaseIterable</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.core.T</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.core.T</span></code>], <a class="reference internal" href="#cgnal.core.data.model.core.DillSerialization" title="cgnal.core.data.model.core.DillSerialization"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core.DillSerialization</span></code></a></p>
 <p>Basic class for extending cached iterable class with boosted functionalities.</p>
 <p>Return instance of a class to be used for implementing cached iterables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>items</strong> – sequence or iterable of elements</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>items</strong> – sequence or iterable of elements</p></li>
+<li><p><strong>_type</strong> – type returned by the generartor, required when the generator is empty</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – when type mismatch happens between sequence elements and provided type</p></li>
+<li><p><strong>ValueError</strong> – when an empty sequence is provided without _type specification</p></li>
+</ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.model.core.CachedIterable.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.data.model.core.T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.model.core.CachedIterable.type" title="Permalink to this definition"></a></dt>
+<dd><p>Return the type of the objects in the Iterable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>type of the object of the iterable</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -326,13 +346,22 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="cgnal.core.data.model.core.IterGenerator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.model.core.</span></span><span class="sig-name descname"><span class="pre">IterGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generator_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.data.model.core.T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.model.core.IterGenerator" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.model.core.</span></span><span class="sig-name descname"><span class="pre">IterGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generator_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.data.model.core.T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.data.model.core.T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.model.core.IterGenerator" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.core.T</span></code>]</p>
 <p>Base class representing any generator.</p>
 <p>Class that allows a given generator to be accessed as an Iterator via .iterator property.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>generator_function</strong> – function that outputs a generator</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>generator_function</strong> – function that outputs a generator</p></li>
+<li><p><strong>_type</strong> – type returned by the generartor, required when the generator is empty</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> – when type mismatch happens between generator and provided type</p></li>
+<li><p><strong>ValueError</strong> – when an empty generator is provided without _type specification</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py property">
@@ -358,10 +387,18 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>items</strong> – IterGenerator containing the generator of items</p>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>TypeError</strong> – if items is not an instance of IterGenerator</p>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.model.core.LazyIterable.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.data.model.core.T</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cgnal.core.data.model.core.LazyIterable.type" title="Permalink to this definition"></a></dt>
+<dd><p>Return the type of the objects in the Iterable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>type of the object of the iterable</p>
 </dd>
 </dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -501,7 +538,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="cgnal.core.data.model.ml.CachedDataset">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.model.ml.</span></span><span class="sig-name descname"><span class="pre">CachedDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">cgnal.core.data.model.core.T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.model.ml.CachedDataset" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core._CachedIterable</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="#cgnal.core.data.model.ml.Sample" title="cgnal.core.data.model.ml.Sample"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.Sample</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.FeatType</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.LabType</span></code>], <a class="reference internal" href="#cgnal.core.data.model.ml.MultiFeatureSample" title="cgnal.core.data.model.ml.MultiFeatureSample"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.MultiFeatureSample</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.LabType</span></code>]]], <a class="reference internal" href="#cgnal.core.data.model.core.DillSerialization" title="cgnal.core.data.model.core.DillSerialization"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core.DillSerialization</span></code></a>, <a class="reference internal" href="#cgnal.core.data.model.ml.Dataset" title="cgnal.core.data.model.ml.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.Dataset</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core._CachedIterable</span></code>[<a class="reference internal" href="#cgnal.core.data.model.ml.Sample" title="cgnal.core.data.model.ml.Sample"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.Sample</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.FeatType</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.LabType</span></code>]], <a class="reference internal" href="#cgnal.core.data.model.core.DillSerialization" title="cgnal.core.data.model.core.DillSerialization"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core.DillSerialization</span></code></a>, <a class="reference internal" href="#cgnal.core.data.model.ml.Dataset" title="cgnal.core.data.model.ml.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.Dataset</span></code></a></p>
 <p>Class that represents dataset cached in-memory, derived by a cached iterables of samples.</p>
 <p>Return instance of a class to be used for implementing cached iterables.</p>
 <dl class="field-list simple">
@@ -536,7 +573,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="cgnal.core.data.model.ml.Dataset">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.model.ml.</span></span><span class="sig-name descname"><span class="pre">Dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.model.ml.Dataset" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core._IterableUtils</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="#cgnal.core.data.model.ml.Sample" title="cgnal.core.data.model.ml.Sample"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.Sample</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.FeatType</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.LabType</span></code>], <a class="reference internal" href="#cgnal.core.data.model.ml.MultiFeatureSample" title="cgnal.core.data.model.ml.MultiFeatureSample"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.MultiFeatureSample</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.LabType</span></code>]], <a class="reference internal" href="#cgnal.core.data.model.ml.CachedDataset" title="cgnal.core.data.model.ml.CachedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">CachedDataset</span></code></a>, <a class="reference internal" href="#cgnal.core.data.model.ml.LazyDataset" title="cgnal.core.data.model.ml.LazyDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazyDataset</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.FeatType</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.LabType</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core._IterableUtils</span></code>[<a class="reference internal" href="#cgnal.core.data.model.ml.Sample" title="cgnal.core.data.model.ml.Sample"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.Sample</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.FeatType</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.LabType</span></code>], <a class="reference internal" href="#cgnal.core.data.model.ml.CachedDataset" title="cgnal.core.data.model.ml.CachedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">CachedDataset</span></code></a>, <a class="reference internal" href="#cgnal.core.data.model.ml.LazyDataset" title="cgnal.core.data.model.ml.LazyDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazyDataset</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.FeatType</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.LabType</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>Base class for representing datasets as iterable over Samples.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.model.ml.Dataset.checkNames">
@@ -606,6 +643,17 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.model.ml.Dataset.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.model.ml.Dataset.type" title="Permalink to this definition"></a></dt>
+<dd><p>Return the type of the objects in the Iterable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>type of the object of the iterable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cgnal.core.data.model.ml.Dataset.union">
 <span class="sig-name descname"><span class="pre">union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#cgnal.core.data.model.ml.Dataset" title="cgnal.core.data.model.ml.Dataset"><span class="pre">cgnal.core.data.model.ml.Dataset</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cgnal.core.data.model.ml.Dataset" title="cgnal.core.data.model.ml.Dataset"><span class="pre">cgnal.core.data.model.ml.Dataset</span></a></span></span><a class="headerlink" href="#cgnal.core.data.model.ml.Dataset.union" title="Permalink to this definition"></a></dt>
 <dd><p>Return a union of datasets.</p>
@@ -633,9 +681,6 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>items</strong> – IterGenerator containing the generator of items</p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>TypeError</strong> – if items is not an instance of IterGenerator</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -740,7 +785,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="cgnal.core.data.model.ml.PandasDataset">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.model.ml.</span></span><span class="sig-name descname"><span class="pre">PandasDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.series.Series</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.series.Series</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.model.ml.PandasDataset" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cgnal.core.data.model.ml.Dataset" title="cgnal.core.data.model.ml.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.Dataset</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.FeatType</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.LabType</span></code>], <a class="reference internal" href="#cgnal.core.data.model.core.DillSerialization" title="cgnal.core.data.model.core.DillSerialization"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core.DillSerialization</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#cgnal.core.data.model.ml.Dataset" title="cgnal.core.data.model.ml.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.ml.Dataset</span></code></a>, <a class="reference internal" href="#cgnal.core.data.model.core.DillSerialization" title="cgnal.core.data.model.core.DillSerialization"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core.DillSerialization</span></code></a></p>
 <p>Dataset represented via pandas Dataframes for features and labels.</p>
 <p>Return a datastructure built on top of pandas dataframes.</p>
 <p>The PandasDataFrame allows to pack features and labels together and obtain features and labels  as a pandas
@@ -794,6 +839,17 @@ dataframe, numpy array or a dictionary. For unsupervised learning tasks the labe
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">PandasDataset</span></code> with features and labels without NAs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.model.ml.PandasDataset.empty">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">cgnal.core.data.model.ml.TPandasDataset</span></span></span><a class="headerlink" href="#cgnal.core.data.model.ml.PandasDataset.empty" title="Permalink to this definition"></a></dt>
+<dd><p>Return empty object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Empty instance of class</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1182,6 +1238,17 @@ For unsupervised learning tasks the labels are left as None.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cgnal.core.data.model.text.</span></span><span class="sig-name descname"><span class="pre">Documents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.model.text.Documents" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.core._IterableUtils</span></code>[<a class="reference internal" href="#cgnal.core.data.model.text.Document" title="cgnal.core.data.model.text.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">cgnal.core.data.model.text.Document</span></code></a>, <a class="reference internal" href="#cgnal.core.data.model.text.CachedDocuments" title="cgnal.core.data.model.text.CachedDocuments"><code class="xref py py-class docutils literal notranslate"><span class="pre">CachedDocuments</span></code></a>, <a class="reference internal" href="#cgnal.core.data.model.text.LazyDocuments" title="cgnal.core.data.model.text.LazyDocuments"><code class="xref py py-class docutils literal notranslate"><span class="pre">LazyDocuments</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>Base class representing a collection of documents, that is a corpus.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cgnal.core.data.model.text.Documents.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cgnal.core.data.model.text.Documents.type" title="Permalink to this definition"></a></dt>
+<dd><p>Return the type of the objects in the Iterable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>type of the object of the iterable</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -1193,9 +1260,6 @@ For unsupervised learning tasks the labels are left as None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>items</strong> – IterGenerator containing the generator of items</p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>TypeError</strong> – if items is not an instance of IterGenerator</p>
 </dd>
 </dl>
 </dd></dl>
