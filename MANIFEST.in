@@ -5,3 +5,4 @@ recursive-exclude * *.py[co]
 include versioneer.py
 include cgnal/core/_version.py
 include cgnal/core/py.typed
+recursive-include cgnal/core/datasets/data *

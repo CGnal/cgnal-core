@@ -41,7 +41,9 @@ class TestCase(CoreTestCase, WithLogging):
             else:
                 self.assertEqual(first[key], second[key])
 
-    def compareDictsAlmostEqual(self, first: Dict[str, float], second: Dict[str, float], delta: float = 1e-12):
+    def compareDictsAlmostEqual(
+        self, first: Dict[str, float], second: Dict[str, float], delta: float = 1e-12
+    ):
         """
         Compare dictionaries and check if they are almost equal.
 
