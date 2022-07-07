@@ -102,22 +102,22 @@ class TestCachedDocuments(TestCase):
     @logTest
     def test_lazyType(self):
         self.assertIsInstance(
-            cached_doc._lazyType(IterGenerator(samples_gen)), LazyDocuments
+            cached_doc.lazy_type(IterGenerator(samples_gen)), LazyDocuments
         )
 
     @logTest
     def test_cachedType(self):
-        self.assertIsInstance(cached_doc._cachedType([doc1, doc2]), CachedDocuments)
+        self.assertIsInstance(cached_doc.cached_type([doc1, doc2]), CachedDocuments)
 
     @logTest
-    def test_asLazy(self):
-        self.assertIsInstance(cached_doc.asLazy, LazyDocuments)
-        self.assertEqual(next(cached_doc.asLazy.items).data, dict_doc1)
+    def test_toLazy(self):
+        self.assertIsInstance(cached_doc.to_lazy(), LazyDocuments)
+        self.assertEqual(next(cached_doc.to_lazy().items).data, dict_doc1)
 
     @logTest
     def test_asCached(self):
-        self.assertIsInstance(cached_doc.asCached, CachedDocuments)
-        self.assertEqual(cached_doc.asCached.items[1].data, dict_doc2)
+        self.assertIsInstance(cached_doc.to_cached(), CachedDocuments)
+        self.assertEqual(cached_doc.to_cached().items[1].data, dict_doc2)
 
     @logTest
     def test_take(self):
@@ -202,24 +202,24 @@ class TestLazyDocuments(TestCase):
     @logTest
     def test_lazyType(self):
         self.assertIsInstance(
-            lazy_doc._lazyType(IterGenerator(samples_gen)), LazyDocuments
+            lazy_doc.lazy_type(IterGenerator(samples_gen)), LazyDocuments
         )
 
     @logTest
     def test_cachedType(self):
         self.assertIsInstance(
-            lazy_doc._cachedType([dict_doc1, dict_doc2]), CachedDocuments
+            lazy_doc.cached_type([dict_doc1, dict_doc2]), CachedDocuments
         )
 
     @logTest
-    def test_asLazy(self):
-        self.assertIsInstance(lazy_doc.asLazy, LazyDocuments)
-        self.assertEqual(next(lazy_doc.asLazy.items).data, dict_doc1)
+    def test_toLazy(self):
+        self.assertIsInstance(lazy_doc.to_lazy(), LazyDocuments)
+        self.assertEqual(next(lazy_doc.to_lazy().items).data, dict_doc1)
 
     @logTest
-    def test_asCached(self):
-        self.assertIsInstance(lazy_doc.asCached, CachedDocuments)
-        self.assertEqual(lazy_doc.asCached.items[1].data, dict_doc2)
+    def test_toCached(self):
+        self.assertIsInstance(lazy_doc.to_cached(), CachedDocuments)
+        self.assertEqual(lazy_doc.to_cached().items[1].data, dict_doc2)
 
     @logTest
     def test_take(self):
