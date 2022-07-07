@@ -1,0 +1,10 @@
+cgnal.core.datasets package
+===========================
+
+Module contents
+---------------
+
+.. automodule:: cgnal.core.datasets
+   :members:
+   :undoc-members:
+   :show-inheritance:

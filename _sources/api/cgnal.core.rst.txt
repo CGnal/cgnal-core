@@ -9,6 +9,7 @@ Subpackages
 
    cgnal.core.config
    cgnal.core.data
+   cgnal.core.datasets
    cgnal.core.logging
    cgnal.core.tests
    cgnal.core.typing
