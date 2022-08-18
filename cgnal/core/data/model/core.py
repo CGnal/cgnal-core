@@ -316,10 +316,12 @@ class IterableUtilsMixin(
     lazy_type: Type[LazyIterableType]
     cached_type: Type[CachedIterableType]
 
+    @staticmethod
     def __new__(cls, *args, **kwargs):
         """
         Create a new instance of this class.
 
+        :param cls: parent object class
         :param args: passed to the super class __new__ method
         :param kwargs: passed to the super class __new__ method
         :raises RuntimeError: if the cached and lazy versions were not defined before instantiating the class
@@ -340,7 +342,11 @@ class IterableUtilsMixin(
                 "The second class to be defined must register the two classes together "
                 "using the RegisterLazyCachedIterables decorator."
             )
-        return super().__new__(cls, *args, **kwargs)
+
+        try:
+            return super().__new__(cls, *args, **kwargs)
+        except TypeError:
+            return super().__new__(cls)
 
     def to_cached(self) -> CachedIterableType:
         """
