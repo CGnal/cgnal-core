@@ -1,7 +1,6 @@
 """Module for providing abstraction and classes for handling NLP data."""
 
 import uuid
-from abc import ABC
 from typing import (
     Dict,
     Any,
@@ -19,13 +18,12 @@ import numpy as np
 import pandas as pd
 
 from cgnal.core.data.model.core import (
-    _IterableUtils,
-    _LazyIterable,
-    _CachedIterable,
+    CachedIterable,
     DillSerialization,
+    IterableUtilsMixin,
+    LazyIterable,
+    RegisterLazyCachedIterables,
 )
-
-# from cgnal.core.typing import K
 from cgnal.core.utils.dict import union, unflattenKeys
 
 K = TypeVar("K", bound=Hashable)
@@ -161,35 +159,26 @@ class Document(Generic[K]):
             yield prop, self[prop]
 
 
-class Documents(_IterableUtils[Document, "CachedDocuments", "LazyDocuments"], ABC):
-    """Base class representing a collection of documents, that is a corpus."""
+class DocumentsUtilsMixin(
+    IterableUtilsMixin[Document, "LazyDocuments", "CachedDocuments"]
+):
+    """Utilities for Documents iterables."""
 
-    def type(self):
+    @property
+    def type(self) -> Type[Document]:
         """
         Return the type of the objects in the Iterable.
 
-        :return: type of the object of the iterable
+        :return: Document class object
         """
         return Document
 
-    @property
-    def _lazyType(self) -> "Type[LazyDocuments]":
-        """Pre-defined lazy type to cast lazy outputs.
 
-        :return: Lazy Iterable Class
-        """
-        return LazyDocuments
-
-    @property
-    def _cachedType(self) -> "Type[CachedDocuments]":
-        """Pre-defined cached type to cast cached outputs.
-
-        :return: Cached Iterable Class
-        """
-        return CachedDocuments
-
-
-class CachedDocuments(_CachedIterable[Document], DillSerialization, Documents):
+class CachedDocuments(
+    CachedIterable[Document],
+    DocumentsUtilsMixin,
+    DillSerialization,
+):
     """Class representing a collection of documents cached in memory."""
 
     @staticmethod
@@ -226,7 +215,11 @@ class CachedDocuments(_CachedIterable[Document], DillSerialization, Documents):
         )
 
 
-class LazyDocuments(_LazyIterable[Document], Documents):
+@RegisterLazyCachedIterables(CachedDocuments)
+class LazyDocuments(
+    LazyIterable[Document],
+    DocumentsUtilsMixin,
+):
     """Class representing a collection of documents provided by a generator."""
 
-    ...
+    pass
