@@ -133,7 +133,7 @@
       </ul></li>
       <li><a href="api/cgnal.core.data.layer.html#cgnal.core.data.layer.Archiver">Archiver (class in cgnal.core.data.layer)</a>
 </li>
-      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.CachedDataset.asPandasDataset">asPandasDataset (cgnal.core.data.model.ml.CachedDataset property)</a>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.DatasetUtilsMixin.asPandasDataset">asPandasDataset (cgnal.core.data.model.ml.DatasetUtilsMixin property)</a>
 </li>
       <li><a href="api/cgnal.core.data.layer.mongo.html#cgnal.core.data.layer.mongo.MongoConfig.auth">auth (cgnal.core.data.layer.mongo.MongoConfig property)</a>
 </li>
@@ -163,6 +163,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.BaseRange">BaseRange (class in cgnal.core.data.model.core)</a>
 </li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterableUtilsMixin.batch">batch() (cgnal.core.data.model.core.IterableUtilsMixin method)</a>
+</li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.BaseRange.business_days">business_days (cgnal.core.data.model.core.BaseRange property)</a>
 </li>
   </ul></td>
@@ -177,10 +179,36 @@
         <li><a href="api/cgnal.core.utils.html#cgnal.core.utils.decorators.cache">(in module cgnal.core.utils.decorators)</a>
 </li>
       </ul></li>
-      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.cached">cached (cgnal.core.data.model.ml.PandasDataset property)</a>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.BaseIterable.cached">cached (cgnal.core.data.model.core.BaseIterable property)</a>
+
+      <ul>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.CachedIterable.cached">(cgnal.core.data.model.core.CachedIterable property)</a>
 </li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.LazyIterable.cached">(cgnal.core.data.model.core.LazyIterable property)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.cached">(cgnal.core.data.model.ml.PandasDataset property)</a>
+</li>
+      </ul></li>
       <li><a href="api/cgnal.core.utils.html#cgnal.core.utils.decorators.Cached">Cached (class in cgnal.core.utils.decorators)</a>
 </li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterableUtilsMixin.cached_type">cached_type (cgnal.core.data.model.core.IterableUtilsMixin attribute)</a>
+
+      <ul>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.CachedDataset.cached_type">(cgnal.core.data.model.ml.CachedDataset attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.DatasetUtilsMixin.cached_type">(cgnal.core.data.model.ml.DatasetUtilsMixin attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.LazyDataset.cached_type">(cgnal.core.data.model.ml.LazyDataset attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.cached_type">(cgnal.core.data.model.ml.PandasDataset attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.CachedDocuments.cached_type">(cgnal.core.data.model.text.CachedDocuments attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.DocumentsUtilsMixin.cached_type">(cgnal.core.data.model.text.DocumentsUtilsMixin attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.LazyDocuments.cached_type">(cgnal.core.data.model.text.LazyDocuments attribute)</a>
+</li>
+      </ul></li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.CachedDataset">CachedDataset (class in cgnal.core.data.model.ml)</a>
 </li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.CachedDocuments">CachedDocuments (class in cgnal.core.data.model.text)</a>
@@ -308,6 +336,8 @@
         <li><a href="api/cgnal.core.data.model.html#module-cgnal.core.data.model.text">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cgnal.core.datasets
 
@@ -329,8 +359,6 @@
         <li><a href="api/cgnal.core.logging.html#module-cgnal.core.logging.defaults">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cgnal.core.tests
 
@@ -405,7 +433,7 @@
 </li>
       <li><a href="api/cgnal.core.config.html#cgnal.core.config.AuthenticationServiceConfig.check_service">check_service (cgnal.core.config.AuthenticationServiceConfig property)</a>
 </li>
-      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.Dataset.checkNames">checkNames() (cgnal.core.data.model.ml.Dataset static method)</a>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.DatasetUtilsMixin.checkNames">checkNames() (cgnal.core.data.model.ml.DatasetUtilsMixin static method)</a>
 </li>
       <li><a href="api/cgnal.core.config.html#cgnal.core.config.CheckService">CheckService (class in cgnal.core.config)</a>
 </li>
@@ -479,7 +507,7 @@
 </li>
       <li><a href="api/cgnal.core.data.layer.pandas.html#cgnal.core.data.layer.pandas.dao.DataFrameDAO">DataFrameDAO (class in cgnal.core.data.layer.pandas.dao)</a>
 </li>
-      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.Dataset">Dataset (class in cgnal.core.data.model.ml)</a>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.DatasetUtilsMixin">DatasetUtilsMixin (class in cgnal.core.data.model.ml)</a>
 </li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.BaseRange.days">days (cgnal.core.data.model.core.BaseRange property)</a>
 </li>
@@ -505,7 +533,7 @@
         <li><a href="api/cgnal.core.data.layer.pandas.html#cgnal.core.data.layer.pandas.dao.DocumentDAO">(class in cgnal.core.data.layer.pandas.dao)</a>
 </li>
       </ul></li>
-      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.Documents">Documents (class in cgnal.core.data.model.text)</a>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.DocumentsUtilsMixin">DocumentsUtilsMixin (class in cgnal.core.data.model.text)</a>
 </li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.dropna">dropna() (cgnal.core.data.model.ml.PandasDataset method)</a>
 </li>
@@ -517,12 +545,20 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.utils.html#cgnal.core.utils.email.EmailSender">EmailSender (class in cgnal.core.utils.email)</a>
 </li>
-      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.empty">empty() (cgnal.core.data.model.ml.PandasDataset class method)</a>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.BaseIterable.empty">empty() (cgnal.core.data.model.core.BaseIterable class method)</a>
+
+      <ul>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.CachedIterable.empty">(cgnal.core.data.model.core.CachedIterable class method)</a>
 </li>
-      <li><a href="api/cgnal.core.data.layer.html#cgnal.core.data.layer.EmptyDatabase">EmptyDatabase (class in cgnal.core.data.layer)</a>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.LazyIterable.empty">(cgnal.core.data.model.core.LazyIterable class method)</a>
 </li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.empty">(cgnal.core.data.model.ml.PandasDataset class method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/cgnal.core.data.layer.html#cgnal.core.data.layer.EmptyDatabase">EmptyDatabase (class in cgnal.core.data.layer)</a>
+</li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.BaseRange.end">end (cgnal.core.data.model.core.BaseRange property)</a>
 
       <ul>
@@ -553,10 +589,12 @@
         <li><a href="api/cgnal.core.logging.html#cgnal.core.logging.LoggingConfig.filename">(cgnal.core.logging.LoggingConfig property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.config.html#cgnal.core.config.FileSystemConfig">FileSystemConfig (class in cgnal.core.config)</a>
 </li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterableUtilsMixin.filter">filter() (cgnal.core.data.model.core.IterableUtilsMixin method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.utils.html#cgnal.core.utils.dict.filterNones">filterNones() (in module cgnal.core.utils.dict)</a>
 </li>
       <li><a href="api/cgnal.core.data.layer.mongo.html#cgnal.core.data.layer.mongo.archivers.MongoArchiver.first">first() (cgnal.core.data.layer.mongo.archivers.MongoArchiver method)</a>
@@ -564,7 +602,19 @@
       <li><a href="api/cgnal.core.utils.html#cgnal.core.utils.dict.flattenKeys">flattenKeys() (in module cgnal.core.utils.dict)</a>
 </li>
       <li><a href="api/cgnal.core.data.layer.html#cgnal.core.data.layer.Archiver.foreach">foreach() (cgnal.core.data.layer.Archiver method)</a>
+
+      <ul>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterableUtilsMixin.foreach">(cgnal.core.data.model.core.IterableUtilsMixin method)</a>
 </li>
+      </ul></li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterableUtilsMixin.from_element">from_element() (cgnal.core.data.model.core.IterableUtilsMixin method)</a>
+</li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.CachedIterable.from_iterable">from_iterable() (cgnal.core.data.model.core.CachedIterable class method)</a>
+
+      <ul>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.LazyIterable.from_iterable">(cgnal.core.data.model.core.LazyIterable class method)</a>
+</li>
+      </ul></li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.from_sequence">from_sequence() (cgnal.core.data.model.ml.PandasDataset class method)</a>
 </li>
   </ul></td>
@@ -609,7 +659,7 @@
 </li>
       <li><a href="api/cgnal.core.logging.html#cgnal.core.logging.defaults.getDefaultLogger">getDefaultLogger() (in module cgnal.core.logging.defaults)</a>
 </li>
-      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.Dataset.getFeaturesAs">getFeaturesAs() (cgnal.core.data.model.ml.Dataset method)</a>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.DatasetUtilsMixin.getFeaturesAs">getFeaturesAs() (cgnal.core.data.model.ml.DatasetUtilsMixin method)</a>
 
       <ul>
         <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.LazyDataset.getFeaturesAs">(cgnal.core.data.model.ml.LazyDataset method)</a>
@@ -621,7 +671,7 @@
 </li>
       <li><a href="api/cgnal.core.config.html#cgnal.core.config.FileSystemConfig.getFolder">getFolder() (cgnal.core.config.FileSystemConfig method)</a>
 </li>
-      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.Dataset.getLabelsAs">getLabelsAs() (cgnal.core.data.model.ml.Dataset method)</a>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.DatasetUtilsMixin.getLabelsAs">getLabelsAs() (cgnal.core.data.model.ml.DatasetUtilsMixin method)</a>
 
       <ul>
         <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.LazyDataset.getLabelsAs">(cgnal.core.data.model.ml.LazyDataset method)</a>
@@ -665,13 +715,23 @@
 </li>
       <li><a href="api/cgnal.core.data.layer.pandas.html#cgnal.core.data.layer.pandas.dao.SeriesDAO.inverseMapping">inverseMapping (cgnal.core.data.layer.pandas.dao.SeriesDAO property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.utils.html#cgnal.core.utils.pandas.is_sparse">is_sparse() (in module cgnal.core.utils.pandas)</a>
 </li>
-      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.items">items (cgnal.core.data.model.ml.PandasDataset property)</a>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.BaseIterable.items">items (cgnal.core.data.model.core.BaseIterable property)</a>
+
+      <ul>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.CachedIterable.items">(cgnal.core.data.model.core.CachedIterable property)</a>
 </li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.LazyIterable.items">(cgnal.core.data.model.core.LazyIterable property)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.items">(cgnal.core.data.model.ml.PandasDataset property)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.Document.items">items() (cgnal.core.data.model.text.Document method)</a>
+</li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterableUtilsMixin">IterableUtilsMixin (class in cgnal.core.data.model.core)</a>
 </li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterGenerator.iterator">iterator (cgnal.core.data.model.core.IterGenerator property)</a>
 </li>
@@ -701,6 +761,24 @@
 </li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.Document.language">language (cgnal.core.data.model.text.Document property)</a>
 </li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterableUtilsMixin.lazy_type">lazy_type (cgnal.core.data.model.core.IterableUtilsMixin attribute)</a>
+
+      <ul>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.CachedDataset.lazy_type">(cgnal.core.data.model.ml.CachedDataset attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.DatasetUtilsMixin.lazy_type">(cgnal.core.data.model.ml.DatasetUtilsMixin attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.LazyDataset.lazy_type">(cgnal.core.data.model.ml.LazyDataset attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.lazy_type">(cgnal.core.data.model.ml.PandasDataset attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.CachedDocuments.lazy_type">(cgnal.core.data.model.text.CachedDocuments attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.DocumentsUtilsMixin.lazy_type">(cgnal.core.data.model.text.DocumentsUtilsMixin attribute)</a>
+</li>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.LazyDocuments.lazy_type">(cgnal.core.data.model.text.LazyDocuments attribute)</a>
+</li>
+      </ul></li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.LazyDataset">LazyDataset (class in cgnal.core.data.model.ml)</a>
 </li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.LazyDocuments">LazyDocuments (class in cgnal.core.data.model.text)</a>
@@ -711,6 +789,8 @@
 </li>
       <li><a href="api/cgnal.core.logging.html#cgnal.core.logging.LoggingConfig.level">level (cgnal.core.logging.LoggingConfig property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.logging.html#cgnal.core.logging.LevelsDict">LevelsDict (class in cgnal.core.logging)</a>
 </li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.DillSerialization.load">load() (cgnal.core.data.model.core.DillSerialization class method)</a>
@@ -725,8 +805,6 @@
         <li><a href="api/cgnal.core.config.html#cgnal.core.config.load">(in module cgnal.core.config)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.utils.html#cgnal.core.utils.decorators.Cached.load_element">load_element() (cgnal.core.utils.decorators.Cached class method)</a>
 </li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.loc">loc() (cgnal.core.data.model.ml.PandasDataset method)</a>
@@ -760,7 +838,11 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.data.layer.html#cgnal.core.data.layer.Archiver.map">map() (cgnal.core.data.layer.Archiver method)</a>
+
+      <ul>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterableUtilsMixin.map">(cgnal.core.data.model.core.IterableUtilsMixin method)</a>
 </li>
+      </ul></li>
       <li><a href="api/cgnal.core.data.layer.mongo.html#cgnal.core.data.layer.mongo.dao.DocumentDAO.mapping">mapping (cgnal.core.data.layer.mongo.dao.DocumentDAO attribute)</a>
 </li>
       <li><a href="api/cgnal.core.config.html#cgnal.core.config.merge_confs">merge_confs() (in module cgnal.core.config)</a>
@@ -938,8 +1020,16 @@
         <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.Range.range">(cgnal.core.data.model.core.Range method)</a>
 </li>
       </ul></li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.RegisterLazyCachedIterables.register_cached">register_cached() (cgnal.core.data.model.core.RegisterLazyCachedIterables static method)</a>
+</li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.RegisterLazyCachedIterables.register_lazy">register_lazy() (cgnal.core.data.model.core.RegisterLazyCachedIterables static method)</a>
+</li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.RegisterLazyCachedIterables">RegisterLazyCachedIterables (class in cgnal.core.data.model.core)</a>
+</li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.Document.removeProperty">removeProperty() (cgnal.core.data.model.text.Document method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.data.layer.html#cgnal.core.data.layer.Archiver.retrieve">retrieve() (cgnal.core.data.layer.Archiver method)</a>
 
       <ul>
@@ -948,8 +1038,6 @@
         <li><a href="api/cgnal.core.data.layer.pandas.html#cgnal.core.data.layer.pandas.archivers.PandasArchiver.retrieve">(cgnal.core.data.layer.pandas.archivers.PandasArchiver method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.data.layer.mongo.html#cgnal.core.data.layer.mongo.archivers.MongoArchiver.retrieveById">retrieveById() (cgnal.core.data.layer.mongo.archivers.MongoArchiver method)</a>
 
       <ul>
@@ -1034,6 +1122,8 @@
 </li>
       <li><a href="api/cgnal.core.data.layer.pandas.html#cgnal.core.data.layer.pandas.databases.Database.tables">tables (cgnal.core.data.layer.pandas.databases.Database property)</a>
 </li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterableUtilsMixin.take">take() (cgnal.core.data.model.core.IterableUtilsMixin method)</a>
+</li>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.takeAsPandas">takeAsPandas() (cgnal.core.data.model.ml.PandasDataset method)</a>
 </li>
       <li><a href="api/cgnal.core.tests.html#cgnal.core.tests.core.TestCase">TestCase (class in cgnal.core.tests.core)</a>
@@ -1041,6 +1131,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.Document.text">text (cgnal.core.data.model.text.Document property)</a>
+</li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterableUtilsMixin.to_cached">to_cached() (cgnal.core.data.model.core.IterableUtilsMixin method)</a>
 </li>
       <li><a href="api/cgnal.core.data.layer.pandas.html#cgnal.core.data.layer.pandas.databases.Table.to_df">to_df() (cgnal.core.data.layer.pandas.databases.Table method)</a>
 
@@ -1052,18 +1144,18 @@
         <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.CachedDocuments.to_df">(cgnal.core.data.model.text.CachedDocuments method)</a>
 </li>
       </ul></li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.IterableUtilsMixin.to_lazy">to_lazy() (cgnal.core.data.model.core.IterableUtilsMixin method)</a>
+</li>
       <li><a href="api/cgnal.core.data.layer.mongo.html#cgnal.core.data.layer.mongo.dao.DocumentDAO.translate">translate() (cgnal.core.data.layer.mongo.dao.DocumentDAO method)</a>
 </li>
-      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.CachedIterable.type">type() (cgnal.core.data.model.core.CachedIterable method)</a>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.BaseIterable.type">type (cgnal.core.data.model.core.BaseIterable property)</a>
 
       <ul>
-        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.core.LazyIterable.type">(cgnal.core.data.model.core.LazyIterable method)</a>
-</li>
-        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.Dataset.type">(cgnal.core.data.model.ml.Dataset method)</a>
-</li>
-        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.Documents.type">(cgnal.core.data.model.text.Documents method)</a>
+        <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.text.DocumentsUtilsMixin.type">(cgnal.core.data.model.text.DocumentsUtilsMixin property)</a>
 </li>
       </ul></li>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.DatasetUtilsMixin.type">type() (cgnal.core.data.model.ml.DatasetUtilsMixin method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -1072,7 +1164,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cgnal.core.utils.html#cgnal.core.utils.dict.unflattenKeys">unflattenKeys() (in module cgnal.core.utils.dict)</a>
 </li>
-      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.Dataset.union">union() (cgnal.core.data.model.ml.Dataset method)</a>
+      <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.DatasetUtilsMixin.union">union() (cgnal.core.data.model.ml.DatasetUtilsMixin method)</a>
 
       <ul>
         <li><a href="api/cgnal.core.data.model.html#cgnal.core.data.model.ml.PandasDataset.union">(cgnal.core.data.model.ml.PandasDataset method)</a>
